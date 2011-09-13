@@ -1,0 +1,116 @@
+body {
+    margin: 0;
+    height: 650px;
+}
+
+.content {
+    width: 800px;
+}
+
+.content > div {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.left {
+    background: #FFF url('bg-sidebar.png') no-repeat top left;
+    padding-top: 75px;
+    width: 200px;
+    height: 100%;
+    font-size: 0.75em;
+}
+
+.left > div {
+    margin-left: 40px;
+}
+
+.left .steps {
+    background: transparent url('portal-break.png') no-repeat top left;
+    height: 100%;
+    width: 140px;
+}
+
+.right {
+    padding: 20px;
+    width: 550px;
+}
+
+.right .state {
+    margin: 5px;
+    border: 3px solid #18A303;
+}
+
+/* signin */
+.signin {
+    margin: 5px;
+    border: 3px solid #18A303;
+    display: none;
+}
+
+.signin .error {
+    background-color: #ff5555;
+}
+
+.signin .go {
+    background-color: #BADA55;
+}
+
+/* state_component */
+.state_component > div {
+    vertical-align: top;
+    display: inline-block;
+}
+
+.state_component {
+    display: none;
+}
+
+.state_component .comments {
+    width: 250px;
+}
+
+.state_component .comments .comment {
+    display: none;
+}
+
+/* state_subcomponent */
+.state_subcomponent {
+    display: none;
+}
+
+.state_subcomponent .subcomponents {
+    display: none;
+}
+
+/* state_version */
+.state_version {
+    display: none;
+}
+
+/* state_description */
+.state_description {
+    display: none;
+}
+
+/* state_submit */
+.state_submit {
+    display: none;
+}
+
+.state_submit .error {
+    background-color: #ff5555;
+}
+
+.state_submit .go {
+    background-color: #BADA55;
+}
+
+/* state_success */
+.state_success {
+    display: none;
+}
+
+/* state_attach */
+.state_attach {
+    display: none;
+}

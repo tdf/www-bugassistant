@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Bug Filing Form</title>
+  <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+  <script type="text/javascript" src="jquery-1.6.2.js"></script>
+  <script type="text/javascript" src="jquery-validation-1.8.1/jquery.validate.js"></script>
+  <script type="text/javascript" src="bug.js"></script>
+  <script type="text/javascript" src="jquery.iframe-post-form.js"></script>
+  <link rel="stylesheet" href="bug.css" type="text/css" media="screen"></link>
+  <script type="text/javascript" src="qunit.js"></script>
+  <link rel="stylesheet" href="qunit.css" type="text/css" media="screen"></link>
+  <script type="text/javascript" src="test.js"></script>
+</head>
+<body>
+  <h1 id="qunit-header">QUnit Test Suite</h1>
+  <h2 id="qunit-banner"></h2>
+  <div id="qunit-testrunner-toolbar"></div>
+  <h2 id="qunit-userAgent"></h2>
+  <ol id="qunit-tests"></ol>
+  <div id="qunit-fixture">
+
+    <div class="signin">
+      <input class='user' type="text" name="user"></input>
+      <input class='password' type="password" name="password"></input>
+      <div class="go">Sign in</div>
+      <div class="error"></div>
+    </div>
+
+    <div class="state_component">
+      <select xmlns="" size="7" class="component" name="component">
+        <option value=''>(chose a component)</option>
+        <option value="BASIC">BASIC</option>
+      </select>
+      <div class="comments">
+        <div class="comment OTHER"></div>
+        <div class="comment BASIC"></div>
+      </div>
+    </div>
+
+    <div class="state_subcomponent">
+      <div class="active_subcomponent"></div>
+    </div>
+    
+    <div class="state_subcomponent">
+      <div class="subcomponents">
+        <div xmlns="" class="BASIC">
+          <select class="subcomponent" name="short_desc">
+            <option selected value="">(chose one)</option>
+            <option value="Macros">Macros</option>
+            <option value="BASIC">BASIC</option>
+            <option value="IDE">IDE</option>
+          </select>
+        </div>
+        <div xmlns="" class="Chart">
+          <select class="subcomponent" name="short_desc">
+            <option selected value="">(chose one)</option>
+            <option value="FILEOPEN">FILEOPEN</option>
+            <option value="FILESAFE">FILESAFE</option>
+            <option value="FORMATTING">FORMATTING</option>
+            <option value="PRINTING">PRINTING</option>
+            <option value="UI">UI</option>
+            <option value="VIEWING">VIEWING</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="state_version">
+      <select xmlns="" name="version" class="versions">
+        <option value="?">(chose a version)</option>
+        <option value="VERSION1">VERSION1</option>
+      </select>
+    </div>
+
+    <div class="state_description">
+      <input type="text" class="short"></input>
+      <textarea class="long"></textarea>
+    </div>
+
+    <div class="state state_submit">
+      <div class="go"></div>
+      <div class="error"></div>
+      <div class="bug"></div>
+    </div>
+
+    <div class="submission">
+    </div>
+
+    <div class="state state_success">
+      <a class="bug"></a>
+    </div>
+
+    <div class="state_attach">
+      <form action='/attachment.cgi' method='POST' enctype='multipart/form-data'>
+	<input type="hidden" name="action" value="insert"></input>
+	<input class="bug" type="hidden" name="bugid"></input>
+	<input type="hidden" name="comment" value="SCREENSHOT"></input>
+	<input type="hidden" name="contenttypemethod" value="autodetect"></input>
+	<input type="file" name="data"></input>
+	<input type="submit" value="Upload"></input>
+      </form>
+      <div class="error"></div>
+      <img alt="SCREENSHOT" title="SCREENSHOT" />
+    </div>
+
+  </div>
+</body>
+</html>

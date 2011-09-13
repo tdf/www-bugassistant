@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+	  [
+	  <!ENTITY component_comments SYSTEM "component_comments.xhtml">
+	  <!ENTITY components SYSTEM "components.xhtml">
+	  <!ENTITY subcomponents SYSTEM "subcomponents.xhtml">
+	  <!ENTITY versions SYSTEM "versions.xhtml">
+	  ]
+	  >
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Bug Filing Form</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+    <script type="text/javascript" src="jquery-1.6.2.js"></script>
+    <script type="text/javascript" src="jquery-validation-1.8.1/jquery.validate.js"></script>
+    <script type="text/javascript" src="jquery.iframe-post-form.js"></script>
+    <script type="text/javascript" src="bug.js"></script>
+    <link rel="stylesheet" href="bug.css" type="text/css" media="screen"></link>
+  </head>
+  <body>
+    <div class="content">
+      <div class="left">
+        <div class="submission">Steps</div>
+        <div class="submission steps">
+          <div class="state_component">1/5 Component</div>
+          <div class="state_subcomponent">2/5 Subcomponent</div>
+          <div class="state_version">3/5 Version</div>
+          <div class="state_description">4/5 Description</div>
+          <div class="state_submit">5/5 Submit</div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="submission">
+          Thank you for using LibreOffice, we regret that you seem to have found a problem in our software, so that you decided to report a bug. This assistant will lead you step by step through the bug report process.
+        </div>
+
+        <div class="state signin">
+	  <p>
+	    Please login using your <a href="/">Bugzilla account</a>.
+	  </p>
+	  <p>
+	    User: <input class='user' type="text" name="user"></input>
+	    Password: <input class='password' type="password" name="password"></input>
+	    <div class="go">Sign in</div>
+	    <div class="error"></div>
+	  </p>
+	  <p>
+	    Or <a href="/enter_bug.cgi" target="_blank">signup</a>.
+	  </p>
+	</div>
+
+        <div class="submission">
+          <div class="state state_component">
+            <div class="components_icons">
+              <div>
+                <img src="icons/Libreoffice.png" title="BASIC" alt="BASIC" />
+                <img src="icons/Chart.png" title="Chart" alt="Chart" />
+                <img src="icons/Libreoffice.png" title="Contrib" alt="Contrib" />
+                <img src="icons/Database.png" title="Database" alt="Database" />
+                <img src="icons/Documentation.png" title="Documentation" alt="Documentation" />
+                <img src="icons/Drawing.png" title="Drawing" alt="Drawing" />
+                <img src="icons/Extensions.png" title="Extensions" alt="Extensions" />
+                <img src="icons/Formula_editor.png" title="Formula" alt="Formula" />
+                <img src="icons/Installation.png" title="Installation" alt="Installation" />
+              </div>
+              <div>
+                <img src="icons/Libreoffice.png" title="Libreoffice" alt="Libreoffice" />
+                <img src="icons/Libreoffice.png" title="Linguistic" alt="Linguistic" />
+                <img src="icons/Libreoffice.png" title="Localization" alt="Localization" />
+                <img src="icons/PDF_export.png" title="PDF" alt="PDF" />
+                <img src="icons/Presentation.png" title="Presentation" alt="Presentation" />
+                <img src="icons/Spreadsheet.png" title="Spreadsheet" alt="Spreadsheet" />
+                <img src="icons/Libreoffice.png" title="UI" alt="UI" />
+                <img src="icons/WRITER.png" title="WRITER" alt="WRITER" />
+                <img src="icons/WWW.png" title="WWW" alt="WWW" />
+              </div>
+            </div>
+          </div>
+
+          <div class="state state_component">
+            <div>Component</div>
+            <div>&components;</div>
+            <div>&component_comments;</div>
+          </div>
+
+          <div class="state state_subcomponent">
+            Sub component <div class="active_subcomponent"></div>
+          </div>
+
+          <div class="state state_version">
+            Version &versions;
+          </div>
+
+          <div class="state state_description">
+            <div>Subject: <input type="text" class="short"></input> (5 chars min).</div>
+            <div>Long description (10 chars min): <textarea class="long"></textarea></div>
+          </div>
+
+          <div class="state state_submit">
+    	    <div class="go">SUBMIT</div>
+            <div class="error"></div>
+            <div class="bug"></div>
+	  </div>
+
+	  <div class="state_duplicates">
+	    Related bug reports
+	    <div class="related_bugs"></div>
+          </div>
+
+          <div class="state_subcomponent">
+            <div class="subcomponents">&subcomponents;</div>
+          </div>
+
+        </div>
+
+        <div class="state_success">
+          The bug report has been <a class="bug">successfully submitted</a>
+        </div>
+
+        <div class="state_attach">
+          Upload an attachment illustrating the problem
+	  <form action='/attachment.cgi' method='POST' enctype='multipart/form-data'>
+	     <input type="hidden" name="action" value="insert"></input>
+	     <input class="bug" type="hidden" name="bugid"></input>
+	     <input type="hidden" name="description" value="SCREENSHOT"></input>
+	     <input type="hidden" name="comment" value="SCREENSHOT"></input>
+	     <input type="hidden" name="contenttypemethod" value="autodetect"></input>
+	     <input type="file" name="data"></input>
+	     <input type="submit" value="Upload"></input>
+	  </form>
+	  <div class="error"></div>
+	  <img title="SCREENSHOT" />
+	</div>
+
+      </div>
+    </div>
+    <script>
+      $(document).ready($.bug.main);
+    </script>
+  </body>
+</html>

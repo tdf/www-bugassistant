@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Bug Filing Form</title>
+    <script type="text/javascript">
+    // Note that in all of these functions, an argument of '1' refers to
+    // the 'Yes' radio button, and a '0' to the 'No' button
+
+    function doc_specific(yesorno)
+    // Asks the user to attach the document if bug is doc-specific.
+    // If not, clears all radio button questions since they are irrelevant
+    {
+        if (yesorno == 1)
+        {
+            document.getElementById("popup").innerHTML="Can you attach the document to this bug report? <input type='radio' name='attachable' value='yes' onclick='can_attach(1)'>Yes<input type='radio' name='attachable' value='no' onclick='can_attach(0)'>No";
+        }
+        else if (yesorno == 0)
+        {
+            document.getElementById("popup").innerHTML="";
+            document.getElementById("popup2").innerHTML="";
+            document.getElementById("popup3").innerHTML="";
+        }
+    }
+
+    function can_attach(canorcant)
+    // Asks if the user is able to attach their document
+    {
+        if (canorcant == 1)
+        {
+            document.getElementById("popup2").innerHTML="Can you trim the document down to reproduce the bug only, and attach that document? <input type='radio' name='can_trim' value='yes' onclick='can_trim(1)'>Yes <input type='radio' name='can_trim' value='no' onclick='can_trim(0)'>No";
+        }
+        else if (canorcant == 0)
+        {
+            document.getElementById("popup2").innerHTML="Without the document related to your bug it will be difficult or impossible for us to solve your problem.";
+            document.getElementById("popup3").innerHTML="";
+        }
+    }
+
+    function can_trim(trimmable)
+    // Asks if the user can trim the bug's document, and explains the consequences of trimming or not
+    {
+        if (trimmable == 1)
+        {
+            document.getElementById("popup3").innerHTML="Great! Please make the file as small as possible, making sure to reproduce only the intended bug and attach it to the bug report.";
+        }
+        else if (trimmable == 0)
+        {
+            document.getElementById("popup3").innerHTML="Without trimming the document down it will be difficult for us to diagnose the problem and fix it. However, we might be able to fix it regardless.";
+        }
+    }
+
+    function crashes()
+    // Asks the user if the crash occurs on a Linux system
+    {
+    if (document.getElementById("crashesoption").checked == true)
+        {
+        document.getElementById("crashes").innerHTML="<h3>Crashes the program:</h3>Does the crash occur on a Linux-based system? <input type='radio' name='crashes_linux' value='yes' onclick='crashes_linux(1)' >Yes<input type='radio' name='crashes_linux' value='no' onclick='crashes_linux(0)' >No";
+        }
+    else if (document.getElementById("crashesoption").checked == false)
+        {
+        document.getElementById("crashes").innerHTML="";
+        document.getElementById("crashes_linux").innerHTML="";
+        }
+    }
+
+    function crashes_linux(crashesonlinux)
+    // Explains how to get a backtrace if the user runs a Linux system
+    {
+    if (crashesonlinux == 1)
+        {
+        document.getElementById("crashes_linux").innerHTML="Please follow <a href='http://wiki.documentfoundation.org/BugReport#How_to_get_backtrace_.28on_Linux.29'>these instructions</a> to obtain a backtrace for your crash and attach it to your bug report. Doing so will help us understand and fix your bug.";
+        }
+    else if (crashesonlinux == 0)
+        {
+        document.getElementById("crashes_linux").innerHTML="";
+        }
+    }
+
+    function loses_content()
+    // Displays info if the user's bug causes a loss of content
+    {
+    if (document.getElementById("losescontentoption").checked == true)
+        {
+        document.getElementById("losescontent").innerHTML="<h3>Causes loss of content</h3>The document does lose content. Add helpful info.";
+        }
+    else if (document.getElementById("losescontentoption").checked == false)
+        {
+        document.getElementById("losescontent").innerHTML="";
+        }
+    }
+
+    function loses_layout()
+    // Displays info if the user's bug causes a loss of layout
+    {
+    if (document.getElementById("loseslayoutoption").checked == true)
+        {
+        document.getElementById("loseslayout").innerHTML="<h3>Causes loss of layout</h3>The document does lose layout. Add helpful info.";
+        }
+    else if (document.getElementById("loseslayoutoption").checked == false)
+        {
+        document.getElementById("loseslayout").innerHTML="";
+        }
+    }
+
+    function etc()
+    // Displays info if the user clicks the etc option
+    {
+    if (document.getElementById("etcoption").checked == true)
+        {
+        document.getElementById("etc").innerHTML="<h3>etc...</h3>etc... Add helpful info.";
+        }
+    else if (document.getElementById("etcoption").checked == false)
+        {
+        document.getElementById("etc").innerHTML="";
+        }
+    }
+    </script>
+  </head>
+
+  <body>
+    <h1>Before You File Your Bug</h1>
+
+    <p>Is this bug specific to a certain document? <input type="radio" name="docspecific" value="yes" onclick="doc_specific(1)" />Yes<input type="radio" name="docspecific" value="no" onclick="doc_specific(0)" />No</p>
+
+    <!--Empty paragraphs become filled with content, depending on answers to questions-->
+    <p id="popup"></p>
+    <p id="popup2"></p>
+    <p id="popup3"></p>
+
+    <h2>Extra information:</h2>
+    <table>
+      <tr>
+        <td><input type="checkbox" id="crashesoption" onclick="crashes()"/>Crashes the program</td>
+        <td><input type="checkbox" id="losescontentoption" onclick="loses_content()" />Causes loss of content</td>
+        <td><input type="checkbox" id="loseslayoutoption" onclick="loses_layout()" />Causes loss of layout</td>
+        <td><input type="checkbox" id="etcoption" onclick="etc()" />etc.</td>
+      </tr>
+    </table>
+    
+    <!--Paragraphs to display extra info to the user, depending on what parts are relevant to their bug-->
+    <p id="crashes"></p>
+    <p id="crashes_linux"></p>
+    <p id="losescontent"></p>
+    <p id="loseslayout"></p>
+    <p id="etc"></p>
+    <p><a href="https://bugs.freedesktop.org/enter_bug.cgi?product=LibreOffice"><input type="submit" value="Continue" /></a></p>
+    <p>Or skip straight to a fresh bug report <a href="https://bugs.freedesktop.org/enter_bug.cgi?product=LibreOffice">here</a>.</p>
+  </body>
+</html>

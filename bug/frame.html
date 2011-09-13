@@ -1,0 +1,21 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Bug Filing Form</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8"></meta>
+    <script type="text/javascript" src="jquery-1.6.2.js"></script>
+  </head>
+  <body>
+    <div class="info"></div>
+    <iframe src="bug.html" id="bug" width="850" height="600"></iframe>
+    <script>
+      function foo() {
+//        $("#bug").contents().find("a").css("background-color","#BADA55");
+//          $("#bug").attr('src', '/index.cgi');
+      }
+
+      $(document).ready(function(){
+        setInterval(foo, 10000);
+      });
+    </script>
+  </body>
+</html>
