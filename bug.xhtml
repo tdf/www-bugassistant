@@ -35,18 +35,18 @@
         </div>
 
         <div class="state signin">
-	  <p>
+	  <div>
 	    Please login using your <a href="/">Bugzilla account</a>.
-	  </p>
-	  <p>
+	  </div>
+	  <div>
 	    User: <input class='user' type="text" name="user"></input>
 	    Password: <input class='password' type="password" name="password"></input>
 	    <div class="go">Sign in</div>
 	    <div class="error"></div>
-	  </p>
-	  <p>
+	  </div>
+	  <div>
 	    Or <a href="/enter_bug.cgi" target="_blank">signup</a>.
-	  </p>
+	  </div>
 	</div>
 
         <div class="submission">
@@ -93,7 +93,7 @@
 
           <div class="state state_description">
             <div>Subject: <input type="text" class="short"></input> (5 chars min).</div>
-            <div>Long description (10 chars min): <textarea class="long"></textarea></div>
+            <div>Long description (10 chars min): <textarea rows="10" cols="80" class="long"></textarea></div>
           </div>
 
           <div class="state state_submit">
@@ -119,7 +119,7 @@
 
         <div class="state_attach">
           Upload an attachment illustrating the problem
-	  <form action='/attachment.cgi' method='POST' enctype='multipart/form-data'>
+	  <form action='/attachment.cgi' method='post' enctype='multipart/form-data'>
 	     <input type="hidden" name="action" value="insert"></input>
 	     <input class="bug" type="hidden" name="bugid"></input>
 	     <input type="hidden" name="description" value="SCREENSHOT"></input>
