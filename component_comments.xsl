@@ -18,6 +18,10 @@
 	<xsl:element name="div">
 	  <xsl:attribute name="class"><xsl:value-of select="translate(translate(*[position()=1],' ','_'),&quot;&#10;&quot;,'_')" /> comment</xsl:attribute>
 	  <xsl:apply-templates select="*[position()>1]"/>
+          <xsl:element name="a">
+            <xsl:attribute name="href">http://wiki.documentfoundation.org/BugzAssHlp_<xsl:value-of select="translate(translate(*[position()=1],' ','_'),&quot;&#10;&quot;,'_')" />_long</xsl:attribute>
+            Read more ... &gt;
+          </xsl:element>
 	</xsl:element>
     </xsl:template>
 
