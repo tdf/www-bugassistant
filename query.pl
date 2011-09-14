@@ -18,11 +18,8 @@ if($ARGV[0] eq 'versions') {
     @versions = @{$vers[$libreoffice]};
     print "<select name='version' class='versions'>\n";
     print " <option value=''>(chose a version)</option>\n";
-    print " <option value='?'>(Version unspecified)</option>\n";
     for($count = 0; $count < @versions; $count++) {
-        if($versions[$count] ne 'unspecified') {
-            print " <option value='$versions[$count]'>$versions[$count]</option>\n";
-        }
+        print " <option value='$versions[$count]'>$versions[$count]</option>\n";
     }
     print "</select>\n";
 }
