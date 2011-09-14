@@ -9,6 +9,7 @@
 	  <xsl:attribute name="class"><xsl:value-of select="translate(translate(*[position()=1],' ','_'),&quot;&#10;&quot;,'_')" /></xsl:attribute>
 	  <select class="subcomponent" name="short_desc">
             <option selected='selected' value=''>(chose one)</option>
+            <option value=''>(all other problems)</option>
 	    <xsl:apply-templates select="descendant::*[contains(@class,'search')]"/>
 	  </select>
 	</xsl:element>
