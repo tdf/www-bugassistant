@@ -263,7 +263,7 @@ test("state_success", function() {
 });
 
 test("state_attach", function() {
-    expect(6);
+    expect(8);
 
     var bug = '4242';
     var data;
@@ -285,12 +285,19 @@ test("state_attach", function() {
     equal($('.bug', element).val(), bug);
 
     var error = 'ERROR';
-    data = $.bug.state_attach_error_string + error + '<';
-    $('form', element).submit();
-    equal($('.error').text(), error);
+    data = ' ... class="throw_error">' + error + '<';
+    var caught = false;
+    try {
+        $('form', element).submit();
+    } catch(e) {
+        equal($('.error').text(), error);
+        equal(e[1], error);
+        caught = true;
+    }
+    ok(caught, 'caught');
 
     var attachment = '888';
-    data = $.bug.state_attach_success_string + attachment + '<';
+    data = 'Attachment #' + attachment;
     $('form', element).submit();
     ok($('img', element).attr('src').indexOf(attachment) > 0, 'found attachment ' + attachment);
 

@@ -174,22 +174,18 @@
             }
         },
 
-        state_attach_error_string: 'class="throw_error">',
-        state_attach_success_string: 'Attachment #',
+        state_attach_error_regexp: 'class="throw_error">([^<]*)',
+        state_attach_success_regexp: 'Attachment #([0-9]+)',
 
         state_attach: function() {
             var element = $('.state_attach');
             var bug = $('.state_submit .bug').text();
             $('.bug', element).val(bug);
             $('form', element).iframePostForm({ complete: function(data) {
-                var error = data.indexOf($.bug.state_attach_error_string);
-                if(error >= 0) {
-                    $('.error').text(data.substring(error + $.bug.state_attach_error_string.length, data.indexOf('<', error)));
-                } else {
-                    var success = data.indexOf($.bug.state_attach_success_string);
-                    var attachment = data.substring(success + $.bug.state_attach_success_string.length, data.indexOf('<', success));
-                    $('img', element).attr('src', '/attachment.cgi?id=' + attachment);
-                }
+                var attachment = $.bug.lookup_result(data,
+                                                     $.bug.state_attach_error_regexp,
+                                                     $.bug.state_attach_success_regexp);
+                $('img', element).attr('src', '/attachment.cgi?id=' + attachment);
             }});
             element.show();
         },
