@@ -16,6 +16,33 @@
 //
 module("bug");
 
+test("post", function() {
+    expect(4);
+
+    var status = 404;
+    var statusText = 'Status text';
+    var responseText = 'Error text';
+    var post = $.post;
+    $.post = function(url, args) {
+        return $.Deferred().reject({
+            status: status,
+            statusText: statusText,
+            responseText: responseText
+        });
+    };
+
+    try {
+        $.bug.post('DOESNOTEXIST', null);
+    } catch(e) {
+        ok($('.error').text().indexOf(status) >= 0, status);
+        ok($('.error').text().indexOf(statusText) >= 0, statusText);
+        ok($('.error').text().indexOf(responseText) >= 0, responseText);
+        equal(e.status, status);
+    }
+
+    $.post = post;
+});
+
 test("lookup_result", function() {
     expect(7);
 
@@ -39,8 +66,8 @@ test("lookup_result", function() {
     var bugous = 'BUGOUS OUTPUT';
     try {
         $.bug.lookup_result(bugous, error_regexp, success_regexp);
-    } catch(e) {
-        equal(e, bugous);
+    } catch(ee) {
+        equal(ee, bugous);
         ok($('.error').text().indexOf(success_regexp) >= 0, 'error displayed');
         caught = true;
     }

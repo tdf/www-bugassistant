@@ -18,7 +18,22 @@
 
     $.bug = {
 
-        post: $.post,
+        post: function(url, args, callback) {
+            return $.post(url, args, callback).pipe(null, function(error) {
+                var message = url + ' XHR error. ';
+                if('status' in error) {
+                    message += 'status = ' + error.status + ' ';
+                }
+                if('responseText' in error) {
+                    message += 'responseText = ' + error.responseText + ' ';
+                }
+                if('statusText' in error) {
+                    message += 'statusText = ' + error.statusText + ' ';
+                }
+                $('.error').text(message);
+                throw error;
+            });
+        },
 
         get: $.get,
 
