@@ -18,9 +18,14 @@
 
     $.bug = {
 
-        post: function(url, args, callback) {
-            return $.post(url, args, callback).pipe(null, function(error) {
-                var message = url + ' XHR error. ';
+        ajax: function(type, url, args, callback) {
+            return $.ajax({
+                type: type,
+                url: url,
+                data: args,
+                success: callback
+            }).pipe(null, function(error) {
+                var message = url + '(' + $.param(args) + ') XHR error. ';
                 if('status' in error) {
                     message += 'status = ' + error.status + ' ';
                 }
@@ -34,8 +39,6 @@
                 throw error;
             });
         },
-
-        get: $.get,
 
         lookup_result: function(data, error_regexp, success_regexp) {
             var error = data.match(error_regexp);
@@ -60,7 +63,7 @@
             var element = $('.signin');
             $('.go', element).click(function() {
                 $('.error').empty();
-                $.bug.post('/index.cgi', {
+                $.bug.ajax('POST', '/index.cgi', {
                     Bugzilla_login: $('.user', element).val(),
                     Bugzilla_password: $('.password', element).val()
                 }).pipe(function(data) {
@@ -144,7 +147,7 @@
             var element = $('.state_submit');
             if(!element.hasClass('initialized')) {
                 $('.go', element).click(function() {
-                    $.bug.post('/post_bug.cgi', {
+                    $.bug.ajax('POST', '/post_bug.cgi', {
                         product: 'LibreOffice',
                         bug_status: 'UNCONFIRMED',
                         rep_platform: 'Other',
@@ -208,7 +211,7 @@
 
         logged_in: function() {
             $("body").css("cursor", "progress");
-            return $.bug.get('/enter_bug.cgi').pipe(function(data) {
+            return $.bug.ajax('GET', '/enter_bug.cgi').pipe(function(data) {
                 $("body").css("cursor", "default");
                 return data.indexOf($.bug.logged_in_false) < 0;
             });
@@ -219,7 +222,7 @@
             var component = $('.state_component .component').val().replace('_','%20');
             var subcomponent = $('.state_subcomponent .subcomponent').val();
             var list = '/buglist.cgi?columnlist=short_desc&component=' + component + '&product=LibreOffice&query_format=advanced&short_desc_type=allwordssubstr&ctype=csv&short_desc=' + subcomponent;
-            $.bug.get(list, undefined, function(data) {
+            $.bug.ajax('GET', list, undefined, function(data) {
                 var lines = data.split('\n');
                 var bug_urls = [];
                 for(var i = 1; i < lines.length; i++) {

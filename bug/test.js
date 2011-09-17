@@ -16,14 +16,14 @@
 //
 module("bug");
 
-test("post", function() {
+test("ajax", function() {
     expect(4);
 
     var status = 404;
     var statusText = 'Status text';
     var responseText = 'Error text';
-    var post = $.post;
-    $.post = function(url, args) {
+    var ajax = $.ajax;
+    $.ajax = function(settings) {
         return $.Deferred().reject({
             status: status,
             statusText: statusText,
@@ -32,7 +32,7 @@ test("post", function() {
     };
 
     try {
-        $.bug.post('DOESNOTEXIST', null);
+        $.bug.ajax('POST', 'DOESNOTEXIST', {});
     } catch(e) {
         ok($('.error').text().indexOf(status) >= 0, status);
         ok($('.error').text().indexOf(statusText) >= 0, statusText);
@@ -40,7 +40,7 @@ test("post", function() {
         equal(e.status, status);
     }
 
-    $.post = post;
+    $.ajax = ajax;
 });
 
 test("lookup_result", function() {
@@ -83,7 +83,7 @@ test("state_signin", function() {
     equal($('.signin').css('display'), 'none');
     var user = 'gooduser';
     var password = 'goodpassword';
-    $.bug.post = function(url, data, callback) {
+    $.bug.ajax = function(type, url, data, callback) {
         var d = $.Deferred();
         if(data.Bugzilla_login == user &&
            data.Bugzilla_password == password) {
@@ -113,7 +113,7 @@ test("state_signin", function() {
     equal($('.error').text().length, 0, 'no error');
     equal($('.username').text(), user);
 
-    $.bug.post = $.post;
+    $.bug.ajax = $.ajax;
     $.bug.state_component = state_component;
 });
 
@@ -217,7 +217,7 @@ test("state_submit", function() {
     var version = $('.state_version .versions').val();
     var comment = $('.state_description .long').val();
     var bug = '40763';
-    $.bug.post = function(url, data, callback) {
+    $.bug.ajax = function(type, url, data, callback) {
         if(data.component == component &&
            data.short_desc == subcomponent &&
            data.comment == comment &&
@@ -230,12 +230,12 @@ test("state_submit", function() {
 
     var error = ' ERROR ';
     equal($('.error').text(), '', 'error is not set');
-    $.bug.post = function(url, data, callback) {
+    $.bug.ajax = function(type, url, data, callback) {
         callback('<table cellpadding="20">   <tr>    <td bgcolor="#ff0000">      <font size="+2">' + error + '</font>   </td>  </tr> </table>');
     };
     $('.go', element).click();
     equal($('.error').text(), error, 'error is set');
-    $.bug.post = $.post;
+    $.bug.ajax = $.ajax;
 
     $.bug.state_success = state_success;
 });
@@ -292,19 +292,19 @@ test("state_attach", function() {
 test("logged_in", function() {
     expect(2);
 
-    $.bug.get = function(url) {
+    $.bug.ajax = function(type, url) {
         return $.Deferred().resolve($.bug.logged_in_false);
     };
     $.bug.logged_in().done(function(status) {
         equal(status, false, 'user not logged in');
     });
 
-    $.bug.get = function(url) {
+    $.bug.ajax = function(type, url) {
         return $.Deferred().resolve('logged in ok');
     };
     $.bug.logged_in().done(function(status) {
         equal(status, true, 'user is logged in');
     });
 
-    $.bug.get = $.get;
+    $.bug.ajax = $.ajax;
 });
