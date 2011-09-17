@@ -16,34 +16,75 @@
 //
 module("bug");
 
-test("state_signin", function() {
+test("lookup_result", function() {
     expect(7);
+
+    var caught = false;
+    var what = 'WHAT';
+    var error_regexp = /ERR_(.*)_OR/;
+    var value = 'VALUE';
+    var success_regexp = /SUC_(.*)_ESS/;
+
+    // error
+    try {
+        $.bug.lookup_result('ERR_' + what + '_OR', error_regexp, success_regexp);
+    } catch(e) {
+        equal(e[1], what);
+        equal($('.error').text(), what);
+        caught = true;
+    }
+    ok(caught, 'caught exception');
+
+    // output is not as expected
+    var bugous = 'BUGOUS OUTPUT';
+    try {
+        $.bug.lookup_result(bugous, error_regexp, success_regexp);
+    } catch(e) {
+        equal(e, bugous);
+        ok($('.error').text().indexOf(success_regexp) >= 0, 'error displayed');
+        caught = true;
+    }
+    ok(caught, 'caught exception');
+
+    // success
+    equal($.bug.lookup_result('SUC_' + value + '_ESS', error_regexp, success_regexp), value);
+});
+
+test("state_signin", function() {
+    expect(9);
 
     equal($('.signin').css('display'), 'none');
     var user = 'gooduser';
     var password = 'goodpassword';
     $.bug.post = function(url, data, callback) {
+        var d = $.Deferred();
         if(data.Bugzilla_login == user &&
            data.Bugzilla_password == password) {
-            callback('ok');
+            d.resolve('Log&nbsp;out</a>' + data.Bugzilla_login + '<');
         } else {
-            callback($.bug.state_signin_error_string);
+            d.resolve('class="throw_error">ERROR<');
         }
+        return d;
     };
     var state_component = $.bug.state_component;
     $.bug.state_component = function() { ok(true, 'state_component'); };
     $.bug.state_signin();
     equal($('.signin').css('display'), 'block');
     // fail to login, shows error
-    equal($('.signin .error').text().length, 0, 'no error');
-    $('.signin .go').click();
-    ok($('.signin .error').text().length > 0, 'error message');
+    equal($('.error').text().length, 0, 'no error');
+    try {
+        $('.signin .go').click();
+    } catch(e) {
+        ok(true, 'caught error');
+    }
+    ok($('.error').text().length > 0, 'error message');
     // successfull login
     $('.signin .user').val(user);
     $('.signin .password').val(password);
     $('.signin .go').click();
     equal($('.signin').css('display'), 'none');
-    equal($('.signin .error').text().length, 0, 'no error');
+    equal($('.error').text().length, 0, 'no error');
+    equal($('.username').text(), user);
 
     $.bug.post = $.post;
     $.bug.state_component = state_component;
@@ -161,12 +202,12 @@ test("state_submit", function() {
     equal($('.bug', element).text(), bug, 'bug number');
 
     var error = ' ERROR ';
-    equal($('.error', element).text(), '', 'error is not set');
+    equal($('.error').text(), '', 'error is not set');
     $.bug.post = function(url, data, callback) {
         callback('<table cellpadding="20">   <tr>    <td bgcolor="#ff0000">      <font size="+2">' + error + '</font>   </td>  </tr> </table>');
     };
     $('.go', element).click();
-    equal($('.error', element).text(), error, 'error is set');
+    equal($('.error').text(), error, 'error is set');
     $.bug.post = $.post;
 
     $.bug.state_success = state_success;
@@ -211,7 +252,7 @@ test("state_attach", function() {
     var error = 'ERROR';
     data = $.bug.state_attach_error_string + error + '<';
     $('form', element).submit();
-    equal($('.error', element).text(), error);
+    equal($('.error').text(), error);
 
     var attachment = '888';
     data = $.bug.state_attach_success_string + attachment + '<';
@@ -224,7 +265,6 @@ test("state_attach", function() {
 test("logged_in", function() {
     expect(2);
 
-    
     $.bug.get = function(url) {
         return $.Deferred().resolve($.bug.logged_in_false);
     };

@@ -22,25 +22,43 @@
 
         get: $.get,
 
+        lookup_result: function(data, error_regexp, success_regexp) {
+            var error = data.match(error_regexp);
+            if(error !== null) {
+                $('.error').text(error[1]);
+                throw error;
+            } else {
+                var success = data.match(success_regexp);                
+                if(success !== null) {
+                    return success[1];
+                } else {
+                    $('.error').text("could not match " + success_regexp + " on the string returned by the server " + data);
+                    throw data;
+                }
+            }
+        },
+
         // if this string is found in the page returned when 
         // trying to login, it means the login / password combination
         // is invalid.
-        state_signin_error_string: 'throw_error',
+        state_signin_error_regexp: 'class="throw_error">([^<]*)',
+        state_signin_success_regexp: 'Log&nbsp;out</a>([^<]*)',
 
         state_signin: function() {
             var element = $('.signin');
             $('.go', element).click(function() {
-                $('.error', element).empty();
+                $('.error').empty();
                 $.bug.post('/index.cgi', {
                     Bugzilla_login: $('.user', element).val(),
                     Bugzilla_password: $('.password', element).val()
-                }, function(data) {
-                    if(data.indexOf($.bug.state_signin_error_string) < 0) {
-                        element.hide();
-                        $.bug.state_component();
-                    } else {
-                        $('.error', element).text('invalid user or password');
-                    }
+                }).pipe(function(data) {
+                    return $.bug.lookup_result(data,
+                                               $.bug.state_signin_error_regexp,
+                                               $.bug.state_signin_success_regexp);
+                }).pipe(function(data) {
+                    $('.username').text(data);
+                    element.hide();
+                    $.bug.state_component();
                 });
             });
             element.show();
@@ -129,7 +147,7 @@
                     }, function(data) {
                         var error = data.indexOf($.bug.state_submit_error_string);
                         if(error >= 0) {
-                            $('.error', element).text(data.substring(error + $.bug.state_submit_error_string.length, data.indexOf('<', error)));
+                            $('.error').text(data.substring(error + $.bug.state_submit_error_string.length, data.indexOf('<', error)));
                         } else {
                             var success = data.indexOf($.bug.state_submit_success_string);
                             var start = success + $.bug.state_submit_success_string.length;
@@ -154,7 +172,7 @@
             $('form', element).iframePostForm({ complete: function(data) {
                 var error = data.indexOf($.bug.state_attach_error_string);
                 if(error >= 0) {
-                    $('.error', element).text(data.substring(error + $.bug.state_attach_error_string.length, data.indexOf('<', error)));
+                    $('.error').text(data.substring(error + $.bug.state_attach_error_string.length, data.indexOf('<', error)));
                 } else {
                     var success = data.indexOf($.bug.state_attach_success_string);
                     var attachment = data.substring(success + $.bug.state_attach_success_string.length, data.indexOf('<', success));
