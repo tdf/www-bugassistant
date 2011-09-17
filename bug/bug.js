@@ -38,9 +38,6 @@
             }
         },
 
-        // if this string is found in the page returned when 
-        // trying to login, it means the login / password combination
-        // is invalid.
         state_signin_error_regexp: 'class="throw_error">([^<]*)',
         state_signin_success_regexp: 'Log&nbsp;out</a>([^<]*)',
 

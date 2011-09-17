@@ -40,15 +40,17 @@ body {
     border: 3px solid #18A303;
 }
 
+/* error */
+
+.error {
+    background-color: #ff5555;
+}
+
 /* signin */
 .signin {
     margin: 5px;
     border: 3px solid #18A303;
     display: none;
-}
-
-.signin .error {
-    background-color: #ff5555;
 }
 
 .signin .go {
@@ -95,10 +97,6 @@ body {
 /* state_submit */
 .state_submit {
     display: none;
-}
-
-.state_submit .error {
-    background-color: #ff5555;
 }
 
 .state_submit .go {

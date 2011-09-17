@@ -30,6 +30,8 @@
         </div>
       </div>
       <div class="right">
+        <div class="username"></div>
+
         <div class="submission">
           Thank you for using LibreOffice, we regret that you seem to have found a problem in our software, so that you decided to report a bug. This assistant will lead you step by step through the bug report process.
         </div>
@@ -42,7 +44,6 @@
 	    User: <input class='user' type="text" name="user"></input>
 	    Password: <input class='password' type="password" name="password"></input>
 	    <div class="go">Sign in</div>
-	    <div class="error"></div>
 	  </div>
 	  <div>
 	    Or <a href="/enter_bug.cgi" target="_blank">signup</a>.
@@ -98,7 +99,6 @@
 
           <div class="state state_submit">
     	    <div class="go">SUBMIT</div>
-            <div class="error"></div>
             <div class="bug"></div>
 	  </div>
 
@@ -128,10 +128,11 @@
 	     <input type="file" name="data"></input>
 	     <input type="submit" value="Upload"></input>
 	  </form>
-	  <div class="error"></div>
 	  <img title="SCREENSHOT" />
 	</div>
 
+	<div class="error"></div>
+            
         <div class="copyright">
           Bug Submission Assistant is copyright (C) 2011 Loic Dachary published under <a href="http://www.gnu.org/licenses/gpl.txt">GNU GPLv3+</a> : download the <a href="bug.js">sources</a>.
         </div>
