@@ -53,7 +53,7 @@
                                                $.bug.state_signin_error_regexp,
                                                $.bug.state_signin_success_regexp);
                 }).pipe(function(data) {
-                    $('.username').text(data);
+                    $('.username').html(data);
                     element.hide();
                     $.bug.state_component();
                 });
