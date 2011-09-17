@@ -140,8 +140,8 @@
             }
         },
 
-        state_submit_error_string: 'font size="+2">',
-        state_submit_success_string: 'title>Bug ',
+        state_submit_error_regexp: 'font size="\\+2">([^<]*)',
+        state_submit_success_regexp: 'title>Bug ([0-9]+)',
 
         state_submit: function() {
             var element = $('.state_submit');
@@ -159,17 +159,14 @@
                         short_desc: $('.state_subcomponent .active_subcomponent .subcomponent').val() + ': ' + $('.state_description .short').val(),
                         version: $('.state_version .versions').val(),
                         comment: $('.state_description .long').val()
-                    }, function(data) {
-                        var error = data.indexOf($.bug.state_submit_error_string);
-                        if(error >= 0) {
-                            $('.error').text(data.substring(error + $.bug.state_submit_error_string.length, data.indexOf('<', error)));
-                        } else {
-                            var success = data.indexOf($.bug.state_submit_success_string);
-                            var start = success + $.bug.state_submit_success_string.length;
-                            $('.bug', element).text(data.substring(start, data.indexOf(' ', start)));
-                            $.bug.state_success();
-                            $.bug.state_attach();
-                        }
+                    }).pipe(function(data) {
+                        return $.bug.lookup_result(data,
+                                                   $.bug.state_submit_error_regexp,
+                                                   $.bug.state_submit_success_regexp);
+                    }).pipe(function(data) {
+                        $('.bug', element).text(data);
+                        $.bug.state_success();
+                        $.bug.state_attach();
                     });
                 });
                 element.addClass('initialized');

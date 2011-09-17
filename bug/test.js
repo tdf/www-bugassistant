@@ -201,7 +201,7 @@ test("state_description", function() {
 });
 
 test("state_submit", function() {
-    expect(8);
+    expect(11);
 
     var state_success = $.bug.state_success;
     $.bug.state_success = function() { ok(true, 'state_success'); };
@@ -217,12 +217,12 @@ test("state_submit", function() {
     var version = $('.state_version .versions').val();
     var comment = $('.state_description .long').val();
     var bug = '40763';
-    $.bug.ajax = function(type, url, data, callback) {
+    $.bug.ajax = function(type, url, data) {
         if(data.component == component &&
            data.short_desc == subcomponent &&
            data.comment == comment &&
            data.version == version) {
-            callback('<title>Bug ' + bug + ' Submitted');
+            return $.Deferred().resolve('<title>Bug ' + bug + ' Submitted');
         }
     };
     $('.go', element).click();
@@ -230,10 +230,18 @@ test("state_submit", function() {
 
     var error = ' ERROR ';
     equal($('.error').text(), '', 'error is not set');
-    $.bug.ajax = function(type, url, data, callback) {
-        callback('<table cellpadding="20">   <tr>    <td bgcolor="#ff0000">      <font size="+2">' + error + '</font>   </td>  </tr> </table>');
+    $.bug.ajax = function(type, url, data) {
+        return $.Deferred().resolve('<table cellpadding="20">   <tr>    <td bgcolor="#ff0000">      <font size="+2">' + error + '</font>   </td>  </tr> </table>');
     };
-    $('.go', element).click();
+    var caught = false;
+    try {
+        $('.go', element).click();
+    } catch(e) {
+        equal($('.error').text(), error);
+        equal(e[1], error);
+        caught = true;
+    }
+    ok(caught, 'caught');
     equal($('.error').text(), error, 'error is set');
     $.bug.ajax = $.ajax;
 
