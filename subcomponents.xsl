@@ -7,18 +7,39 @@
     <xsl:template match="div[contains(@class,'component')]">
 	<xsl:element name="div">
 	  <xsl:attribute name="class"><xsl:value-of select="translate(translate(*[position()=1],' ','_'),&quot;&#10;&quot;,'_')" /></xsl:attribute>
-	  <select class="subcomponent" name="short_desc">
-            <option selected='selected' value=''>(chose one)</option>
-            <option value=''>(all other problems)</option>
-	    <xsl:apply-templates select="descendant::*[contains(@class,'search')]"/>
-	  </select>
+	  <div class="subcomponent select">
+            <div class="header">
+              <div class="chosen">(chose one)</div>
+            </div>
+            <div class="choices">
+              <div class="select-top">
+                <div class="select-left">
+                  <div class="select-bottom">
+                    <div class="select-right">
+                      <div class="top-left"></div>
+                      <div class="top-right"></div>
+                      <div class="bottom-left"></div>
+                      <div class="bottom-right"></div>
+                      <div class="center">
+                        <ul>
+                          <li class="choice" data=''><span class="XXX">(all other problems)</span></li>
+                          <xsl:apply-templates select="descendant::*[contains(@class,'search')]"/>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+	  </div>
 	</xsl:element>
     </xsl:template>
 
     <xsl:template match="*[contains(@class,'search')]">
 	<xsl:if test="not(contains(*,'['))">
-	 <xsl:element name="option">
-	  <xsl:attribute name="value"><xsl:value-of select="*"/></xsl:attribute>
+	 <xsl:element name="li">
+	  <xsl:attribute name="data"><xsl:value-of select="*"/></xsl:attribute>
+	  <xsl:attribute name="class">choice</xsl:attribute>
 	  <xsl:value-of select="*"/>
 	 </xsl:element>
 	</xsl:if>

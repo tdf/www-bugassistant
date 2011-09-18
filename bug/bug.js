@@ -100,15 +100,12 @@
             var component = $('.state_component .component').val();
             var subcomponent = $('.subcomponents .' + component, element).html();
             $('.active_subcomponent', element).html(subcomponent);
-            var change_subcomponent = function() {
+            $('.active_subcomponent .select li', element).click(function() {
                 $.bug.refresh_related_bugs();
                 $.bug.state_version();
-            };
-
-            $('.subcomponent', element).change(change_subcomponent);
-            $('.subcomponent', element).prop("selectedIndex", 0);
-
+            });
             element.show();
+            $('.active_subcomponent .select', element).select();
         },
 
         state_version: function() {

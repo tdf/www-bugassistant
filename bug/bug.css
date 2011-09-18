@@ -117,3 +117,70 @@ body {
 .skin {
     display: none;
 }
+
+/* select */
+.select .header {
+    background: url('images/select-header.png') no-repeat;
+    padding: 5px 40px 5px 10px;
+    height: 33px;
+    line-height: 33px;
+}
+
+.select .header, .select .choice {
+    font-family: helvetica, arial;
+    font-size: 18px;
+    color: #b8af9e;
+}
+
+.select li.choice:hover {
+    background-color: #9ceb90;
+    color: #32b21f;
+}
+
+.select .choices .center {
+    background-color: #FFF;
+}
+
+.select .choices .select-top {
+    padding-top: 10px;
+    background: url('images/select-horizontal.png') repeat-x top left;
+}
+
+.select .choices .select-bottom {
+    padding-bottom: 10px;
+    background: url('images/select-horizontal.png') repeat-x bottom left;
+}
+
+.select .choices .top-left {
+    background: url('images/select-top-left.png') no-repeat;
+    height: 10px;
+    width: 10px;
+}
+
+.select .choices .top-right {
+    background: url('images/select-top-right.png') no-repeat;
+    height: 10px;
+    width: 10px;
+}
+
+.select .choices .bottom-left {
+    background: url('images/select-bottom-left.png') no-repeat;
+    height: 10px;
+    width: 10px;
+}
+
+.select .choices .bottom-right {
+    background: url('images/select-bottom-right.png') no-repeat;
+    height: 10px;
+    width: 10px;
+}
+
+.select .choices .select-left {
+    background: url('images/select-vertical.png') repeat-y top left;
+    padding-left: 10px;
+}
+
+.select .choices .select-right {
+    background: url('images/select-vertical.png') repeat-y top right;
+    padding-right: 10px;
+}
