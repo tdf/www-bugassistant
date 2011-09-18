@@ -21,24 +21,29 @@
     <link rel="stylesheet" href="bug.css" type="text/css" media="screen"></link>
   </head>
   <body>
-    <div class="skin"><a href="?skin=login">login</a> <a href="?skin=component">component</a> <a href="?skin=subcomponent">subcomponent</a> <a href="?skin=description">description</a> <a href="?skin=submit">submit</a> <a href="?skin=complete">complete</a> </div>
+    <div class="skin"><a href="?skin=login">login</a> <a href="?skin=component">component</a> <a href="?skin=subcomponent">subcomponent</a> <a href="?skin=version">version</a> <a href="?skin=description">description</a> <a href="?skin=submit">submit</a> <a href="?skin=complete">complete</a> </div>
+    <div class="header">
+      <div class="title">Bug</div>
+      <div class="submission">
+        Thank you for using LibreOffice, we regret that you seem to have found a problem in our software, so that you decided to report a bug. This assistant will lead you step by step through the bug report process.
+      </div>
+    </div>
     <div class="content">
       <div class="left">
-        <div class="submission">Steps</div>
-        <div class="submission steps">
-          <div class="state_component">1/5 Component</div>
-          <div class="state_subcomponent">2/5 Subcomponent</div>
-          <div class="state_version">3/5 Version</div>
-          <div class="state_description">4/5 Description</div>
-          <div class="state_submit">5/5 Submit</div>
+        <div class="step step_signin"><div class="count">1</div><div class="label">Sign in</div></div>
+        <div class="step step_component"><div class="count">2</div><div class="label">Component</div></div>
+        <div class="step step_subcomponent"><div class="count">3</div><div class="label">Subcomponent</div></div>
+        <div class="step step_version"><div class="count">4</div><div class="label">Version</div></div>
+        <div class="step step_description"><div class="count">5</div><div class="label">Description</div></div>
+        <div class="step step_submit"><div class="count">6</div><div class="label">Submit</div></div>
+        <div class="step step_attach"><div class="count">7</div><div class="label">Attach</div></div>
+        <div class="copyright">
+          Bug Submission Assistant is copyright (C) 2011 Loic Dachary published under <a href="http://www.gnu.org/licenses/gpl.txt">GNU GPLv3+</a> : download the <a href="bug.js">sources</a>.
         </div>
       </div>
       <div class="right">
         <div class="username"></div>
 
-        <div class="submission">
-          Thank you for using LibreOffice, we regret that you seem to have found a problem in our software, so that you decided to report a bug. This assistant will lead you step by step through the bug report process.
-        </div>
 
         <div class="state signin">
 	  <div>
@@ -137,9 +142,6 @@
 
 	<div class="error"></div>
             
-        <div class="copyright">
-          Bug Submission Assistant is copyright (C) 2011 Loic Dachary published under <a href="http://www.gnu.org/licenses/gpl.txt">GNU GPLv3+</a> : download the <a href="bug.js">sources</a>.
-        </div>
       </div>
     </div>
     <script>

@@ -56,6 +56,11 @@
             }
         },
 
+        current_step: function(name) {
+            $('.step').removeClass('current');
+            $('.step_' + name).addClass('current');
+        },
+
         state_signin_error_regexp: 'class="throw_error">([^<]*)',
         state_signin_success_regexp: 'Log&nbsp;out</a>([^<]*)',
 
@@ -76,6 +81,7 @@
                     $.bug.state_component();
                 });
             });
+            $.bug.current_step('signin');
             element.show();
         },
 
@@ -92,6 +98,7 @@
             $('.component', element).change(change_component);
             $('.component', element).prop("selectedIndex", 0);
 
+            $.bug.current_step('component');
             element.show();
         },
 
@@ -104,6 +111,7 @@
                 $.bug.refresh_related_bugs();
                 $.bug.state_version();
             });
+            $.bug.current_step('subcomponent');
             element.show();
             $('.active_subcomponent .select', element).select();
         },
@@ -116,6 +124,7 @@
                 });
                 $(".versions").prop("selectedIndex", 0);
                 element.addClass('initialized');
+                $.bug.current_step('version');
                 element.show();
             }
         },
@@ -133,6 +142,7 @@
                 $(".short", element).change(function() { validate(); });
                 $(".long", element).keyup(function() { validate(); });
                 element.addClass('initialized');
+                $.bug.current_step('description');
                 element.show();
             }
         },
@@ -167,6 +177,7 @@
                     });
                 });
                 element.addClass('initialized');
+                $.bug.current_step('submit');
                 element.show();
             }
         },
@@ -184,6 +195,7 @@
                                                      $.bug.state_attach_success_regexp);
                 $('img', element).attr('src', '/attachment.cgi?id=' + attachment);
             }});
+            $.bug.current_step('attach');
             element.show();
         },
 

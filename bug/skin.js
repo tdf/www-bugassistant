@@ -27,20 +27,22 @@
           $.bug.state_component();
           $('.state_component .component').prop("selectedIndex", 2);
           $('.state_component .component').change();
-          $('.state_subcomponent .subcomponent').prop("selectedIndex", 2);
+      } else if(location.search.indexOf('skin=version') >= 0) {
+          $.bug.state_component();
+          $('.state_component .component').prop("selectedIndex", 2);
+          $('.state_component .component').change();
           $.bug.ajax = function(settings) {
               return $.Deferred().resolve('NUM,DESC\n100,"BUG 1"\n200,"BUG 2"\n');
           };
-          $('.state_subcomponent .subcomponent').change();
+          $('.state_subcomponent .active_subcomponent .choice:nth(2)').click();
       } else if(location.search.indexOf('skin=description') >= 0) {
           $.bug.state_component();
           $('.state_component .component').prop("selectedIndex", 2);
           $('.state_component .component').change();
-          $('.state_subcomponent .subcomponent').prop("selectedIndex", 2);
           $.bug.ajax = function(settings) {
               return $.Deferred().resolve('NUM,DESC\n100,"BUG 1"\n200,"BUG 2"\n');
           };
-          $('.state_subcomponent .subcomponent').change();
+          $('.state_subcomponent .active_subcomponent .choice:nth(2)').click();
           $('.state_version .versions').prop("selectedIndex", 2);
           $('.state_version .versions').change();
           $('.state_description .short').val('12');
@@ -49,11 +51,10 @@
           $.bug.state_component();
           $('.state_component .component').prop("selectedIndex", 2);
           $('.state_component .component').change();
-          $('.state_subcomponent .subcomponent').prop("selectedIndex", 2);
           $.bug.ajax = function(settings) {
               return $.Deferred().resolve('NUM,DESC\n100,"BUG 1"\n200,"BUG 2"\n');
           };
-          $('.state_subcomponent .subcomponent').change();
+          $('.state_subcomponent .active_subcomponent .choice:nth(2)').click();
           $('.state_version .versions').prop("selectedIndex", 2);
           $('.state_version .versions').change();
           $('.state_description .short').val('1234567890');
