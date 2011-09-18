@@ -215,7 +215,7 @@
             var component = $('.state_component .component').val().replace('_','%20');
             var subcomponent = $('.state_subcomponent .subcomponent').val();
             var list = '/buglist.cgi?columnlist=short_desc&component=' + component + '&product=LibreOffice&query_format=advanced&short_desc_type=allwordssubstr&ctype=csv&short_desc=' + subcomponent;
-            $.bug.ajax('GET', list, undefined, function(data) {
+            $.bug.ajax('GET', list).pipe(function(data) {
                 var lines = data.split('\n');
                 var bug_urls = [];
                 for(var i = 1; i < lines.length; i++) {

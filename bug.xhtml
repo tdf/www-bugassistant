@@ -15,9 +15,11 @@
     <script type="text/javascript" src="jquery-validation-1.8.1/jquery.validate.js"></script>
     <script type="text/javascript" src="jquery.iframe-post-form.js"></script>
     <script type="text/javascript" src="bug.js"></script>
+    <script type="text/javascript" src="skin.js"></script>
     <link rel="stylesheet" href="bug.css" type="text/css" media="screen"></link>
   </head>
   <body>
+    <div class="skin"><a href="?skin=login">login</a> <a href="?skin=component">component</a> <a href="?skin=subcomponent">subcomponent</a> <a href="?skin=description">description</a> <a href="?skin=submit">submit</a> <a href="?skin=complete">complete</a> </div>
     <div class="content">
       <div class="left">
         <div class="submission">Steps</div>
@@ -139,7 +141,13 @@
       </div>
     </div>
     <script>
-      $(document).ready($.bug.main);
+      $(document).ready(function() {
+        if(location.search.indexOf('skin') >= 0) {
+          $.skin();
+        } else {
+          $.bug.main();
+        }
+      });
     </script>
   </body>
 </html>

@@ -112,3 +112,8 @@ body {
 .state_attach {
     display: none;
 }
+
+/* skin */
+.skin {
+    display: none;
+}
