@@ -134,17 +134,23 @@
         </div>
 
         <div class="state_attach">
+          <div class="attach-invite">
           Upload an attachment illustrating the problem
+          </div>
 	  <form action='/attachment.cgi' method='post' enctype='multipart/form-data'>
 	     <input type="hidden" name="action" value="insert"></input>
 	     <input class="bug" type="hidden" name="bugid"></input>
 	     <input type="hidden" name="description" value="SCREENSHOT"></input>
-	     <input type="hidden" name="comment" value="SCREENSHOT"></input>
+	     <input type="hidden" name="comment" value="SCREENSHOT COMMENT"></input>
 	     <input type="hidden" name="contenttypemethod" value="autodetect"></input>
-	     <input type="file" name="data"></input>
-	     <input type="submit" value="Upload"></input>
+             <div class="attach-file">
+	       <input type="file" name="data"></input>
+             </div>
+             <div class="attach-submit">
+	       <input type="submit" value="Upload"></input>
+             </div>
 	  </form>
-	  <img title="SCREENSHOT" />
+	  <img title="screenshot" />
 	</div>
 
       </div>

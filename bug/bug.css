@@ -377,11 +377,46 @@ body {
 /* state_success */
 .state_success {
     display: none;
+    text-align: center;
+    padding: 30px;
+    font-weight: bold;
+}
+
+.state_success a {
+    color: #025587;
+}
+
+.state_success a:hover {
+    color: #29a1e0;
 }
 
 /* state_attach */
 .state_attach {
     display: none;
+    text-align: center;
+}
+
+.state_attach .attach-invite {
+    color: #18a403;
+    padding: 10px;
+}
+
+.state_attach .attach-submit input {
+    margin-left: auto;
+    margin-right: 40px;
+    background: url('images/upload.png') no-repeat;
+    width: 163px;
+    height: 49px;
+    font-weight: bold;
+    font-size: 20px;
+    color: #fff;
+    text-align: center;
+    line-height: 49px;
+    border: 0;
+}
+
+.state_attach .attach-submit input:hover {
+    background: url('images/upload-hover.png') no-repeat;
 }
 
 /* skin */
