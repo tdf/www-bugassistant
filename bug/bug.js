@@ -88,44 +88,42 @@
         state_component: function() {
             var element = $('.state_component');
 
-            var change_component = function() {
-                var component = $(this).val();
+            $.bug.current_step('component');
+            element.show();
+            $('.select', element).select();
+            $('.select .choice, img', element).click(function() {
+                var component = $(this).attr('data');
+                $('.select .chosen', element).attr('data', component);
                 $('.comment', element).hide();
                 $('.comment.' + component, element).show();
                 $.bug.state_subcomponent();
-            };
-
-            $('.component', element).change(change_component);
-            $('.component', element).prop("selectedIndex", 0);
-
-            $.bug.current_step('component');
-            element.show();
+            });
         },
 
         state_subcomponent: function() {
             var element = $('.state_subcomponent');
-            var component = $('.state_component .component').val();
+            var component = $('.state_component .chosen').attr('data');
             var subcomponent = $('.subcomponents .' + component, element).html();
             $('.active_subcomponent', element).html(subcomponent);
-            $('.active_subcomponent .select li', element).click(function() {
-                $.bug.refresh_related_bugs();
-                $.bug.state_version();
-            });
             $.bug.current_step('subcomponent');
             element.show();
             $('.active_subcomponent .select', element).select();
+            $('.active_subcomponent .select .choice', element).click(function() {
+                $.bug.refresh_related_bugs();
+                $.bug.state_version();
+            });
         },
 
         state_version: function() {
             var element = $('.state_version');
             if(!element.hasClass('initialized')) {
-                $(".versions", element).change(function() {
-                    $.bug.state_description();
-                });
-                $(".versions").prop("selectedIndex", 0);
                 element.addClass('initialized');
                 $.bug.current_step('version');
                 element.show();
+                $('.select', element).select();
+                $(".select .choice", element).click(function() {
+                    $.bug.state_description();
+                });
             }
         },
 

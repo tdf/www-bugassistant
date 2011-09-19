@@ -8,7 +8,7 @@
 	<xsl:element name="div">
 	  <xsl:attribute name="class"><xsl:value-of select="translate(translate(*[position()=1],' ','_'),&quot;&#10;&quot;,'_')" /></xsl:attribute>
 	  <div class="subcomponent select">
-            <div class="header">
+            <div class="select-header">
               <div class="chosen">(chose one)</div>
             </div>
             <div class="choices">
@@ -22,7 +22,7 @@
                       <div class="bottom-right"></div>
                       <div class="center">
                         <ul>
-                          <li class="choice" data=''><span class="XXX">(all other problems)</span></li>
+                          <li class="choice" data=''>(all other problems)</li>
                           <xsl:apply-templates select="descendant::*[contains(@class,'search')]"/>
                         </ul>
                       </div>

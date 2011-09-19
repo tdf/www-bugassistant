@@ -9,15 +9,36 @@
     </xsl:template>
 
     <xsl:template match="html">
-	<select size='7' class="component" name="component">
-          <option value=''>(chose a component)</option>
-          <xsl:apply-templates select="//*[@class='component']"/>
-	</select>
+      <div class="component select">
+        <div class="select-header">
+          <div class="chosen">(chose one)</div>
+        </div>
+        <div class="choices">
+          <div class="select-top">
+            <div class="select-left">
+              <div class="select-bottom">
+                <div class="select-right">
+                  <div class="top-left"></div>
+                  <div class="top-right"></div>
+                  <div class="bottom-left"></div>
+                  <div class="bottom-right"></div>
+                  <div class="center">
+                    <ul>
+                      <xsl:apply-templates select="//*[@class='component']"/>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </xsl:template>
 
     <xsl:template match="div[@class='component']">
-	<xsl:element name="option">
-	  <xsl:attribute name="value"><xsl:value-of select="translate(translate(*[position()=1],' ','_'),&quot;&#10;&quot;,'_')" /></xsl:attribute>
+	<xsl:element name="li">
+	  <xsl:attribute name="data"><xsl:value-of select="translate(translate(*[position()=1],' ','_'),&quot;&#10;&quot;,'_')" /></xsl:attribute>
+	  <xsl:attribute name="class">choice</xsl:attribute>
 	  <xsl:value-of select="*[position()=1]"/>
 	</xsl:element>
     </xsl:template>

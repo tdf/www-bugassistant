@@ -1,6 +1,7 @@
 body {
     margin: 0;
-    height: 650px;
+    height: 1024px;
+    font-family: helvetica, arial;
 }
 
 .header {
@@ -31,7 +32,7 @@ body {
 }
 
 .content {
-    width: 800px;
+    width: 900px;
 }
 
 .content > div {
@@ -94,13 +95,13 @@ body {
 }
 
 .right {
-    padding: 20px;
-    width: 500px;
+    padding-left: 40px;
+    padding-top: 10px;
+    width: 600px;
 }
 
 .right .state {
     margin: 5px;
-    border: 3px solid #18A303;
 }
 
 /* error */
@@ -112,7 +113,6 @@ body {
 /* signin */
 .signin {
     margin: 5px;
-    border: 3px solid #18A303;
     display: none;
 }
 
@@ -121,24 +121,58 @@ body {
 }
 
 /* state_component */
-.state_component > div {
-    vertical-align: top;
-    display: inline-block;
-}
 
 .state_component {
     display: none;
 }
 
+.state_component > div > div {
+    display: inline-block;
+}
+
 .state_component .comments {
-    width: 250px;
+    width: 210px;
+    height: 160px;
+    background: url('images/comment.png') no-repeat;
+    float: right;
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+.state_component .comments .comment-header {
+    color: #4fb33f;
+    font-weight: bold;
+    position: relative;
+    right: 0;
+}
+
+.state_component .comments .comment-read-more a {
+    text-decoration: none;
+    color: #cc1300;
+}
+
+.state_component .comments .comment-read-more a:hover {
+    color: #ea1600;
+    background: #fafafa;
 }
 
 .state_component .comments .comment {
     display: none;
 }
 
+.state_component img {
+    padding: 5px;
+}
+
+.state_component img:hover {
+    background: url('icons/icon-hover.png') no-repeat;
+}
+
 /* state_subcomponent */
+.version_and_subcomponent > div {
+    display: inline-block;
+}
+
 .state_subcomponent {
     display: none;
 }
@@ -149,6 +183,7 @@ body {
 
 /* state_version */
 .state_version {
+    padding-left: 50px;
     display: none;
 }
 
@@ -182,14 +217,15 @@ body {
 }
 
 /* select */
-.select .header {
+.select .select-header {
     background: url('images/select-header.png') no-repeat;
     padding: 5px 40px 5px 10px;
     height: 33px;
     line-height: 33px;
+    min-width: 150px;
 }
 
-.select .header, .select .choice {
+.select .select-header, .select .choice {
     font-family: helvetica, arial;
     font-size: 18px;
     color: #b8af9e;

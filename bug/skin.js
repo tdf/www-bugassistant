@@ -19,47 +19,45 @@
 
   $.skin = function() {
       $('.skin').show();
-      if(location.search.indexOf('skin=login') >= 0) {
-          $.bug.state_signin();
-      } else if(location.search.indexOf('skin=component') >= 0) {
+      function component() {
           $.bug.state_component();
-      } else if(location.search.indexOf('skin=subcomponent') >= 0) {
-          $.bug.state_component();
-          $('.state_component .component').prop("selectedIndex", 2);
-          $('.state_component .component').change();
-      } else if(location.search.indexOf('skin=version') >= 0) {
-          $.bug.state_component();
-          $('.state_component .component').prop("selectedIndex", 2);
-          $('.state_component .component').change();
+      }
+      function subcomponent() {
+          component();
+          $('.state_component .choice:nth(3)').click();
+      }
+      function version() {
+          subcomponent();
           $.bug.ajax = function(settings) {
               return $.Deferred().resolve('NUM,DESC\n100,"BUG 1"\n200,"BUG 2"\n');
           };
           $('.state_subcomponent .active_subcomponent .choice:nth(2)').click();
-      } else if(location.search.indexOf('skin=description') >= 0) {
-          $.bug.state_component();
-          $('.state_component .component').prop("selectedIndex", 2);
-          $('.state_component .component').change();
-          $.bug.ajax = function(settings) {
-              return $.Deferred().resolve('NUM,DESC\n100,"BUG 1"\n200,"BUG 2"\n');
-          };
-          $('.state_subcomponent .active_subcomponent .choice:nth(2)').click();
-          $('.state_version .versions').prop("selectedIndex", 2);
-          $('.state_version .versions').change();
+      }
+      function description() {
+          version();
+          $('.state_version .choice:nth(2)').click();
           $('.state_description .short').val('12');
           $('.state_description .long').val('123456');
-      } else if(location.search.indexOf('skin=submit') >= 0) {
-          $.bug.state_component();
-          $('.state_component .component').prop("selectedIndex", 2);
-          $('.state_component .component').change();
-          $.bug.ajax = function(settings) {
-              return $.Deferred().resolve('NUM,DESC\n100,"BUG 1"\n200,"BUG 2"\n');
-          };
-          $('.state_subcomponent .active_subcomponent .choice:nth(2)').click();
-          $('.state_version .versions').prop("selectedIndex", 2);
-          $('.state_version .versions').change();
+      }
+      function submit() {
+          description();
           $('.state_description .short').val('1234567890');
           $('.state_description .long').val('12345678901');
           $('.state_description .short').change();
+      }
+
+      if(location.search.indexOf('skin=login') >= 0) {
+          $.bug.state_signin();
+      } else if(location.search.indexOf('skin=component') >= 0) {
+          component();
+      } else if(location.search.indexOf('skin=subcomponent') >= 0) {
+          subcomponent();
+      } else if(location.search.indexOf('skin=version') >= 0) {
+          version();
+      } else if(location.search.indexOf('skin=description') >= 0) {
+          description();
+      } else if(location.search.indexOf('skin=submit') >= 0) {
+          submit();
       } else if(location.search.indexOf('skin=complete') >= 0) {
           $.bug.state_success();
           $.bug.state_attach();
