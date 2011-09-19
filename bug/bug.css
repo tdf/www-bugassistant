@@ -111,6 +111,7 @@ body {
 }
 
 .error-container {
+    display: none;
     position: relative;
     z-index: 1;
 }

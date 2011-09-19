@@ -35,7 +35,7 @@
                 if('statusText' in error) {
                     message += 'statusText = ' + error.statusText + ' ';
                 }
-                $('.error').text(message);
+                $.bug.error_set(message);
                 throw error;
             });
         },
@@ -50,7 +50,7 @@
                 if(success !== null) {
                     return success[1];
                 } else {
-                    $('.error').text("could not match " + success_regexp + " on the string returned by the server " + data);
+                    $.bug.error_set("could not match " + success_regexp + " on the string returned by the server " + data);
                     throw data;
                 }
             }
@@ -61,13 +61,22 @@
             $('.step_' + name).addClass('current');
         },
 
+        error_clear: function() {
+            $('.error-container').hide();
+        },
+
+        error_set: function(message) {
+            $('.error').text(message);
+            $('.error-container').show();
+        },
+
         state_signin_error_regexp: 'class="throw_error">([^<]*)',
         state_signin_success_regexp: 'Log&nbsp;out</a>([^<]*)',
 
         state_signin: function() {
             var element = $('.signin');
             $('.go', element).click(function() {
-                $('.error').empty();
+                $.bug.error_clear();
                 $.bug.ajax('POST', '/index.cgi', {
                     Bugzilla_login: $('.user', element).val(),
                     Bugzilla_password: $('.password', element).val()
