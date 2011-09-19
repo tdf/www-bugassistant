@@ -214,7 +214,20 @@ body {
 }
 
 .state_submit .go {
-    background-color: #BADA55;
+    margin-left: auto;
+    margin-right: 40px;
+    background: url('images/submit.png') no-repeat;
+    width: 163px;
+    height: 49px;
+    font-weight: bold;
+    font-size: 20px;
+    color: #fff;
+    text-align: center;
+    line-height: 49px;
+}
+
+.state_submit div:hover.go {
+    background: url('images/submit-hover.png') no-repeat;
 }
 
 /* related bugs */
