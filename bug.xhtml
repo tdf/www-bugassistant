@@ -46,16 +46,18 @@
 
 
         <div class="state signin">
-	  <div>
-	    Please login using your <a href="/">Bugzilla account</a>.
+	  <div class="signin-invite">
+	    Please login using your <a href="/">bugzilla account</a>.
 	  </div>
-	  <div>
-	    User: <input class='user' type="text" name="user"></input>
-	    Password: <input class='password' type="password" name="password"></input>
+	  <div class="signin-container">
+	    <div>User:</div>
+            <div class="signin-input"><input class='user' type="text" name="user"></input></div>
+            <div>Password:</div>
+            <div class="signin-input"><input class='password' type="password" name="password"></input></div>
 	    <div class="go">Sign in</div>
-	  </div>
-	  <div>
-	    Or <a href="/enter_bug.cgi" target="_blank">signup</a>.
+            <div class="signin-create">
+	      or <a href="/enter_bug.cgi" target="_blank">create an account</a>
+            </div>
 	  </div>
 	</div>
 

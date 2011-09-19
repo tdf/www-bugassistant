@@ -106,6 +106,10 @@ body {
 
 /* error */
 
+.error {
+    color: #f07a7a;
+}
+
 .error-container {
     position: relative;
     z-index: 1;
@@ -185,12 +189,63 @@ body {
 
 /* signin */
 .signin {
-    margin: 5px;
+    padding-top: 20px;
+    padding-left: 50px;
     display: none;
 }
 
+.signin .signin-invite {
+    padding-left: 20px;
+    color: #29a1e0;
+}
+
+.signin .signin-container {
+    background: url('images/login-container.png') no-repeat;
+    height: 218px;
+    width: 277px;
+    padding: 30px;
+}
+
+.signin .signin-input {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.signin .signin-input input {
+    background: url('images/login-input.png') no-repeat;
+    height: 42px;
+    width: 263px;
+    border: 0;
+    padding: 5px;
+}
+
 .signin .go {
-    background-color: #BADA55;
+    margin: 20px 15px 10px auto;
+    background: url('images/signin.png') no-repeat;
+    width: 163px;
+    height: 49px;
+    font-weight: bold;
+    font-size: 20px;
+    color: #fff;
+    text-align: center;
+    line-height: 49px;
+}
+
+.signin div:hover.go {
+    background: url('images/signin-hover.png') no-repeat;
+}
+
+.signin .signin-create {
+    padding-right: 15px;
+    text-align: right;
+}
+
+.signin a {
+    color: #025587;
+}
+
+.signin a:hover {
+    color: #29a1e0;
 }
 
 /* state_component */
