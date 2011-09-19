@@ -192,6 +192,22 @@ body {
     display: none;
 }
 
+.state_description .subject-input input {
+    background: url('images/subject.png') no-repeat;
+    height: 38px;
+    width: 328px;
+    border: 0;
+    padding: 5px;
+}
+
+.state_description .description-input textarea {
+    background: url('images/description.png') no-repeat;
+    height: 118px;
+    width: 548px;
+    border: 0;
+    padding: 5px;
+}
+
 /* state_submit */
 .state_submit {
     display: none;
@@ -199,6 +215,21 @@ body {
 
 .state_submit .go {
     background-color: #BADA55;
+}
+
+/* related bugs */
+
+.state_duplicates {
+    padding-left: 10px;
+}
+
+.state_duplicates .related_bugs {
+    padding-top: 10px;
+}
+
+.state_duplicates a {
+    text-decoration: none;
+    color: #1d97e0;
 }
 
 /* state_success */
