@@ -106,8 +106,81 @@ body {
 
 /* error */
 
-.error {
-    background-color: #ff5555;
+.error-container {
+    position: relative;
+    z-index: 1;
+}
+
+.error-container .error-top-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.error-container .error-bottom-left {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.error-container .error-top-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+}
+
+.error-container .error-bottom-right {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+}
+
+.error-container .error-top {
+    padding-top: 4px;
+    background: url('images/error-top.png') repeat-x top left;
+}
+
+.error-container .error-bottom {
+    padding-bottom: 4px;
+    background: url('images/error-bottom.png') repeat-x bottom left;
+}
+
+.error-container .error-top-left {
+    background: url('images/error-top-left.png') no-repeat;
+    height: 4px;
+    width: 5px;
+}
+
+.error-container .error-top-right {
+    background: url('images/error-top-right.png') no-repeat;
+    height: 4px;
+    width: 5px;
+}
+
+.error-container .error-bottom-left {
+    background: url('images/error-bottom-left.png') no-repeat;
+    height: 4px;
+    width: 5px;
+}
+
+.error-container .error-bottom-right {
+    background: url('images/error-bottom-right.png') no-repeat;
+    height: 4px;
+    width: 5px;
+}
+
+.error-container .error-left {
+    background: url('images/error-left.png') repeat-y top left;
+    padding-left: 5px;
+}
+
+.error-container .error-right {
+    background: url('images/error-right.png') repeat-y top right;
+    padding-right: 5px;
 }
 
 /* signin */
