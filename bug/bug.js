@@ -233,7 +233,7 @@
         refresh_related_bugs: function() {
             $('.related_bugs').empty();
             var component = $('.state_component .chosen').attr('data').replace('_','%20');
-            var subcomponent = $('.state_subcomponent .subcomponent').val();
+            var subcomponent = $('.state_subcomponent .active_subcomponent .chosen').attr('data');
             var list = '/buglist.cgi?columnlist=short_desc&component=' + component + '&product=LibreOffice&query_format=advanced&short_desc_type=allwordssubstr&ctype=csv&short_desc=' + subcomponent;
             $.bug.ajax('GET', list).pipe(function(data) {
                 var lines = data.split('\n');
