@@ -43,7 +43,7 @@
         lookup_result: function(data, error_regexp, success_regexp) {
             var error = data.match(error_regexp);
             if(error !== null) {
-                $('.error').text(error[1]);
+                $.bug.error_set(error[1]);
                 throw error;
             } else {
                 var success = data.match(success_regexp);                
@@ -161,6 +161,10 @@
             var element = $('.state_submit');
             if(!element.hasClass('initialized')) {
                 $('.go', element).click(function() {
+                    var version = $('.state_version .chosen').attr('data');
+                    var component = $('.state_component .chosen').attr('data');
+                    var short_desc = $('.state_subcomponent .active_subcomponent .chosen').attr('data') + ': ' + $('.state_description .short').val();
+                    var comment = $('.state_description .long').val();
                     $.bug.ajax('POST', '/post_bug.cgi', {
                         product: 'LibreOffice',
                         bug_status: 'UNCONFIRMED',
@@ -169,10 +173,10 @@
                         bug_severity: 'normal',
                         priority: 'medium',
                         assigned_to: 'libreoffice-bugs@lists.freedesktop.org',
-                        component: $('.state_component .component').val(),
-                        short_desc: $('.state_subcomponent .active_subcomponent .subcomponent').val() + ': ' + $('.state_description .short').val(),
-                        version: $('.state_version .versions').val(),
-                        comment: $('.state_description .long').val()
+                        component: component,
+                        version: version,
+                        short_desc: short_desc,
+                        comment: comment
                     }).pipe(function(data) {
                         return $.bug.lookup_result(data,
                                                    $.bug.state_submit_error_regexp,
@@ -228,7 +232,7 @@
         
         refresh_related_bugs: function() {
             $('.related_bugs').empty();
-            var component = $('.state_component .component').val().replace('_','%20');
+            var component = $('.state_component .chosen').attr('data').replace('_','%20');
             var subcomponent = $('.state_subcomponent .subcomponent').val();
             var list = '/buglist.cgi?columnlist=short_desc&component=' + component + '&product=LibreOffice&query_format=advanced&short_desc_type=allwordssubstr&ctype=csv&short_desc=' + subcomponent;
             $.bug.ajax('GET', list).pipe(function(data) {

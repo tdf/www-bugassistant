@@ -98,19 +98,19 @@ test("state_signin", function() {
     $.bug.state_signin();
     equal($('.signin').css('display'), 'block');
     // fail to login, shows error
-    equal($('.error').text().length, 0, 'no error');
+    equal($('.error-container').css('display'), 'none', 'no error');
     try {
         $('.signin .go').click();
     } catch(e) {
         ok(true, 'caught error');
     }
-    ok($('.error').text().length > 0, 'error message');
+    equal($('.error-container').css('display'), 'block', 'no error');
     // successfull login
     $('.signin .user').val(user);
     $('.signin .password').val(password);
     $('.signin .go').click();
     equal($('.signin').css('display'), 'none');
-    equal($('.error').text().length, 0, 'no error');
+    equal($('.error-container').css('display'), 'none', 'no error');
     equal($('.username').text(), user);
 
     $.bug.ajax = $.ajax;
@@ -127,10 +127,10 @@ test("state_component", function() {
     equal(element.css('display'), 'none');
     $.bug.state_component();
     equal(element.css('display'), 'block');
-    equal($('.component', element).val(), '', 'initialy nothing selected');
+    equal($('.component .chosen', element).attr('data'), undefined, 'initialy nothing selected');
     equal($('.comment.BASIC', element).css('display'), 'none', 'BASIC hidden');
     equal($('.comment.OTHER', element).css('display'), 'none', 'OTHER hidden');
-    $(".component", element).val('BASIC').change();
+    $(".component .choice[data='BASIC']", element).click();
     equal($('.comment.BASIC', element).css('display'), 'block', 'BASIC is visible');
     equal($('.comment.OTHER', element).css('display'), 'none', 'OTHER hidden');
 
@@ -147,13 +147,12 @@ test("state_subcomponent", function() {
 
     var element = $('.state_subcomponent');
     equal(element.css('display'), 'none');
-    equal($('.active_subcomponent select', element).length, 0, 'no select element');
-    $('.state_component .component').val('BASIC');
+    equal($('.active_subcomponent .select', element).length, 0, 'no .select element');
+    $(".component .chosen").attr('data', 'BASIC');
     $.bug.state_subcomponent();
-    var h = $('.active_subcomponent select', element);
-    equal($('.active_subcomponent select', element).length, 1, 'one select element');
+    equal($('.active_subcomponent .select', element).length, 1, 'one .select element');
     equal(element.css('display'), 'block');
-    $(".active_subcomponent .subcomponent", element).val('BASIC').change();
+    $(".active_subcomponent .subcomponent .choice[data='BASIC']", element).click();
 
     $.bug.state_version = state_version;
     $.bug.refresh_related_bugs = refresh_related_bugs;
@@ -171,12 +170,12 @@ test("state_version", function() {
     $.bug.state_version();
     equal(element.css('display'), 'block');
     ok(element.hasClass('initialized'), 'is initialized');
-    equal($('.versions', element).val(), '?', 'initialy nothing selected');
+    equal($('.versions .chosen', element).attr('data'), undefined, 'initialy nothing selected');
     var version = 'VERSION1';
-    $(".versions", element).val(version).change();
+    $(".versions .choice[data='" + version + "']", element).click();
     // the second time, the selected index is not reset
     $.bug.state_version();
-    equal($('.versions', element).val(), version, 'same option selected');
+    equal($('.versions .chosen', element).attr('data'), version, 'same version selected');
 
     $.bug.state_description = state_description;
 });
@@ -212,16 +211,24 @@ test("state_submit", function() {
     $.bug.state_submit();
     equal(element.css('display'), 'block');
     ok(element.hasClass('initialized'), 'is initialized');
-    var component = $('.state_component .component').val();
-    var subcomponent = $('.state_subcomponent .active_subcomponent .subcomponent').val() + ': ' + $('.state_description .short').val();
-    var version = $('.state_version .versions').val();
-    var comment = $('.state_description .long').val();
+    $.bug.state_component();
+    var component = 'BASIC';
+    $(".state_component .choice[data='" + component + "']").click();
+    var subcomponent = 'SUBCOMPONENT';
+    $('.state_subcomponent .active_subcomponent .chosen').attr('data', subcomponent);
+    $.bug.state_version();
+    var version = 'VERSION';
+    $('.state_version .chosen').attr('data', version);
+    var short_desc = 'SHORT_DESC';
+    $('.state_description .short').val(short_desc);
+    var comment = 'LONG';
+    $('.state_description .long').val(comment);
     var bug = '40763';
     $.bug.ajax = function(type, url, data) {
         if(data.component == component &&
-           data.short_desc == subcomponent &&
-           data.comment == comment &&
-           data.version == version) {
+           data.version == version &&
+           data.short_desc == subcomponent + ': ' + short_desc &&
+           data.comment == comment) {
             return $.Deferred().resolve('<title>Bug ' + bug + ' Submitted');
         }
     };
