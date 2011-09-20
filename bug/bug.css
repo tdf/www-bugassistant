@@ -32,7 +32,7 @@ body {
 }
 
 .content {
-    width: 900px;
+    width: 890px;
 }
 
 .content > div {
@@ -105,7 +105,7 @@ body {
 .right {
     padding-left: 40px;
     padding-top: 10px;
-    width: 600px;
+    width: 590px;
 }
 
 .right .state {
