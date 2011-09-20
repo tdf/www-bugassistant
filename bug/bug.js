@@ -76,11 +76,13 @@
         state_signin: function() {
             var element = $('.signin');
             $('.go', element).click(function() {
+                $("body").css("cursor", "progress");
                 $.bug.error_clear();
                 $.bug.ajax('POST', '/index.cgi', {
                     Bugzilla_login: $('.user', element).val(),
                     Bugzilla_password: $('.password', element).val()
                 }).pipe(function(data) {
+                    $("body").css("cursor", "default");
                     return $.bug.lookup_result(data,
                                                $.bug.state_signin_error_regexp,
                                                $.bug.state_signin_success_regexp);
@@ -168,6 +170,7 @@
                     var component = $('.state_component .chosen').attr('data');
                     var short_desc = $('.state_subcomponent .active_subcomponent .chosen').attr('data') + ': ' + $('.state_description .short').val();
                     var comment = $('.state_description .long').val();
+                    $("body").css("cursor", "progress");
                     $.bug.ajax('POST', '/post_bug.cgi', {
                         product: 'LibreOffice',
                         bug_status: 'UNCONFIRMED',
@@ -181,6 +184,7 @@
                         short_desc: short_desc,
                         comment: comment
                     }).pipe(function(data) {
+                        $("body").css("cursor", "default");
                         return $.bug.lookup_result(data,
                                                    $.bug.state_submit_error_regexp,
                                                    $.bug.state_submit_success_regexp);
