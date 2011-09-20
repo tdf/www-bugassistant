@@ -24,7 +24,7 @@
             $('.choices', element).hide();
             $('.choices', element).css({
                 position: 'absolute',
-                top: position.y,
+                top: '37px', // position.y
                 left: position.x
             });
             $('.chosen', this).mouseenter(function() {

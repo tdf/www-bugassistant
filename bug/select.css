@@ -10,6 +10,7 @@
     margin: 0;
     padding: 0;
     height: 180px;
+    width: 130px;
     overflow: auto;
 }
 

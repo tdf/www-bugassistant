@@ -522,45 +522,45 @@ body {
 }
 
 .select .choices .select-top {
-    padding-top: 10px;
-    background: url('images/select-horizontal.png') repeat-x top left;
+    padding-top: 6px;
+    background: url('images/select-top.png') repeat-x top left;
 }
 
 .select .choices .select-bottom {
-    padding-bottom: 10px;
-    background: url('images/select-horizontal.png') repeat-x bottom left;
+    padding-bottom: 22px;
+    background: url('images/select-bottom.png') repeat-x bottom left;
 }
 
 .select .choices .top-left {
     background: url('images/select-top-left.png') no-repeat;
-    height: 10px;
-    width: 10px;
+    width: 12px;
+    height: 6px;
 }
 
 .select .choices .top-right {
     background: url('images/select-top-right.png') no-repeat;
-    height: 10px;
-    width: 10px;
+    width: 12px;
+    height: 6px;
 }
 
 .select .choices .bottom-left {
     background: url('images/select-bottom-left.png') no-repeat;
-    height: 10px;
-    width: 10px;
+    width: 12px;
+    height: 22px;
 }
 
 .select .choices .bottom-right {
     background: url('images/select-bottom-right.png') no-repeat;
-    height: 10px;
-    width: 10px;
+    width: 12px;
+    height: 22px;
 }
 
 .select .choices .select-left {
-    background: url('images/select-vertical.png') repeat-y top left;
-    padding-left: 10px;
+    background: url('images/select-left.png') repeat-y top left;
+    padding-left: 12px;
 }
 
 .select .choices .select-right {
-    background: url('images/select-vertical.png') repeat-y top right;
-    padding-right: 10px;
+    background: url('images/select-right.png') repeat-y top right;
+    padding-right: 12px;
 }
