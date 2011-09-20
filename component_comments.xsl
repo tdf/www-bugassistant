@@ -22,6 +22,7 @@
           <div class="comment-read-more">
             <xsl:element name="a">
               <xsl:attribute name="href">http://wiki.documentfoundation.org/BugzAssHlp_<xsl:value-of select="translate(translate(*[position()=1],' ','_'),&quot;&#10;&quot;,'_')" />_long</xsl:attribute>
+              <xsl:attribute name="target">_blank</xsl:attribute>
               Read more ... &gt;
             </xsl:element>
           </div>
