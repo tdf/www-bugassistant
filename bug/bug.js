@@ -114,7 +114,10 @@
             var component = $('.state_component .chosen').attr('data');
             var subcomponent = $('.subcomponents .' + component, element).html();
             $('.active_subcomponent', element).html(subcomponent);
-            $.bug.current_step('subcomponent');
+            if(!element.hasClass('initialized')) {
+                element.addClass('initialized');
+                $.bug.current_step('subcomponent');
+            }
             element.show();
             $('.active_subcomponent .select', element).select();
             $('.active_subcomponent .select .choice', element).click(function() {

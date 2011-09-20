@@ -50,8 +50,8 @@ body {
 }
 
 .left .step {
-    line-height: 65px;
-    height: 65px;
+    line-height: 62px;
+    height: 64px;
     width: 255px;
     background: #FFF url('images/step-off.png') no-repeat top left;
 }
@@ -60,7 +60,7 @@ body {
     background: #FFF url('images/step-on.png') no-repeat top left;
 }
 
-.left .stop:first-child {
+.left .step:first-child {
     background: #FFF url('images/step-first-off.png') no-repeat top left;
 }
 
@@ -68,7 +68,7 @@ body {
     background: #FFF url('images/step-first-on.png') no-repeat top left;
 }
 
-.left .stop:last-child {
+.left .step:last-child {
     background: #FFF url('images/step-last-off.png') no-repeat top left;
 }
 
@@ -77,7 +77,7 @@ body {
 }
 
 .left .count {
-    padding-left: 35px;
+    padding-left: 30px;
     display: inline-block;
     color: #fff;
 }
