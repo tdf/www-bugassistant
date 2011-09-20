@@ -89,9 +89,17 @@ body {
 }
 
 .copyright {
-    padding-top: 100px;
+    padding: 100px 10px 0px 30px;
     font-size: 8px;
-    color: #9d9d9d;
+    color: #29a1e0;
+}
+
+.copyright a {
+    color: #025587;
+}
+
+.copyright a:hover {
+    color: #29a1e0;
 }
 
 .right {
@@ -273,6 +281,11 @@ body {
     font-weight: bold;
     position: relative;
     right: 0;
+}
+
+.state_component .comments .comment-text {
+    height: 130px;
+    overflow: auto;
 }
 
 .state_component .comments .comment-read-more a {

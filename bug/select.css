@@ -9,6 +9,8 @@
     list-style: none;
     margin: 0;
     padding: 0;
+    height: 180px;
+    overflow: auto;
 }
 
 .select .top-left {
