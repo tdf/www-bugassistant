@@ -414,22 +414,82 @@ body {
     padding: 10px;
 }
 
+.state_attach .attach-file-and-submit {
+    text-align: right;
+    vertical-align: top;
+    width: 79%;
+}
+
+.state_attach .attach-file-style > div {
+    display: inline-block;
+}
+
 .state_attach .attach-submit input {
-    margin-left: auto;
-    margin-right: 40px;
     background: url('images/upload.png') no-repeat;
-    width: 163px;
-    height: 49px;
+    width: 94px;
+    height: 38px;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 14px;
     color: #fff;
     text-align: center;
-    line-height: 49px;
+    line-height: 38px;
     border: 0;
 }
 
 .state_attach .attach-submit input:hover {
     background: url('images/upload-hover.png') no-repeat;
+}
+
+.state_attach .attach-file {
+    position: relative;
+    height: 38px;
+}
+
+.state_attach .attach-file .attach-file-style {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.state_attach .attach-file .attach-file-style > div {
+    vertical-align: top;
+}
+
+.state_attach .attach-file input[type='file'] {
+    position: relative;
+    text-align: right;
+    -moz-opacity:0 ;
+    filter:alpha(opacity: 0);
+    opacity: 0;
+    z-index: 2;
+    width: 400px;
+    height: 39px;
+}
+
+.state_attach .attach-file input[type='text'] {
+    margin-top: 6px;
+    width: 242px;
+    height: 27px;
+    background: url('images/upload-input.png') no-repeat;
+    border: 0;
+    padding: 0;
+}
+
+.state_attach .attach-browse {
+    background: url('images/upload-browse.png') no-repeat;
+    width: 94px;
+    height: 39px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #057cc0;
+    text-align: center;
+    line-height: 38px;
+    border: 0;
+}
+
+.state_attach img {
+    display: none;
 }
 
 /* skin */

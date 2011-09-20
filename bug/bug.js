@@ -207,8 +207,14 @@
                 var attachment = $.bug.lookup_result(data,
                                                      $.bug.state_attach_error_regexp,
                                                      $.bug.state_attach_success_regexp);
-                $('img', element).attr('src', '/attachment.cgi?id=' + attachment);
+                $('img', element).
+                    attr('src', '/attachment.cgi?id=' + attachment).
+                    show();
+                
             }});
+            $("input[type='file']", element).change(function() {
+                $("input[type='text']", element).val($(this).val());
+            });
             $.bug.current_step('attach');
             element.show();
         },

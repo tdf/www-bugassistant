@@ -145,11 +145,17 @@
 	     <input type="hidden" name="description" value="SCREENSHOT"></input>
 	     <input type="hidden" name="comment" value="SCREENSHOT COMMENT"></input>
 	     <input type="hidden" name="contenttypemethod" value="autodetect"></input>
-             <div class="attach-file">
-	       <input type="file" name="data"></input>
-             </div>
-             <div class="attach-submit">
-	       <input type="submit" value="Upload"></input>
+             <div class="attach-file-and-submit">
+               <div class="attach-file">
+	         <input type="file" name="data" />
+	         <div class="attach-file-style">
+		   <div><input type="text" name="ignored"></input></div>
+		   <div class="attach-browse">Browse</div>
+	         </div>
+               </div>
+               <div class="attach-submit">
+	         <input type="submit" value="Upload"></input>
+               </div>
              </div>
 	  </form>
 	  <img title="screenshot" />
