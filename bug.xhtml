@@ -183,10 +183,10 @@
           $('.version').text(window.navigator.userAgent);
         } catch(e) {
         }
-        if($.browser.mozilla && parseInt($.browser.version) < 3) {
+        if($.browser.mozilla &amp;&amp; parseInt($.browser.version) &lt; 3) {
           unsupported = true;
         }          
-        if($.browser.opera && parseInt($.browser.version) < 11) {
+        if($.browser.opera &amp;&amp; parseInt($.browser.version) &lt; 11) {
           unsupported = true;
         }          
         if(unsupported) {
