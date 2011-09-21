@@ -146,10 +146,11 @@
 
         state_description: function() {
             var element = $('.state_description');
+            var template = $(".long", element).val();
             if(!element.hasClass('initialized')) {
                 var validate = function() {
                     if($(".short", element).val().length > 3 &&
-                       $(".long", element).val().length > 10) {
+                       $(".long", element).val() != template) {
                         $.bug.state_submit();
                     }
                 };
