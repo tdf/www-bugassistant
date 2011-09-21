@@ -216,6 +216,11 @@
                     show();
                 
             }});
+            // some browsers allow the input field to get focus, presumably to 
+            // type the filename. launch the browser instead.
+            $("input[type='file']", element).focus(function() {
+                $(this).click();
+            });
             $("input[type='file']", element).change(function() {
                 $("input[type='text']", element).val($(this).val());
             });
