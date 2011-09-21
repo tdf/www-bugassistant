@@ -258,7 +258,12 @@
             });
         },
 
+        compatibility: function() {
+            $('.left .step:last-child').addClass('last-child'); // cross browser compatibility
+        },
+
         main: function() {
+            $.bug.compatibility();
             $.bug.logged_in().done(function(status) {
                 if(status) {
                     $.bug.state_component();

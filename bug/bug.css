@@ -82,11 +82,11 @@ body {
     background: #FFF url('images/step-first-on.png') no-repeat top left;
 }
 
-.left .step:last-child {
+.left .step.last-child {
     background: #FFF url('images/step-last-off.png') no-repeat top left;
 }
 
-.left .step:last-child.current {
+.left .step.last-child.current {
     background: #FFF url('images/step-last-on.png') no-repeat top left;
 }
 
