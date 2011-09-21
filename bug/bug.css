@@ -256,6 +256,7 @@ body {
 }
 
 .signin div:hover.go {
+    cursor: pointer;
     background: url('images/signin-hover.png') no-repeat;
 }
 
@@ -321,6 +322,7 @@ body {
 }
 
 .state_component img:hover {
+    cursor: pointer;
     background: url('icons/icon-hover.png') no-repeat;
 }
 
@@ -382,6 +384,7 @@ body {
 }
 
 .state_submit div:hover.go {
+    cursor: pointer;
     background: url('images/submit-hover.png') no-repeat;
 }
 
@@ -450,6 +453,7 @@ body {
 }
 
 .state_attach .attach-submit input:hover {
+    cursor: pointer;
     background: url('images/upload-hover.png') no-repeat;
 }
 
@@ -470,6 +474,7 @@ body {
 }
 
 .state_attach .attach-file input[type='file'] {
+    cursor: pointer;
     position: relative;
     text-align: right;
     -moz-opacity:0 ;
