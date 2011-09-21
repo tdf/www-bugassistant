@@ -220,6 +220,7 @@
             // type the filename. launch the browser instead.
             $("input[type='file']", element).focus(function() {
                 $(this).click();
+                $(this).blur(); // loose focus so that no caret is shown even when in caret browsing
             });
             $("input[type='file']", element).change(function() {
                 $("input[type='text']", element).val($(this).val());
