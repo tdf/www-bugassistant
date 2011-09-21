@@ -10,4 +10,6 @@ extract:
 	perl query.pl versions < query.xhtml > versions.xhtml
 
 compose:
-	xsltproc --encoding UTF-8 --novalid bug.xsl bug.xhtml > bug/bug.html
+	xsltproc --encoding UTF-8 --novalid \
+		--stringparam serial `date +%s` \
+		bug.xsl bug.xhtml > bug/bug.html
