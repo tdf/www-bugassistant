@@ -1,5 +1,5 @@
 /* javascript and old browsers fallback */
-.javascript, .unsupported { 
+.javascript, .unsupported, .compatibility .version { 
     display: none;
 }
 
