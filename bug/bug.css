@@ -1,13 +1,13 @@
-/* javascript fallback */
-.javascript { 
+/* javascript and old browsers fallback */
+.javascript, .unsupported { 
     display: none;
 }
 
-.nojavascript .message {
+.compatibility .message {
     padding: 10px 0px 10px 50px;
 }
 
-.nojavascript .eyecandy {
+.compatibility .eyecandy {
     width: 500px;
     height: 116px;
     background: url('images/noscript.png') no-repeat top left;

@@ -21,13 +21,18 @@
     <link rel="stylesheet" href="bug.css" type="text/css" media="screen"></link>
   </head>
   <body>
-    <div class="nojavascript">
+    <div class="compatibility">
+      <div class="version message unsupported"></div>
+      <div class="message unsupported">This browser version is not supported and this page cannot be displayed properly.</div>
+      <div class="message nojavascript">JavaScript is disabled and this page cannot be displayed.</div>
       <div class="message">
-        JavaScript is disabled, use <a href="/enter_bug.cgi?product=LibreOffice;bug_status=UNCONFIRMED;version=?">bugzilla</a> to report a problem.
+        <p>Please use <a href="/enter_bug.cgi?product=LibreOffice;bug_status=UNCONFIRMED;version=?">bugzilla</a> instead to report a problem.</p>
+        <p>It works on all browsers and when JavaScript is disabled.</p>
       </div>
       <div class="eyecandy"></div>
     </div>
     <div class="javascript">
+      <div class="version"></div>
       <div class="skin"><a href="?skin=login">login</a> <a href="?skin=component">component</a> <a href="?skin=subcomponent">subcomponent</a> <a href="?skin=version">version</a> <a href="?skin=description">description</a> <a href="?skin=submit">submit</a> <a href="?skin=complete">complete</a> </div>
       <div class="header">
         <div class="title">Bug</div>
@@ -172,15 +177,30 @@
       </div>
     </div>
     <script>
+      var unsupported = false;
       $(document).ready(function() {
-        $('.nojavascript').hide();
-        $('.javascript').show();
-        if(location.search.indexOf('skin') >= 0) {
-          $.skin();
+        try {
+          $('.version').text(window.navigator.userAgent);
+        } catch(e) {
+        }
+        if(unsupported) {
+          $('.unsupported').show();
+          $('.nojavascript').hide();
         } else {
-          $.bug.main();
+          $('.compatibility').hide();
+          $('.javascript').show();
+          if(location.search.indexOf('skin') >= 0) {
+            $.skin();
+          } else {
+            $.bug.main();
+          }
         }
       });
     </script>
+    <!--[if LT IE  8]>
+        <script>
+          unsupported = true;
+        </script>
+    <![endif]-->
   </body>
 </html>
