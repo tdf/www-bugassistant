@@ -244,7 +244,7 @@ body {
 }
 
 .signin .go {
-    margin: 20px 15px 10px auto;
+    margin: 10px 15px 10px auto;
     background: url('images/signin.png') no-repeat;
     width: 163px;
     height: 49px;
