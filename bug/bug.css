@@ -286,7 +286,6 @@ body {
     width: 210px;
     height: 160px;
     background: url('images/comment.png') no-repeat;
-    float: right;
     padding: 5px 10px;
     font-size: 12px;
 }
