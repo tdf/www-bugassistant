@@ -179,7 +179,7 @@
             if(!element.hasClass('initialized')) {
                 $('.go', element).click(function() {
                     var version = $('.state_version .chosen').attr('data');
-                    var component = $('.state_component .chosen').text();
+                    var component = $('.state_component .chosen').attr('data').replace('_',' ');
                     var short_desc = $('.state_subcomponent .active_subcomponent .chosen').attr('data') + ': ' + $('.state_description .short').val();
                     var comment = $('.state_description .long').val();
                     $("body").css("cursor", "progress");
