@@ -195,7 +195,8 @@
                         component: component,
                         version: version,
                         short_desc: short_desc,
-                        comment: comment
+                        comment: comment,
+                        status_whiteboard: 'BSA'
                     }).pipe(function(data) {
                         $("body").css("cursor", "default");
                         return $.bug.lookup_result(data,
