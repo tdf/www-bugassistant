@@ -52,7 +52,11 @@
         <a href="?skin=login">login</a> <a href="?skin=component">component</a> <a href="?skin=subcomponent">subcomponent</a> <a href="?skin=version">version</a> <a href="?skin=description">description</a> <a href="?skin=submit">submit</a> <a href="?skin=complete">complete</a>
       </div>
       <div class="header">
-        <div class="title">Bug</div>
+        <div class="title">
+          <div>Bug</div>
+          <div>Submission</div>
+          <div>Assistant</div>
+        </div>
         <div class="submission">
           Thank you for using LibreOffice, we regret that you seem to have found a problem in our software, so that you decided to report a bug. This assistant will lead you step by step through the bug report process.
         </div>
@@ -69,7 +73,7 @@
             <div class="step step_attach"><div class="count">7</div><div class="label">Attach</div></div>
           </div>
           <div class="copyright">
-            <a href="http://wiki.documentfoundation.org/Bug_Submission_Assistant">Bug Submission Assistant</a> is copyright (C) 2011 Loic Dachary published under <a href="http://www.gnu.org/licenses/gpl.txt">GNU GPLv3+</a> : download the <a href="bug.js">sources</a>.
+            <a href="http://wiki.documentfoundation.org/Bug_Submission_Assistant">Bug Submission Assistant</a> is copyright (C) 2011 Loic Dachary published under <a href="http://www.gnu.org/licenses/gpl.txt">GNU GPLv3+</a>. Download the sources with git clone <a href="http://cgit.freedesktop.org/libreoffice/website">http://cgit.freedesktop.org/libreoffice/website</a>.
           </div>
         </div>
         <div class="right">
@@ -99,9 +103,9 @@
 	      Please login using your <a href="/">bugzilla account</a>.
 	    </div>
 	    <div class="signin-container">
-	      <div>User:</div>
+	      <div class="input-label">User:</div>
               <div class="signin-input"><input class='user' type="text" name="user"></input></div>
-              <div>Password:</div>
+              <div class="input-label">Password:</div>
               <div class="signin-input"><input class='password' type="password" name="password"></input></div>
 	      <div class="go">Sign in</div>
               <div class="signin-create">
@@ -120,27 +124,29 @@
                 <div class="components_icons">
                   <div><img src="icons/Libreoffice.png" title="BASIC" data="BASIC" alt="BASIC" /><img src="icons/Chart.png" title="Chart" data="Chart" alt="Chart" /><img src="icons/Libreoffice.png" title="Contrib" data="contrib" alt="Contrib" /><img src="icons/Database.png" title="Database" data="Database" alt="Database" /><img src="icons/Documentation.png" title="Documentation" data="Documentation" alt="Documentation" /><img src="icons/Drawing.png" title="Drawing" data="Drawing" alt="Drawing" /></div><div><img src="icons/Extensions.png" title="Extensions" data="Extensions" alt="Extensions" /><img src="icons/Formula_editor.png" title="Formula" data="Formula_editor" alt="Formula" /><img src="icons/Installation.png" title="Installation" data="Installation" alt="Installation" /><img src="icons/Libreoffice.png" title="Libreoffice" data="Libreoffice" alt="Libreoffice" /><img src="icons/Libreoffice.png" title="Linguistic" data="Linguistic_component" alt="Linguistic" /><img src="icons/Libreoffice.png" title="Localization" data="Localization" alt="Localization" /></div><div><img src="icons/PDF_export.png" title="PDF export" data="PDF_export" alt="PDF export" /><img src="icons/Presentation.png" title="Presentation" data="Presentation" alt="Presentation" /><img src="icons/Spreadsheet.png" title="Spreadsheet" data="Spreadsheet" alt="Spreadsheet" /><img src="icons/Libreoffice.png" title="UI" data="UI" alt="UI" /><img src="icons/WRITER.png" title="WRITER" data="WRITER" alt="WRITER" /><img src="icons/WWW.png" title="WWW" data="WWW" alt="WWW" /></div>
                 </div>
-                <div>&component_comments;</div>
+                <div class="component_comments_container">&component_comments;</div>
               </div>
             </div>
 
             <div class="version_and_subcomponent">
               <div>
                 <div class="state state_subcomponent">
-                  Sub component <div class="active_subcomponent"></div>
+                  <div class="input-label">Sub component</div>
+                  <div class="active_subcomponent"></div>
                 </div>
               </div>
               <div>
                 <div class="state state_version">
-                  Version &versions;
+                  <div class="input-label">Version</div>
+                  &versions;
                 </div>
               </div>
             </div>
 
             <div class="state state_description">
-              <div class="subject">Subject:</div>
+              <div class="subject input-label">Subject:</div>
               <div class="subject-input"><input type="text" class="short" size="50"></input></div>
-              <div class="desciption">Long description:</div>
+              <div class="desciption input-label">Long description:</div>
               <div class="description-input"><textarea rows="10" cols="60" class="long">
 Problem description: 
 
@@ -173,7 +179,8 @@ Expected behavior:
           </div>
 
           <div class="state_success">
-            The bug report has been successfully submitted. You can edit it or add attachments using <a class="bug">the corresponding bugzilla page</a>.
+            <p>The bug report has been successfully submitted.</p>
+            <p>You can edit it or add attachments using <a class="bug">the corresponding bugzilla page</a>.</p>
           </div>
 
           <div class="state_attach">

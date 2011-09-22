@@ -102,10 +102,12 @@
             $.bug.current_step('component');
             element.show();
             $('.select', element).select();
-            $('.select .choice', element).click(function() {
+            $('.select .choice, img', element).hover(function() {
                 var component = $(this).attr('data');                
                 $('.comment', element).hide();
                 $('.comment.' + component, element).show();
+            });
+            $('.select .choice', element).click(function() {
                 $.bug.state_subcomponent();
             });
             $('img', element).click(function() {

@@ -131,6 +131,7 @@ test("state_component", function() {
     equal($('.comment.BASIC', element).css('display'), 'none', 'BASIC hidden');
     equal($('.comment.OTHER', element).css('display'), 'none', 'OTHER hidden');
     $(".component .choice[data='BASIC']", element).click();
+    $(".component .choice[data='BASIC']", element).mouseenter();
     equal($('.comment.BASIC', element).css('display'), 'block', 'BASIC is visible');
     equal($('.comment.OTHER', element).css('display'), 'none', 'OTHER hidden');
 

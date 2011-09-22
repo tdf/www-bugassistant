@@ -32,8 +32,13 @@
 body {
     margin: 0;
     background-color: #fff;
+    color: #616161;
     height: 1024px;
     font-family: helvetica, arial;
+}
+
+.input-label {
+    padding-left: 7px;
 }
 
 .header {
@@ -45,11 +50,11 @@ body {
 .header .title {
     vertical-align: top;
     font-weight: bold;
-    font-size: 36px;
+    font-size: 22px;
     display: inline-block;
     color: #FFF;
-    padding-top: 20px;
-    padding-left: 40px;
+    padding-top: 5px;
+    padding-left: 30px;
 }
 
 .header .submission {
@@ -58,7 +63,7 @@ body {
     width: 50%;
     font-size: 15px;
     padding-top: 10px;
-    padding-left: 140px;
+    padding-left: 120px;
     font-weight: bold;
 }
 
@@ -75,7 +80,6 @@ body {
     width: 255px;
     height: 100%;
     background: url('images/background-left.png') repeat-y;
-    font-family: helvetica, arial;
     font-size: 18px;
     font-weight: bold;
 }
@@ -107,10 +111,14 @@ body {
 }
 
 .left .count {
-    padding-top: 20px;
+    padding-top: 19px;
     padding-left: 30px;
     display: inline-block;
     color: #fff;
+}
+
+.left .current .count {
+    padding-left: 29px;
 }
 
 .left .label {
@@ -119,18 +127,24 @@ body {
     color: #9d9d9d;
 }
 
+.left .current .label {
+    color: #444;
+}
+
+/* copyright */
+
 .copyright {
-    padding: 100px 30px 0px 20px;
+    padding: 100px 30px 10px 20px;
     font-size: 8px;
-    color: #29a1e0;
+    color: #1ca608;
 }
 
 .copyright a {
-    color: #025587;
+    color: #7bd16e;
 }
 
 .copyright a:hover {
-    color: #29a1e0;
+    color: #1ca608;
 }
 
 .right {
@@ -253,10 +267,10 @@ body {
 
 .signin .signin-input input {
     background: url('images/login-input.png') no-repeat;
-    height: 42px;
-    width: 263px;
+    height: 32px;
+    width: 243px;
     border: 0;
-    padding: 5px;
+    padding: 5px 10px;
 }
 
 .signin .go {
@@ -297,6 +311,7 @@ body {
 
 .state_component > div > div {
     display: inline-block;
+    vertical-align: middle;
 }
 
 .state_component .comments {
@@ -305,6 +320,10 @@ body {
     background: url('images/comment.png') no-repeat;
     padding: 5px 10px;
     font-size: 12px;
+}
+
+.state_component .component_comments_container {
+    padding-left: 40px;
 }
 
 .state_component .comments .comment-header {
@@ -317,6 +336,10 @@ body {
 .state_component .comments .comment-text {
     height: 130px;
     overflow: auto;
+}
+
+.state_component .comments .comment-read-more {
+    text-align: right;
 }
 
 .state_component .comments .comment-read-more a {
@@ -368,17 +391,17 @@ body {
 .state_description .subject-input input {
     background: url('images/subject.png') no-repeat;
     height: 28px;
-    width: 548px;
+    width: 528px;
     border: 0;
-    padding: 5px;
+    padding: 5px 10px;
 }
 
 .state_description .description-input textarea {
     background: url('images/description.png') no-repeat;
     height: 240px;
-    width: 548px;
+    width: 528px;
     border: 0;
-    padding: 5px;
+    padding: 5px 10px;
 }
 
 /* state_submit */
@@ -415,15 +438,17 @@ body {
 }
 
 .state_duplicates a {
-    text-decoration: none;
-    color: #1d97e0;
+    color: #025587;
+}
+
+.state_duplicates a:hover {
+    color: #29a1e0;
 }
 
 /* state_success */
 .state_success {
     display: none;
     text-align: center;
-    padding: 30px;
     font-weight: bold;
 }
 
@@ -499,15 +524,16 @@ body {
     z-index: 2;
     width: 400px;
     height: 39px;
+    size: 150;
 }
 
 .state_attach .attach-file input[type='text'] {
     margin-top: 6px;
-    width: 242px;
+    width: 232px;
     height: 27px;
     background: url('images/upload-input.png') no-repeat;
     border: 0;
-    padding: 0;
+    padding: 0px 5px;
 }
 
 .state_attach .attach-browse {
@@ -534,14 +560,13 @@ body {
 /* select */
 .select .select-header {
     background: url('images/select-header.png') no-repeat;
-    padding: 5px;
+    padding: 5px 15px 5px 10px;
     height: 33px;
     line-height: 33px;
-    width: 250px;
+    width: 225px;
 }
 
 .select .select-header, .select .choice {
-    font-family: helvetica, arial;
     font-size: 18px;
     color: #b8af9e;
 }
