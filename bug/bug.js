@@ -229,7 +229,7 @@
                     show();
                 
             }});
-            if($.browser.ie) {
+            if($.browser.msie) {
                 // ie allow the input field to get focus, presumably to 
                 // type the filename. launch the browser instead.
                 $("input[type='file']", element).focus(function() {
