@@ -128,11 +128,11 @@ test("state_component", function() {
     $.bug.state_component();
     equal(element.css('display'), 'block');
     equal($('.component .chosen', element).attr('data'), undefined, 'initialy nothing selected');
-    equal($('.comment.BASIC', element).css('display'), 'none', 'BASIC hidden');
+    equal($('.comment.Formula_editor', element).css('display'), 'none', 'Formula_editor hidden');
     equal($('.comment.OTHER', element).css('display'), 'none', 'OTHER hidden');
-    $(".component .choice[data='BASIC']", element).click();
-    $(".component .choice[data='BASIC']", element).mouseenter();
-    equal($('.comment.BASIC', element).css('display'), 'block', 'BASIC is visible');
+    $(".component .choice[data='Formula_editor']", element).click();
+    $(".component .choice[data='Formula_editor']", element).mouseenter();
+    equal($('.comment.Formula_editor', element).css('display'), 'block', 'Formula_editor is visible');
     equal($('.comment.OTHER', element).css('display'), 'none', 'OTHER hidden');
 
     $.bug.state_subcomponent = state_subcomponent;
@@ -149,11 +149,11 @@ test("state_subcomponent", function() {
     var element = $('.state_subcomponent');
     equal(element.css('display'), 'none');
     equal($('.active_subcomponent .select', element).length, 0, 'no .select element');
-    $(".component .chosen").attr('data', 'BASIC');
+    $(".component .chosen").attr('data', 'Formula_editor');
     $.bug.state_subcomponent();
     equal($('.active_subcomponent .select', element).length, 1, 'one .select element');
     equal(element.css('display'), 'block');
-    $(".active_subcomponent .subcomponent .choice[data='BASIC']", element).click();
+    $(".active_subcomponent .subcomponent .choice[data='Formula_editor']", element).click();
 
     $.bug.state_version = state_version;
     $.bug.refresh_related_bugs = refresh_related_bugs;
@@ -213,8 +213,9 @@ test("state_submit", function() {
     equal(element.css('display'), 'block');
     ok(element.hasClass('initialized'), 'is initialized');
     $.bug.state_component();
-    var component = 'BASIC';
+    var component = 'Formula_editor';
     $(".state_component .choice[data='" + component + "']").click();
+    var component_text = $(".state_component .chosen").text();
     var subcomponent = 'SUBCOMPONENT';
     $('.state_subcomponent .active_subcomponent .chosen').attr('data', subcomponent);
     $.bug.state_version();
@@ -226,7 +227,7 @@ test("state_submit", function() {
     $('.state_description .long').val(comment);
     var bug = '40763';
     $.bug.ajax = function(type, url, data) {
-        if(data.component == component &&
+        if(data.component == component_text &&
            data.version == version &&
            data.short_desc == subcomponent + ': ' + short_desc &&
            data.comment == comment) {
