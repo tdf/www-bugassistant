@@ -183,6 +183,7 @@
                     var short_desc = $('.state_subcomponent .active_subcomponent .chosen').attr('data') + ': ' + $('.state_description .short').val();
                     var comment = $('.state_description .long').val();
                     $("body").css("cursor", "progress");
+                    $('html, body').animate({scrollTop: '0px'}, 300);
                     $.bug.ajax('POST', '/post_bug.cgi', {
                         product: 'LibreOffice',
                         bug_status: 'UNCONFIRMED',
