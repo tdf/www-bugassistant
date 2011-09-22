@@ -219,12 +219,6 @@ Expected behavior:
           $('.version').text(window.navigator.userAgent);
         } catch(e) {
         }
-        if($.browser.mozilla &amp;&amp; parseInt($.browser.version) &lt; 3) {
-          unsupported = true;
-        }          
-        if($.browser.opera &amp;&amp; parseInt($.browser.version) &lt; 11) {
-          unsupported = true;
-        }          
         if(unsupported) {
           $('.unsupported').show();
           $('.nojavascript').hide();
