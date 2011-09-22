@@ -40,8 +40,14 @@
             });
         },
 
-        lookup_result: function(data, error_regexp, success_regexp) {
-            var error = data.match(error_regexp);
+        lookup_result: function(data, error_regexps, success_regexp) {
+            var error = null;
+            for(var i = 0; i < error_regexps.length; i++) {
+                error = data.match(error_regexps[i]);
+                if(error !== null) {
+                    break;
+                }
+            }
             if(error !== null) {
                 $.bug.error_set(error[1]);
                 throw error;
@@ -70,7 +76,7 @@
             $('.error-container').show();
         },
 
-        state_signin_error_regexp: 'class="throw_error">([^<]*)',
+        state_signin_error_regexps: ['class="throw_error">([^<]*)'],
         state_signin_success_regexp: 'Log&nbsp;out</a>([^<]*)',
 
         state_signin: function() {
@@ -84,7 +90,7 @@
                 }).pipe(function(data) {
                     $("body").css("cursor", "default");
                     return $.bug.lookup_result(data,
-                                               $.bug.state_signin_error_regexp,
+                                               $.bug.state_signin_error_regexps,
                                                $.bug.state_signin_success_regexp);
                 }).pipe(function(data) {
                     $('.username').html(data);
@@ -165,7 +171,7 @@
             }
         },
 
-        state_submit_error_regexp: 'font size="\\+2">([^<]*)',
+        state_submit_error_regexps: ['class="throw_error">([^<]*)', 'font size="\\+2">([^<]*)'],
         state_submit_success_regexp: 'title>Bug ([0-9]+)',
 
         state_submit: function() {
@@ -192,7 +198,7 @@
                     }).pipe(function(data) {
                         $("body").css("cursor", "default");
                         return $.bug.lookup_result(data,
-                                                   $.bug.state_submit_error_regexp,
+                                                   $.bug.state_submit_error_regexps,
                                                    $.bug.state_submit_success_regexp);
                     }).pipe(function(data) {
                         $('.bug', element).text(data);
@@ -206,7 +212,7 @@
             }
         },
 
-        state_attach_error_regexp: 'class="throw_error">([^<]*)',
+        state_attach_error_regexps: ['class="throw_error">([^<]*)'],
         state_attach_success_regexp: 'Attachment #([0-9]+)',
 
         state_attach: function() {
@@ -215,7 +221,7 @@
             $('.bug', element).val(bug);
             $('form', element).iframePostForm({ complete: function(data) {
                 var attachment = $.bug.lookup_result(data,
-                                                     $.bug.state_attach_error_regexp,
+                                                     $.bug.state_attach_error_regexps,
                                                      $.bug.state_attach_success_regexp);
                 $('img', element).
                     attr('src', '/attachment.cgi?id=' + attachment).

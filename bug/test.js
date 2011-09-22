@@ -54,7 +54,7 @@ test("lookup_result", function() {
 
     // error
     try {
-        $.bug.lookup_result('ERR_' + what + '_OR', error_regexp, success_regexp);
+        $.bug.lookup_result('ERR_' + what + '_OR', [error_regexp], success_regexp);
     } catch(e) {
         equal(e[1], what);
         equal($('.error').text(), what);
@@ -65,7 +65,7 @@ test("lookup_result", function() {
     // output is not as expected
     var bugous = 'BUGOUS OUTPUT';
     try {
-        $.bug.lookup_result(bugous, error_regexp, success_regexp);
+        $.bug.lookup_result(bugous, [error_regexp], success_regexp);
     } catch(ee) {
         equal(ee, bugous);
         ok($('.error').text().indexOf(success_regexp) >= 0, 'error displayed');
@@ -74,7 +74,7 @@ test("lookup_result", function() {
     ok(caught, 'caught exception');
 
     // success
-    equal($.bug.lookup_result('SUC_' + value + '_ESS', error_regexp, success_regexp), value);
+    equal($.bug.lookup_result('SUC_' + value + '_ESS', [error_regexp], success_regexp), value);
 });
 
 test("state_signin", function() {
@@ -201,7 +201,7 @@ test("state_description", function() {
 });
 
 test("state_submit", function() {
-    expect(11);
+    expect(14);
 
     var state_success = $.bug.state_success;
     $.bug.state_success = function() { ok(true, 'state_success'); };
@@ -238,18 +238,21 @@ test("state_submit", function() {
 
     var error = ' ERROR ';
     equal($('.error').text(), '', 'error is not set');
-    $.bug.ajax = function(type, url, data) {
-        return $.Deferred().resolve('<table cellpadding="20">   <tr>    <td bgcolor="#ff0000">      <font size="+2">' + error + '</font>   </td>  </tr> </table>');
-    };
-    var caught = false;
-    try {
-        $('.go', element).click();
-    } catch(e) {
-        equal($('.error').text(), error);
-        equal(e[1], error);
-        caught = true;
-    }
-    ok(caught, 'caught');
+
+    $(['<table cellpadding="20">   <tr>    <td bgcolor="#ff0000">      <font size="+2">' + error + '</font>   </td>  </tr> </table>', 'class="throw_error">' + error + '<']).each(function(index, str) {
+        $.bug.ajax = function(type, url, data) {
+            return $.Deferred().resolve(str);
+        };
+        var caught = false;
+        try {
+            $('.go', element).click();
+        } catch(e) {
+            equal($('.error').text(), error, 'text ' + str);
+            equal(e[1], error, 'catch ' + str);
+            caught = true;
+        }
+        ok(caught, 'caught', str);
+    });
     equal($('.error').text(), error, 'error is set');
     $.bug.ajax = $.ajax;
 
