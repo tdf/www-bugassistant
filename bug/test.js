@@ -131,7 +131,6 @@ test("state_component", function() {
     equal($('.comment.Formula_editor', element).css('display'), 'none', 'Formula_editor hidden');
     equal($('.comment.OTHER', element).css('display'), 'none', 'OTHER hidden');
     $(".component .choice[data='Formula_editor']", element).click();
-    $(".component .choice[data='Formula_editor']", element).mouseenter();
     equal($('.comment.Formula_editor', element).css('display'), 'block', 'Formula_editor is visible');
     equal($('.comment.OTHER', element).css('display'), 'none', 'OTHER hidden');
 
