@@ -179,6 +179,11 @@
             var element = $('.state_submit');
             if(!element.hasClass('initialized')) {
                 $('.go', element).click(function() {
+                    if($(element).hasClass('inprogress')) {
+                        return;
+                    } else {
+                        $(element).addClass('inprogress');
+                    }
                     var version = $('.state_version .chosen').attr('data');
                     var component = $('.state_component .chosen').attr('data').replace('_',' ');
                     var short_desc = $('.state_subcomponent .active_subcomponent .chosen').attr('data') + ': ' + $('.state_description .short').val();
@@ -199,6 +204,7 @@
                         comment: comment,
                         status_whiteboard: 'BSA'
                     }).pipe(function(data) {
+                        $(element).removeClass('inprogress');
                         $("body").css("cursor", "default");
                         return $.bug.lookup_result(data,
                                                    $.bug.state_submit_error_regexps,

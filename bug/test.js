@@ -200,7 +200,7 @@ test("state_description", function() {
 });
 
 test("state_submit", function() {
-    expect(14);
+    expect(16);
 
     var state_success = $.bug.state_success;
     $.bug.state_success = function() { ok(true, 'state_success'); };
@@ -226,6 +226,8 @@ test("state_submit", function() {
     $('.state_description .long').val(comment);
     var bug = '40763';
     $.bug.ajax = function(type, url, data) {
+        ok(element.hasClass('inprogress'), 'is in progress');
+        $('.go', element).click(); // noop
         if(data.component == component_text &&
            data.version == version &&
            data.short_desc == subcomponent + ': ' + short_desc &&
@@ -235,6 +237,7 @@ test("state_submit", function() {
     };
     $('.go', element).click();
     equal($('.bug', element).text(), bug, 'bug number');
+    ok(!element.hasClass('inprogress'), 'is no longer progress');
 
     var error = ' ERROR ';
     equal($('.error').text(), '', 'error is not set');
