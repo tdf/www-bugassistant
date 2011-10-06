@@ -160,6 +160,7 @@
                 var validate = function() {
                     if($(".short", element).val().length > 3 &&
                        $(".long", element).val() != template) {
+                        $.bug.state_attach();
                         $.bug.state_submit();
                     }
                 };
@@ -172,71 +173,8 @@
             }
         },
 
-        state_submit_error_regexps: ['class="throw_error">([^<]*)', 'font size="\\+2">([^<]*)'],
-        state_submit_success_regexp: 'title>Bug ([0-9]+)',
-
-        state_submit: function() {
-            var element = $('.state_submit');
-            if(!element.hasClass('initialized')) {
-                $('.go', element).click(function() {
-                    if($(element).hasClass('inprogress')) {
-                        return;
-                    } else {
-                        $(element).addClass('inprogress');
-                    }
-                    var version = $('.state_version .chosen').attr('data');
-                    var component = $('.state_component .chosen').attr('data').replace('_',' ');
-                    var short_desc = $('.state_subcomponent .active_subcomponent .chosen').attr('data') + ': ' + $('.state_description .short').val();
-                    var comment = $('.state_description .long').val();
-                    $("body").css("cursor", "progress");
-                    $('html, body').animate({scrollTop: '0px'}, 300);
-                    $.bug.ajax('POST', '/post_bug.cgi', {
-                        product: 'LibreOffice',
-                        bug_status: 'UNCONFIRMED',
-                        rep_platform: 'Other',
-                        op_sys: 'All',
-                        bug_severity: 'normal',
-                        priority: 'medium',
-                        assigned_to: 'libreoffice-bugs@lists.freedesktop.org',
-                        component: component,
-                        version: version,
-                        short_desc: short_desc,
-                        comment: comment,
-                        status_whiteboard: 'BSA'
-                    }).pipe(function(data) {
-                        $(element).removeClass('inprogress');
-                        $("body").css("cursor", "default");
-                        return $.bug.lookup_result(data,
-                                                   $.bug.state_submit_error_regexps,
-                                                   $.bug.state_submit_success_regexp);
-                    }).pipe(function(data) {
-                        $('.bug', element).text(data);
-                        $.bug.state_success();
-                        $.bug.state_attach();
-                    });
-                });
-                element.addClass('initialized');
-                $.bug.current_step('submit');
-                element.show();
-            }
-        },
-
-        state_attach_error_regexps: ['class="throw_error">([^<]*)'],
-        state_attach_success_regexp: 'Attachment #([0-9]+)',
-
         state_attach: function() {
             var element = $('.state_attach');
-            var bug = $('.state_submit .bug').text();
-            $('.bug', element).val(bug);
-            $('form', element).iframePostForm({ complete: function(data) {
-                var attachment = $.bug.lookup_result(data,
-                                                     $.bug.state_attach_error_regexps,
-                                                     $.bug.state_attach_success_regexp);
-                $('img', element).
-                    attr('src', '/attachment.cgi?id=' + attachment).
-                    show();
-                
-            }});
             if($.browser.msie) {
                 // ie allow the input field to get focus, presumably to 
                 // type the filename. launch the browser instead.
@@ -246,10 +184,53 @@
                 });
             }
             $("input[type='file']", element).change(function() {
-                $("input[type='text']", element).val($(this).val());
+                $("input[name='ignored']", element).val($(this).val());
             });
             $.bug.current_step('attach');
             element.show();
+        },
+
+        state_submit_error_regexps: ['class="throw_error">([^<]*)', 'font size="\\+2">([^<]*)'],
+        state_submit_success_regexp: 'title>Bug ([0-9]+)',
+        state_submit_element: 'html',
+
+        state_submit: function() {
+            var element = $('.state_submit');
+            if(!element.hasClass('initialized')) {
+                var form = $('.submission_form');
+                form.submit(function() {
+                    if($(element).hasClass('inprogress')) {
+                        return false;
+                    } else {
+                        $(element).addClass('inprogress');
+                    }
+                    var version = $('.state_version .chosen').attr('data');
+                    var component = $('.state_component .chosen').attr('data').replace('_',' ');
+                    var short_desc = $('.state_subcomponent .active_subcomponent .chosen').attr('data') + ': ' + $('.state_description .short').val();
+                    var comment = $('.state_description .long').val();
+                    $("body").css("cursor", "progress");
+                    $('html, body').animate({scrollTop: '0px'}, 300);
+                    $('input[name="component"]', form).val(component);
+                    $('input[name="version"]', form).val(version);
+                    $('input[name="short_desc"]', form).val(short_desc);
+                    $('input[name="comment"]', form).val(comment);
+                    return true;
+                });
+
+                $('#submissionoutput').load(function() {
+                    $(element).removeClass('inprogress');
+                    $("body").css("cursor", "default");
+                    var output = $(this).contents().find($.bug.state_submit_element).html();
+                    var data = $.bug.lookup_result(output,
+                                                   $.bug.state_submit_error_regexps,
+                                                   $.bug.state_submit_success_regexp);
+                    $('.bug', element).text(data);
+                    $.bug.state_success();
+                });
+                element.addClass('initialized');
+                $.bug.current_step('submit');
+                element.show();
+            }
         },
 
         state_success: function() {

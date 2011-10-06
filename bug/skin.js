@@ -62,8 +62,6 @@
           submit();
       } else if(location.search.indexOf('skin=complete') >= 0) {
           $.bug.state_success();
-          $.bug.state_attach();
-          $('.state_attach img').attr('src', 'icons/Database.png');
       }
   };
 

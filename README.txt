@@ -36,19 +36,6 @@ It contains parts:
  * Date: Thu Jun 30 14:16:56 2011 -0400
  */
 
-/**
- * jQuery plugin for posting form including file inputs.
- * 
- * Copyright (c) 2010 - 2011 Ewen Elder
- *
- * Licensed under the MIT and GPL licenses:
- * http://www.opensource.org/licenses/mit-license.php
- * http://www.gnu.org/licenses/gpl.html
- *
- * @author: Ewen Elder <ewen at jainaewen dot com> <glomainn at yahoo dot co dot uk>
- * @version: 1.1.1 (2011-07-29)
-**/
-
 /*
  * QUnit - A JavaScript Unit Testing Framework
  * 

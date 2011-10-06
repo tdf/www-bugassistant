@@ -200,7 +200,7 @@ test("state_description", function() {
 });
 
 test("state_submit", function() {
-    expect(16);
+    expect(25);
 
     var state_success = $.bug.state_success;
     $.bug.state_success = function() { ok(true, 'state_success'); };
@@ -224,31 +224,36 @@ test("state_submit", function() {
     $('.state_description .short').val(short_desc);
     var comment = 'LONG';
     $('.state_description .long').val(comment);
+
     var bug = '40763';
-    $.bug.ajax = function(type, url, data) {
+    var form = $('.submission_form');
+
+    form.submit(function() {
         ok(element.hasClass('inprogress'), 'is in progress');
-        $('.go', element).click(); // noop
-        if(data.component == component_text &&
-           data.version == version &&
-           data.short_desc == subcomponent + ': ' + short_desc &&
-           data.comment == comment) {
-            return $.Deferred().resolve('<title>Bug ' + bug + ' Submitted');
-        }
-    };
-    $('.go', element).click();
+        equal($('input[name="component"]', form).val(), component_text);
+        equal($('input[name="version"]', form).val(), version);
+        equal($('input[name="short_desc"]', form).val(), subcomponent + ': ' + short_desc);
+        equal($('input[name="comment"]', form).val(), comment);
+        return false; // prevent actual submission
+    });
+    form.submit();
+    form.submit(); // noop
+    
+    $.bug.state_submit_element = 'div'; // because <html> can't be inserted in the dom
+
+    $('#submissionoutput').html('<div><div><title>Bug ' + bug + ' Submitted</title></div></div>');
+    $('#submissionoutput').load();
     equal($('.bug', element).text(), bug, 'bug number');
     ok(!element.hasClass('inprogress'), 'is no longer progress');
 
     var error = ' ERROR ';
     equal($('.error').text(), '', 'error is not set');
 
-    $(['<table cellpadding="20">   <tr>    <td bgcolor="#ff0000">      <font size="+2">' + error + '</font>   </td>  </tr> </table>', 'class="throw_error">' + error + '<']).each(function(index, str) {
-        $.bug.ajax = function(type, url, data) {
-            return $.Deferred().resolve(str);
-        };
+    $(['<div><div><table cellpadding="20">   <tr>    <td bgcolor="#ff0000">      <font size="+2">' + error + '</font>   </td>  </tr> </table></div></div>', '<div><div><div class="throw_error">' + error + '</div></div></div>']).each(function(index, str) {
+        $('#submissionoutput').html(str);
         var caught = false;
         try {
-            $('.go', element).click();
+            $('#submissionoutput').load();
         } catch(e) {
             equal($('.error').text(), error, 'text ' + str);
             equal(e[1], error, 'catch ' + str);
@@ -257,7 +262,6 @@ test("state_submit", function() {
         ok(caught, 'caught', str);
     });
     equal($('.error').text(), error, 'error is set');
-    $.bug.ajax = $.ajax;
 
     $.bug.state_success = state_success;
 });
@@ -277,45 +281,13 @@ test("state_success", function() {
 });
 
 test("state_attach", function() {
-    expect(8);
+    expect(2);
 
-    var bug = '4242';
-    var data;
-    var iframePostForm = $.fn.iframePostForm;
-    $.fn.iframePostForm = function(options) {
-	return $(this).each(function () {
-            $(this).submit(function() {
-                options.complete(data);
-                return false;
-            });
-        });
-    };
     var element = $('.state_attach');
     equal(element.css('display'), 'none');
-    equal($('.submission').css('display'), 'block');
-    $('.state_submit .bug').text(bug);
     $.bug.state_attach();
     equal(element.css('display'), 'block');
-    equal($('.bug', element).val(), bug);
 
-    var error = 'ERROR';
-    data = ' ... class="throw_error">' + error + '<';
-    var caught = false;
-    try {
-        $('form', element).submit();
-    } catch(e) {
-        equal($('.error').text(), error);
-        equal(e[1], error);
-        caught = true;
-    }
-    ok(caught, 'caught');
-
-    var attachment = '888';
-    data = 'Attachment #' + attachment;
-    $('form', element).submit();
-    ok($('img', element).attr('src').indexOf(attachment) > 0, 'found attachment ' + attachment);
-
-    $.fn.iframePostForm = iframePostForm;
 });
 
 test("logged_in", function() {

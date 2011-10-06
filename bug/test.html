@@ -21,7 +21,6 @@
   <title>Bug Filing Form</title>
   <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
   <script type="text/javascript" src="jquery-1.6.2.js"></script>
-  <script type="text/javascript" src="jquery.iframe-post-form.js"></script>
   <script type="text/javascript" src="bug.js"></script>
   <link rel="stylesheet" href="bug.css" type="text/css" media="screen"></link>
   <script type="text/javascript" src="select.js"></script>
@@ -51,7 +50,7 @@
     </div>
 
     <div class="state_component">
-      <div xmlns="" class="component select">
+      <div class="component select">
         <div class="select-header">
           <div class="chosen">(chose one)</div>
         </div>
@@ -128,9 +127,36 @@
       <textarea class="long"></textarea>
     </div>
 
-    <div class="state state_submit">
-      <div class="go"></div>
-      <div class="bug"></div>
+    <div id="submissionoutput" name="submissionoutput"></div>
+
+    <div class="submission_form">
+      <form action='/post_bug.cgi' target="submissionoutput" method='POST' enctype='multipart/form-data'>
+        <input type="hidden" name="product" value="LibreOffice"></input>
+        <input type="hidden" name="bug_status" value="UNCONFIRMED"></input>
+        <input type="hidden" name="rep_platform" value="Other"></input>
+        <input type="hidden" name="op_sys" value="All"></input>
+        <input type="hidden" name="bug_severity" value="normal"></input>
+        <input type="hidden" name="priority" value="medium"></input>
+        <input type="hidden" name="rep_platform" value="Other"></input>
+        <input type="hidden" name="status_whiteboard" value="BSA"></input>
+        <input type="hidden" name="assigned_to" value="libreoffice-bugs@lists.freedesktop.org"></input>
+        <input type="hidden" name="component" value=""></input>
+        <input type="hidden" name="version" value=""></input>
+        <input type="hidden" name="short_desc" value=""></input>
+        <input type="hidden" name="comment" value=""></input>
+        <div class="state_attach">
+          <input type="hidden" name="contenttypemethod" value="autodetect"></input>
+          <input type="text" name="ignored" value=""></input>
+          <input type="text" name="description" value=""></input>
+          <input type="file" name="data"></input>
+        </div>
+        <div class="state state_submit">
+	  <input type="submit" value="Submit"></input>
+        </div>
+      </form>
+      <div class="state state_submit">
+        <div class="bug"></div>
+      </div>
     </div>
 
     <div class="submission">
@@ -138,18 +164,6 @@
 
     <div class="state state_success">
       <a class="bug"></a>
-    </div>
-
-    <div class="state_attach">
-      <form action='/attachment.cgi' method='POST' enctype='multipart/form-data'>
-	<input type="hidden" name="action" value="insert"></input>
-	<input class="bug" type="hidden" name="bugid"></input>
-	<input type="hidden" name="comment" value="SCREENSHOT"></input>
-	<input type="hidden" name="contenttypemethod" value="autodetect"></input>
-	<input type="file" name="data"></input>
-	<input type="submit" value="Upload"></input>
-      </form>
-      <img alt="SCREENSHOT" title="SCREENSHOT" />
     </div>
 
   </div>
