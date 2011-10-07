@@ -35,8 +35,6 @@ sub parse {
     close(QUERY);
 
     foreach (@{$cpts[$libreoffice]}) {
-        # 
-        next if($_ eq 'BugAssistantTest');
         $bugzilla2wiki{$_} = 0;
     }
 
