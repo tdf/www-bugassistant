@@ -23,9 +23,13 @@ extract:
 	xsltproc --encoding UTF-8 --novalid subcomponents.xsl BugReport_Details.xhtml > subcomponents.xhtml
 	xsltproc --encoding UTF-8 --novalid components.xsl BugReport_Details.xhtml > components.xhtml
 	curl --silent 'https://bugs.freedesktop.org/query.cgi?product=LibreOffice&query_format=advanced' > query.xhtml
-	perl query.pl versions < query.xhtml > versions.xhtml
+	perl query.pl < query.xhtml > versions.xhtml
+	perl sanity.pl query.xhtml components.xhtml
 
 compose:
 	xsltproc --encoding UTF-8 --novalid \
 		--stringparam serial `date +%s` \
 		bug.xsl bug.xhtml > bug/bug.html
+
+check:
+	perl sanity.pl TEST

@@ -30,9 +30,8 @@ while(<STDIN>) {
 
 print "<?xml version='1.0' encoding='ISO-8859-1'?>\n";
 
-if($ARGV[0] eq 'versions') {
-    @versions = sort(@{$vers[$libreoffice]});
-    print <<EOF;
+@versions = sort(@{$vers[$libreoffice]});
+print <<EOF;
 	  <div class="versions select">
             <div class="select-header">
               <div class="chosen">(chose one)</div>
@@ -62,4 +61,4 @@ EOF
             </div>
 	  </div>
 EOF
-}
+
