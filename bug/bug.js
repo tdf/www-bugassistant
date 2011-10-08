@@ -194,7 +194,7 @@
             $("input[type='file']", element).change(function() {
                 // http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2009-March/018981.html
                 // in a nutshell : deal with it, it won't go away
-                var path = $(this).val().replace("C:\\fakepath\\","")
+                var path = $(this).val().replace("C:\\fakepath\\","");
                 $("input[name='ignored']", element).val(path);
             });
             $.bug.current_step('attach');
