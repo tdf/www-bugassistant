@@ -108,18 +108,24 @@
             $.bug.current_step('component');
             element.show();
             $('.select', element).select();
-            $('.select .choice', element).hover(function() {
+            $('.select .choice, img', element).hover(function() {
                 var component = $(this).attr('data');                
                 $('.comment', element).hide();
                 $('.comment.' + component, element).show();
             });
             $('.select .choice', element).click(function() {
                 $(this).mouseenter();
+                var component = $(this).attr('data');                
+                $('img', element).removeClass('selected');
+                $('img[data="' + component + '"]').addClass('selected');
                 $.bug.state_subcomponent();
             });
             $('img', element).click(function() {
                 var component = $(this).attr('data');                
                 $(".select .choice[data='" + component + "']", element).click();
+            });
+            $('.components_icons').mouseleave(function() {
+                $('img.selected', element).mouseenter();                
             });
         },
 

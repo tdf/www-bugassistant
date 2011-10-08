@@ -365,6 +365,11 @@ body {
     background: url('icons/icon-hover.png') no-repeat;
 }
 
+.state_component img.selected {
+    cursor: pointer;
+    background: url('icons/icon-selected.png') no-repeat;
+}
+
 /* state_subcomponent */
 .version_and_subcomponent > div {
     display: inline-block;

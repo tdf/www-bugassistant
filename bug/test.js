@@ -118,7 +118,7 @@ test("state_signin", function() {
 });
 
 test("state_component", function() {
-    expect(8);
+    expect(15);
 
     var state_subcomponent = $.bug.state_subcomponent;
     $.bug.state_subcomponent = function() { ok(true, 'state_subcomponent'); };
@@ -130,7 +130,19 @@ test("state_component", function() {
     equal($('.component .chosen', element).attr('data'), undefined, 'initialy nothing selected');
     equal($('.comment.Formula_editor', element).css('display'), 'none', 'Formula_editor hidden');
     equal($('.comment.OTHER', element).css('display'), 'none', 'OTHER hidden');
+    equal($('img.selected').length, 0, 'no icon selected');
+    // chosing Formula editor updates the comment, selects the icon and moves to subcomponent state
     $(".component .choice[data='Formula_editor']", element).click();
+    equal($('img[data="Formula_editor"].selected', element).length, 1, 'Formula editor icon selected');
+    equal($('.comment.Formula_editor', element).css('display'), 'block', 'Formula_editor is visible');
+    equal($('.comment.OTHER', element).css('display'), 'none', 'OTHER hidden');
+    // hovering on an icon changes the comment but has no effect on the selection
+    $('img[data="OTHER"]', element).mouseenter();
+    equal($('.comment.Formula_editor', element).css('display'), 'none', 'Formula_editor hidden');
+    equal($('.comment.OTHER', element).css('display'), 'block', 'OTHER is visible');
+    equal($('.component .chosen', element).attr('data'), 'Formula_editor');
+    // leaving the icon area reverts back the comment to the selected element
+    $('.components_icons', element).mouseleave();
     equal($('.comment.Formula_editor', element).css('display'), 'block', 'Formula_editor is visible');
     equal($('.comment.OTHER', element).css('display'), 'none', 'OTHER hidden');
 
