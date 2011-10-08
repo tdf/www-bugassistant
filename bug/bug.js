@@ -157,6 +157,8 @@
             var element = $('.state_description');
             var template = $(".long", element).val();
             if(!element.hasClass('initialized')) {
+                template = template + '\nBrowser: ' + window.navigator.userAgent;
+                $(".long", element).val(template);
                 var validate = function() {
                     if($(".short", element).val().length > 3 &&
                        $(".long", element).val() != template) {

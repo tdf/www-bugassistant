@@ -38,7 +38,6 @@
           version();
           $('.state_version .choice:nth(2)').click();
           $('.state_description .short').val('12');
-          $('.state_description .long').val('123456');
       }
       function submit() {
           description();
