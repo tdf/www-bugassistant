@@ -20,7 +20,7 @@
     <title>Load bug.html in a frame</title>
   </head>
   <body>
-    <script>var bugzilla_url = '/bugzilla';</script>
+    <script>var bugzilla_url = location.protocol + '//' + location.hostname + '/bugzilla';</script>
     <iframe src="bug.html?version=2" width="892" height="1600" frameborder="0"> </iframe>
   </body>
 </html>

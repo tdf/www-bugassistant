@@ -17,9 +17,11 @@
 module("bug");
 
 test("frame", function() {
-    expect(2);
+    expect(3);
 
-    bugzilla_url = 'BUGZILLA_URL';
+    var bugzilla_url = location.protocol + '//' + location.hostname;
+
+    equal(location.href.indexOf(bugzilla_url), 0, bugzilla_url);
 
     $.bug.window = {
         top: 'something',
