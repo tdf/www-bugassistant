@@ -18,6 +18,8 @@
 
     $.bug = {
 
+        window: window,
+
         ajax: function(type, url, args) {
             return $.ajax({
                 type: type,
@@ -75,6 +77,8 @@
             $('.error-container').show();
         },
 
+        url: '',
+
         state_signin_error_regexps: ['class="throw_error">([^<]*)'],
         state_signin_success_regexp: 'Log&nbsp;out</a>([^<]*)',
 
@@ -83,7 +87,7 @@
             $('.go', element).click(function() {
                 $("body").css("cursor", "progress");
                 $.bug.error_clear();
-                $.bug.ajax('POST', '/index.cgi', {
+                $.bug.ajax('POST', $.bug.url + '/index.cgi', {
                     Bugzilla_login: $('.user', element).val(),
                     Bugzilla_password: $('.password', element).val()
                 }).pipe(function(data) {
@@ -248,7 +252,7 @@
             $('.submission').hide();
             var element = $('.state_success');
             var bug = $('.state_submit .bug').text();
-            $('.bug', element).attr('href', '/show_bug.cgi?id=' + bug);
+            $('.bug', element).attr('href', $.bug.url + '/show_bug.cgi?id=' + bug);
             element.show();
         },
 
@@ -258,7 +262,7 @@
 
         logged_in: function() {
             $("body").css("cursor", "progress");
-            return $.bug.ajax('GET', '/enter_bug.cgi').pipe(function(data) {
+            return $.bug.ajax('GET', $.bug.url + '/enter_bug.cgi').pipe(function(data) {
                 $("body").css("cursor", "default");
                 return data.indexOf($.bug.logged_in_false) < 0;
             });
@@ -268,7 +272,7 @@
             $('.related_bugs').empty();
             var component = $('.state_component .chosen').attr('data').replace('_','%20');
             var subcomponent = $('.state_subcomponent .active_subcomponent .chosen').attr('data');
-            var list = '/buglist.cgi?columnlist=short_desc&component=' + component + '&product=LibreOffice&query_format=advanced&short_desc_type=allwordssubstr&ctype=csv&short_desc=' + subcomponent;
+            var list = $.bug.url + '/buglist.cgi?columnlist=short_desc&component=' + component + '&product=LibreOffice&query_format=advanced&short_desc_type=allwordssubstr&ctype=csv&short_desc=' + subcomponent;
             $.bug.ajax('GET', list).pipe(function(data) {
                 var lines = data.split('\n');
                 var bug_urls = [];
@@ -283,8 +287,15 @@
             $('.left .step:last-child').addClass('last-child'); // cross browser compatibility
         },
 
+        frame: function() {
+            if($.bug.window != $.bug.window.top && $.bug.window.parent.bugzilla_url !== undefined) {
+                $.bug.url = $.bug.window.parent.bugzilla_url;
+            }
+        },
+
         main: function() {
             $.bug.compatibility();
+            $.bug.frame();
             $.bug.logged_in().done(function(status) {
                 if(status) {
                     $.bug.state_component();

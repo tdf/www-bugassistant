@@ -16,6 +16,21 @@
 //
 module("bug");
 
+test("frame", function() {
+    expect(2);
+
+    bugzilla_url = 'BUGZILLA_URL';
+
+    $.bug.window = {
+        top: 'something',
+        parent: { bugzilla_url: bugzilla_url }
+    };
+
+    equal($.bug.url, '');
+    $.bug.frame();
+    equal($.bug.url, bugzilla_url);
+});
+
 test("ajax", function() {
     expect(4);
 
