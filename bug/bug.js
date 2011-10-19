@@ -18,12 +18,11 @@
 
     $.bug = {
 
-        ajax: function(type, url, args, callback) {
+        ajax: function(type, url, args) {
             return $.ajax({
                 type: type,
                 url: url,
-                data: args,
-                success: callback
+                data: args
             }).pipe(null, function(error) {
                 var message = url + '(' + $.param(args) + ') XHR error. ';
                 if('status' in error) {
@@ -220,6 +219,7 @@
                     var short_desc = $('.state_subcomponent .active_subcomponent .chosen').attr('data') + ': ' + $('.state_description .short').val();
                     var comment = $('.state_description .long').val();
                     $("body").css("cursor", "progress");
+                    // http://stackoverflow.com/questions/1852518/how-to-get-scrolltop-of-an-iframe
                     $('html, body').animate({scrollTop: '0px'}, 300);
                     $('input[name="component"]', form).val(component);
                     $('input[name="version"]', form).val(version);
