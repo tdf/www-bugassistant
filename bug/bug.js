@@ -211,7 +211,7 @@
         state_submit: function() {
             var element = $('.state_submit');
             if(!element.hasClass('initialized')) {
-                var form = $('.submission_form');
+                var form = $('.submission_form form');
                 form.attr('action', $.bug.url + '/post_bug.cgi');
                 form.submit(function() {
                     if($(element).hasClass('inprogress')) {

@@ -253,7 +253,7 @@ test("state_submit", function() {
     $('.state_description .long').val(comment);
 
     var bug = '40763';
-    var form = $('.submission_form');
+    var form = $('.submission_form form');
 
     form.submit(function() {
         ok(element.hasClass('inprogress'), 'is in progress');
