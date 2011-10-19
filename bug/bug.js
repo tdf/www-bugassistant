@@ -176,8 +176,8 @@
                     }
                 };
 
-                $(".short", element).change(function() { validate(); });
-                $(".long", element).keyup(function() { validate(); });
+                $(".short", element).change(validate);
+                $(".long", element).keyup(validate);
                 element.addClass('initialized');
                 $.bug.current_step('description');
                 element.show();
@@ -186,22 +186,25 @@
 
         state_attach: function() {
             var element = $('.state_attach');
-            if($.browser.msie) {
-                // ie allow the input field to get focus, presumably to 
-                // type the filename. launch the browser instead.
-                $("input[type='file']", element).focus(function() {
-                    $(this).click();
-                    $(this).blur(); // loose focus so that no caret is shown even when in caret browsing
+            if(!element.hasClass('initialized')) {
+                if($.browser.msie) {
+                    // ie allow the input field to get focus, presumably to 
+                    // type the filename. launch the browser instead.
+                    $("input[type='file']", element).focus(function() {
+                        $(this).click();
+                        $(this).blur(); // loose focus so that no caret is shown even when in caret browsing
+                    });
+                }
+                $("input[type='file']", element).change(function() {
+                    // http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2009-March/018981.html
+                    // in a nutshell : deal with it, it won't go away
+                    var path = $(this).val().replace("C:\\fakepath\\","");
+                    $("input[name='ignored']", element).val(path);
                 });
+                element.addClass('initialized');
+                $.bug.current_step('attach');
+                element.show();
             }
-            $("input[type='file']", element).change(function() {
-                // http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2009-March/018981.html
-                // in a nutshell : deal with it, it won't go away
-                var path = $(this).val().replace("C:\\fakepath\\","");
-                $("input[name='ignored']", element).val(path);
-            });
-            $.bug.current_step('attach');
-            element.show();
         },
 
         state_submit_error_regexps: ['class="throw_error">([^<]*)', 'font size="\\+2">([^<]*)'],
