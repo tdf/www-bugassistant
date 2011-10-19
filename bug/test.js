@@ -227,7 +227,7 @@ test("state_description", function() {
 });
 
 test("state_submit", function() {
-    expect(25);
+    expect(27);
 
     var state_success = $.bug.state_success;
     $.bug.state_success = function() { ok(true, 'state_success'); };
@@ -257,6 +257,7 @@ test("state_submit", function() {
 
     form.submit(function() {
         ok(element.hasClass('inprogress'), 'is in progress');
+        ok(form.attr('action'), '/post_bug.cgi');
         equal($('input[name="component"]', form).val(), component_text);
         equal($('input[name="version"]', form).val(), version);
         equal($('input[name="short_desc"]', form).val(), subcomponent + ': ' + short_desc);
