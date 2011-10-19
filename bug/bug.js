@@ -224,8 +224,6 @@
                     var short_desc = $('.state_subcomponent .active_subcomponent .chosen').attr('data') + ': ' + $('.state_description .short').val();
                     var comment = $('.state_description .long').val();
                     $("body").css("cursor", "progress");
-                    // http://stackoverflow.com/questions/1852518/how-to-get-scrolltop-of-an-iframe
-                    $('html, body').animate({scrollTop: '0px'}, 300);
                     $('input[name="component"]', form).val(component);
                     $('input[name="version"]', form).val(version);
                     $('input[name="short_desc"]', form).val(short_desc);
@@ -250,7 +248,7 @@
         },
 
         state_success: function() {
-            $('.submission').hide();
+            $('.state_submit').hide();
             var element = $('.state_success');
             var bug = $('.state_submit .bug').text();
             $('.bug', element).attr('href', $.bug.url + '/show_bug.cgi?id=' + bug);

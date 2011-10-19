@@ -297,7 +297,7 @@ test("state_submit", function() {
 });
 
 test("state_success", function() {
-    expect(5);
+    expect(4);
 
     var bug = '4242';
     var element = $('.state_success');
@@ -306,7 +306,6 @@ test("state_success", function() {
     $('.state_submit .bug').text(bug);
     $.bug.state_success();
     equal(element.css('display'), 'block');
-    equal($('.submission').css('display'), 'none');
     ok($('.bug', element).attr('href').indexOf(bug) > 0, 'bug found');
 });
 
