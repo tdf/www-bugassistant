@@ -80,7 +80,7 @@
         url: '',
 
         state_signin_error_regexps: [/CLASS="THROW_ERROR">([^<]*)/i],
-        state_signin_success_regexp: /LOG&NBSP;OUT</A>([^<]*)/i,
+        state_signin_success_regexp: /LOG&NBSP;OUT<\/A>([^<]*)/i,
 
         state_signin: function() {
             var element = $('.signin');
@@ -207,7 +207,7 @@
             }
         },
 
-        state_submit_error_regexps: [/CLASS="THROW_ERROR">([^<]*)/i, /FONT SIZE="\\+2">([^<]*)/i],
+        state_submit_error_regexps: [/CLASS="THROW_ERROR">([^<]*)/i, /FONT SIZE=\"\+2\">([^<]*)/i],
         state_submit_success_regexp: /TITLE>Bug ([0-9]+)/i,
         state_submit_element: 'html',
 
