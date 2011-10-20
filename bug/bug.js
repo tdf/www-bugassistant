@@ -252,6 +252,7 @@
 
         state_success: function() {
             $('.state_submit').hide();
+            $('.submission').css('visibility', 'hidden');
             var element = $('.state_success');
             var bug = $('.state_submit .bug').text();
             $('.bug', element).attr('href', $.bug.url + '/show_bug.cgi?id=' + bug);
