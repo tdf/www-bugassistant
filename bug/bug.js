@@ -79,8 +79,8 @@
 
         url: '',
 
-        state_signin_error_regexps: ['class="throw_error">([^<]*)'],
-        state_signin_success_regexp: 'Log&nbsp;out</a>([^<]*)',
+        state_signin_error_regexps: [/CLASS="THROW_ERROR">([^<]*)/i],
+        state_signin_success_regexp: /LOG&NBSP;OUT</A>([^<]*)/i,
 
         state_signin: function() {
             var element = $('.signin');
@@ -207,8 +207,8 @@
             }
         },
 
-        state_submit_error_regexps: ['class="throw_error">([^<]*)', 'font size="\\+2">([^<]*)'],
-        state_submit_success_regexp: 'title>Bug ([0-9]+)',
+        state_submit_error_regexps: [/CLASS="THROW_ERROR">([^<]*)/i, /FONT SIZE="\\+2">([^<]*)/i],
+        state_submit_success_regexp: /TITLE>Bug ([0-9]+)/i,
         state_submit_element: 'html',
 
         state_submit: function() {
