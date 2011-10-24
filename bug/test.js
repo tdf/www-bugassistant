@@ -31,6 +31,7 @@ test("frame", function() {
     equal($.bug.url, '');
     $.bug.frame();
     equal($.bug.url, bugzilla_url);
+    $.bug.url = '';
 });
 
 test("ajax", function() {
@@ -95,7 +96,7 @@ test("lookup_result", function() {
 });
 
 test("state_signin", function() {
-    expect(9);
+    expect(11);
 
     equal($('.signin').css('display'), 'none');
     var user = 'gooduser';
@@ -113,6 +114,8 @@ test("state_signin", function() {
     var state_component = $.bug.state_component;
     $.bug.state_component = function() { ok(true, 'state_component'); };
     $.bug.state_signin();
+    equal($('.login-link').attr('href'), '/');
+    equal($('.create-account-link').attr('href'), '/enter_bug.cgi');
     equal($('.signin').css('display'), 'block');
     // fail to login, shows error
     equal($('.error-container').css('display'), 'none', 'no error');

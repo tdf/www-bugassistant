@@ -101,6 +101,8 @@
                     $.bug.state_component();
                 });
             });
+            $('.login-link', element).attr('href', $.bug.url + '/');
+            $('.create-account-link', element).attr('href', $.bug.url + '/enter_bug.cgi');
             $.bug.current_step('signin');
             element.show();
         },
