@@ -102,7 +102,7 @@
                 });
             });
             $('.login-link', element).attr('href', $.bug.url + '/');
-            $('.create-account-link', element).attr('href', $.bug.url + '/enter_bug.cgi');
+            $('.create-account-link', element).attr('href', $.bug.url + '/createaccount.cgi');
             $.bug.current_step('signin');
             element.show();
         },
