@@ -189,15 +189,15 @@
         state_attach: function() {
             var element = $('.state_attach');
             if(!element.hasClass('initialized')) {
-                if($.browser.msie) {
-                    // ie allow the input field to get focus, presumably to 
-                    // type the filename. launch the browser instead.
-                    $("input[type='file']", element).focus(function() {
-                        $(this).click();
-                        $(this).blur(); // loose focus so that no caret is shown even when in caret browsing
-                    });
-                }
-                $("input[type='file']", element).change(function() {
+                var file_input = $("input[type='file']", element);
+                var container = $('.attach-file', element);
+                container.mousemove(function(e) {
+                    file_input.css({
+				'left': e.pageX - container.offset().left - file_input.outerWidth() + 10,
+				'top': e.pageY - container.offset().top - 10
+		    });
+                });
+                file_input.change(function() {
                     // http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2009-March/018981.html
                     // in a nutshell : deal with it, it won't go away
                     var path = $(this).val().replace("C:\\fakepath\\","");
@@ -209,7 +209,8 @@
             }
         },
 
-        state_submit_error_regexps: [/CLASS="THROW_ERROR">([^<]*)/i, /FONT SIZE=\"\+2\">([^<]*)/i],
+        state_submit_error_regexps: [/CLASS="THROW_ERROR">([^<]*)/i, /FONT SIZE=\"\+2\">([^<]*)/i, // bugzilla < 4
+                                     /<DIV CLASS=\"BOX\">\s+<P>([^<]+)/i],                         // bugzilla >= 4
         state_submit_success_regexp: /TITLE>Bug ([0-9]+)/i,
         state_submit_element: 'html',
 

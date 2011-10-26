@@ -19,6 +19,7 @@
 
   $.skin = function() {
       $('.skin').show();
+      $.bug.frame();
       $.bug.compatibility();
       function component() {
           $.bug.state_component();

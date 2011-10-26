@@ -232,7 +232,7 @@ test("state_description", function() {
 });
 
 test("state_submit", function() {
-    expect(27);
+    expect(30);
 
     var state_success = $.bug.state_success;
     $.bug.state_success = function() { ok(true, 'state_success'); };
@@ -282,14 +282,18 @@ test("state_submit", function() {
     var error = ' ERROR ';
     equal($('.error').text(), '', 'error is not set');
 
-    $(['<div><div><table cellpadding="20">   <tr>    <td bgcolor="#ff0000">      <font size="+2">' + error + '</font>   </td>  </tr> </table></div></div>', '<div><div><div class="throw_error">' + error + '</div></div></div>']).each(function(index, str) {
+    // make sure you enclose the useful elements with <div><div> ... </div></div>
+    $(['<div><div><table cellpadding="20">   <tr>    <td bgcolor="#ff0000">      <font size="+2">' + error + '</font>   </td>  </tr> </table></div></div>',
+       '<div><div><div class="throw_error">' + error + '</div></div></div>',
+       '<div><div><div class="box">\n <p>' + error + '</p></div></div></div>'
+      ]).each(function(index, str) {
         $('#submissionoutput').html(str);
         var caught = false;
         try {
             $('#submissionoutput').load();
         } catch(e) {
             equal($('.error').text(), error, 'text ' + str);
-            equal(e[1], error, 'catch ' + str);
+            equal(e[1], error, 'catch ' + str + e);
             caught = true;
         }
         ok(caught, 'caught', str);
@@ -313,13 +317,37 @@ test("state_success", function() {
 });
 
 test("state_attach", function() {
-    expect(2);
+    expect(4);
 
     var element = $('.state_attach');
     equal(element.css('display'), 'none');
     $.bug.state_attach();
     equal(element.css('display'), 'block');
 
+    var container = $('.attach-file', element);
+    var container_offset = container.offset();
+    var file_input = $("input[type='file']", element);
+    var file_input_width = file_input.outerWidth();
+
+
+    equal(file_input.css('left'), 'auto');
+
+    //
+    // place the mouse to the left of the container
+    // at a position where it is certain that the input type='file'
+    // width will not fit.
+    //
+    var event = jQuery.Event("mousemove");
+    event.pageX = container_offset.left + file_input_width / 2;
+    event.pageY = container_offset.top;
+    container.trigger(event);
+    //
+    // The input type='file' left position is to the left of the container,
+    // hence a negative number starting with a -
+    // This is proof that the input type='file' has been moved so that its
+    // rightmost part is under the mouse at all times.
+    //
+    equal(file_input.css('left').substr(0, 1), '-', 'left = ' + file_input.css('left'));
 });
 
 test("logged_in", function() {

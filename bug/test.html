@@ -152,9 +152,13 @@
         <input type="hidden" name="comment" value=""></input>
         <div class="state_attach">
           <input type="hidden" name="contenttypemethod" value="autodetect"></input>
-          <input type="text" name="ignored" value=""></input>
-          <input type="text" name="description" value=""></input>
-          <input type="file" name="data"></input>
+          <div class="attach-file">
+	    <input type="file" name="data" />
+	    <div class="attach-file-style">
+	      <div><input type="text" name="ignored"></input></div>
+	      <div class="attach-browse">Browse</div>
+	    </div>
+          </div>
         </div>
         <div class="state state_submit">
 	  <input type="submit" value="Submit"></input>

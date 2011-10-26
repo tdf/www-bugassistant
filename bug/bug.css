@@ -486,6 +486,7 @@ body {
 
 .state_attach .attach-file {
     position: relative;
+    overflow: hidden;
     height: 38px;
     margin-left: 5px;
 }
@@ -517,9 +518,8 @@ body {
     filter:alpha(opacity: 0);
     opacity: 0;
     z-index: 2;
-    width: 400px;
+    width: 350px;
     height: 39px;
-    size: 150;
 }
 
 .state_attach .attach-file input[type='text'] {
