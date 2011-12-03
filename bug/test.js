@@ -115,7 +115,7 @@ test("state_signin", function() {
     $.bug.state_component = function() { ok(true, 'state_component'); };
     $.bug.state_signin();
     equal($('.login-link').attr('href'), '/');
-    equal($('.create-account-link').attr('href'), '/enter_bug.cgi');
+    equal($('.create-account-link').attr('href'), '/createaccount.cgi');
     equal($('.signin').css('display'), 'block');
     // fail to login, shows error
     equal($('.error-container').css('display'), 'none', 'no error');
