@@ -284,6 +284,7 @@
                 var bug_urls = [];
                 for(var i = 1; i < lines.length; i++) {
                     bug_urls.push(lines[i].replace(/([0-9]*),"(.*)"/,'<a href="' + $.bug.url + '/show_bug.cgi?id=$1">$2</a>'));
+                    bug_urls.push(lines[i].replace(/([0-9]*),"(.*)"/,'<a href="' + $.bug.url + '/show_bug.cgi?id=$1" target="_blank">$2</a>'));
                 }
                 $('.related_bugs').html(bug_urls.join('<br>'));
             });
