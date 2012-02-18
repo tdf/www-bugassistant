@@ -274,12 +274,13 @@ test("state_submit", function() {
     
     $.bug.state_submit_element = 'div'; // because <html> can't be inserted in the dom
 
-    $('#submissionoutput').html('<div><div><title>Bug ' + bug + ' Submitted</title></div></div>');
+    // <title> cannot be inserted by IE8
+    $('#submissionoutput').html('<div><div>Bug ' + bug + ' Submitted</div></div>');
     $('#submissionoutput').load();
     equal($('.bug', element).text(), bug, 'bug number');
     ok(!element.hasClass('inprogress'), 'is no longer progress');
 
-    var error = ' ERROR ';
+    var error = 'ERROR';
     equal($('.error').text(), '', 'error is not set');
 
     // make sure you enclose the useful elements with <div><div> ... </div></div>

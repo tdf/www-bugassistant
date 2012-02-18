@@ -208,10 +208,11 @@
                 element.show();
             }
         },
-
-        state_submit_error_regexps: [/CLASS="THROW_ERROR">([^<]*)/i, /FONT SIZE=\"\+2\">([^<]*)/i, // bugzilla < 4
-                                     /<DIV CLASS=\"BOX\">\s+<P>([^<]+)/i],                         // bugzilla >= 4
-        state_submit_success_regexp: /TITLE>Bug ([0-9]+)/i,
+        // Making the double quotes optional caters for differing browser
+        // behaviour with jquery .text() - IE8 removes double quotes.
+        state_submit_error_regexps: [/CLASS="?THROW_ERROR"?>([^<]*)/i, /FONT SIZE=\"?\+2\"?>([^<]*)/i, // bugzilla < 4
+                                     /<DIV CLASS=\"?BOX\"?>\s+<P>([^<]+)/i],                         // bugzilla >= 4
+        state_submit_success_regexp: /Bug ([0-9]+)/i,
         state_submit_element: 'html',
 
         state_submit: function() {
