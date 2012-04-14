@@ -33,3 +33,6 @@ compose:
 
 check:
 	perl sanity.pl TEST
+
+clean:
+	rm -f BugReport_Details.xhtml component_comments.xhtml subcomponents.xhtml components.xhtml query.xhtml versions.xhtml bug/bug.html
