@@ -430,11 +430,7 @@ body {
     color: #fff;
     text-align: center;
     line-height: 49px;
-}
-
-.state_submit div:hover.go {
     cursor: pointer;
-    background: url('images/submit-hover.png') no-repeat;
 }
 
 /* related bugs */
