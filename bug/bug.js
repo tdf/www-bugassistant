@@ -26,7 +26,12 @@
                 url: url,
                 data: args
             }).pipe(null, function(error) {
-                var message = url + '(' + $.param(args) + ') XHR error. ';
+                var message;
+		if (args == undefined) {
+		  message = url + '() XHR error. ';
+		} else {
+		  message = url + '(' + $.param(args) + ') XHR error. ';
+		}
                 if('status' in error) {
                     message += 'status = ' + error.status + ' ';
                 }
@@ -300,7 +305,7 @@
             }
         },
 
-        main: function() {
+        main: function(in_isTest) {
             $.bug.compatibility();
             $.bug.frame();
             $.bug.logged_in().done(function(status) {
