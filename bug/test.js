@@ -271,7 +271,7 @@ test("state_submit", function() {
     });
     form.submit();
     form.submit(); // noop
-    
+
     $.bug.state_submit_element = 'div'; // because <html> can't be inserted in the dom
 
     // <title> cannot be inserted by IE8

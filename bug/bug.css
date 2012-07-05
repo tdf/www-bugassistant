@@ -15,7 +15,7 @@
      along with this program.  If not, see <http:www.gnu.org/licenses/>.
 */
 /* javascript and old browsers fallback */
-.javascript, .unsupported, .compatibility .version { 
+.javascript, .unsupported, .compatibility .version {
     display: none;
 }
 

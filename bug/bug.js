@@ -53,7 +53,7 @@
                 $.bug.error_set(error[1]);
                 throw error;
             } else {
-                var success = data.match(success_regexp);                
+                var success = data.match(success_regexp);
                 if(success !== null) {
                     return success[1];
                 } else {
@@ -114,23 +114,23 @@
             element.show();
             $('.select', element).select();
             $('.select .choice, img', element).hover(function() {
-                var component = $(this).attr('data');                
+                var component = $(this).attr('data');
                 $('.comment', element).hide();
                 $('.comment.' + component, element).show();
             });
             $('.select .choice', element).click(function() {
                 $(this).mouseenter();
-                var component = $(this).attr('data');                
+                var component = $(this).attr('data');
                 $('img', element).removeClass('selected');
                 $('img[data="' + component + '"]').addClass('selected');
                 $.bug.state_subcomponent();
             });
             $('img', element).click(function() {
-                var component = $(this).attr('data');                
+                var component = $(this).attr('data');
                 $(".select .choice[data='" + component + "']", element).click();
             });
             $('.components_icons').mouseleave(function() {
-                $('img.selected', element).mouseenter();                
+                $('img.selected', element).mouseenter();
             });
         },
 
@@ -263,7 +263,7 @@
             element.show();
         },
 
-        // if this string is found in the page returned when 
+        // if this string is found in the page returned when
         // trying to fill a bug, it means the user is not logged in
         logged_in_false: 'form name="login"',
 
@@ -274,7 +274,7 @@
                 return data.indexOf($.bug.logged_in_false) < 0;
             });
         },
-        
+
         refresh_related_bugs: function() {
             $('.related_bugs').empty();
             var component = $('.state_component .chosen').attr('data').replace('_','%20');

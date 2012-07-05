@@ -44,5 +44,5 @@
 
     $.fn.select.defaults = {
     };
-		    
+
 })(jQuery);
