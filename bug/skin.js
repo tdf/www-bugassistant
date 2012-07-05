@@ -26,18 +26,18 @@
       }
       function subcomponent() {
           component();
-          $('.state_component .choice:nth(3)').click();
+          $('.state_component .choice:nth(0)').click();
       }
       function version() {
           subcomponent();
           $.bug.ajax = function(settings) {
               return $.Deferred().resolve('NUM,DESC\n100,"BUG 1"\n200,"BUG 2"\n');
           };
-          $('.state_subcomponent .active_subcomponent .choice:nth(2)').click();
+          $('.state_subcomponent .active_subcomponent .choice:nth(0)').click();
       }
       function description() {
           version();
-          $('.state_version .choice:nth(2)').click();
+          $('.state_version .choice:nth(0)').click();
           $('.state_description .short').val('12');
       }
       function submit() {
