@@ -64,9 +64,12 @@ sub analyze {
         if($value == -1) {
             print "component $key found in the wiki but not in the bugzilla\n";
             $status++;
-        } elsif($value == 0) {
+        } elsif($value == 0 && ($key =~ /^\p{isUpper}/) ) {
             print "component $key found in bugzilla but not in the wiki\n";
             $status++;
+	} elsif($value >= 1 && ($key =~ /^\p{isLower}/) ) {
+	    print "component $key found in wiki but is a lower-case module\n";
+	    $status++;
         } elsif($value > 1) {
             print "component $key found $value times in the wiki\n";
             $status++;
@@ -99,7 +102,7 @@ sub tests {
     }
 
     my($status) = analyze($bugzilla2wiki, 'sanity-query.xhtml', 'sanity-components.xhtml');
-    ok($status == 4, "analyze $status");
+    ok($status == 5, "analyze $status");
 
     done_testing(21);
 }
