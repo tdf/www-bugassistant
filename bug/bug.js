@@ -42,6 +42,7 @@
                     message += 'statusText = ' + error.statusText + ' ';
                 }
                 $.bug.error_set(message);
+                window.scrollTo(0,0);
                 throw error;
             });
         },
