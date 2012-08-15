@@ -266,6 +266,7 @@
             var bug = $('.state_submit .bug').text();
             $('.bug', element).attr('href', $.bug.url + '/show_bug.cgi?id=' + bug);
             element.show();
+            window.scrollTo(0,0);
         },
 
         // if this string is found in the page returned when
