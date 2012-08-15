@@ -32,15 +32,25 @@
 		} else {
 		  message = url + '(' + $.param(args) + ') XHR error. ';
 		}
-                if('status' in error) {
-                    message += 'status = ' + error.status + ' ';
-                }
-                if('responseText' in error) {
-                    message += 'responseText = ' + error.responseText + ' ';
-                }
-                if('statusText' in error) {
-                    message += 'statusText = ' + error.statusText + ' ';
-                }
+
+		if (url == "/enter_bug.cgi" && 'status' in error && (error.status == 404 || error.status == 0)) {
+		  message = "It seems there is a problem to connect with Bugzilla. Please try again later.";
+		}
+		else
+		{
+                    if('status' in error) {
+		        if(error.status == 404 || error.status == 0) {
+			    message += "Cannot find the URL specified.\n\n";
+		        }
+                        message += 'status = ' + error.status + ' ';
+                    }
+                    if('responseText' in error) {
+                        message += 'responseText = ' + error.responseText + ' ';
+                    }
+                    if('statusText' in error) {
+                        message += 'statusText = ' + error.statusText + ' ';
+                    }
+		}
                 $.bug.error_set(message);
                 window.scrollTo(0,0);
                 throw error;
