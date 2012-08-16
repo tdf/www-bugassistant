@@ -610,3 +610,7 @@ body {
     background: url('images/select-right.png') repeat-y top right;
     padding-right: 12px;
 }
+
+.username {
+    display: hidden;
+}
