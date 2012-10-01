@@ -94,6 +94,7 @@
         },
 
         url: '',
+	token: '',
 
         state_signin_error_regexps: [/CLASS="THROW_ERROR">([^<]*)/i],
         state_signin_success_regexp: /LOG&NBSP;OUT<\/A>([^<]*)/i,
@@ -232,8 +233,23 @@
         state_submit_element: 'html',
 
         state_submit: function() {
+             $.bug.logged_in().done(function(status) {
+                if(status) {
+                    $.bug.submit_bug();
+                } else {
+		    $.bug.error_set("You're not logged in. Please login first");
+                    $.bug.state_signin();
+                }
+	    });
+	},
+
+	submit_bug: function() {
             var element = $('.state_submit');
             if(!element.hasClass('initialized')) {
+	      $.bug.ajax('GET', $.bug.url + '/enter_bug.cgi?product=LibreOffice&bug_status=UNCONFIRMED').pipe(function(data){
+		$.bug.token = data.match(/<input type="hidden" name="token" value="([A-Za-z0-9]{10})">/)[1];
+                });
+
                 var form = $('.submission_form form');
                 $.bug.error_clear();
                 form.attr('action', $.bug.url + '/post_bug.cgi');
@@ -248,6 +264,7 @@
                     var short_desc = $('.state_subcomponent .active_subcomponent .chosen').attr('data') + ': ' + $('.state_description .short').val();
                     var comment = $('.state_description .long').val();
                     $("body").css("cursor", "progress");
+                    $('input[name="token"]', form).val($.bug.token);
                     $('input[name="component"]', form).val(component);
                     $('input[name="version"]', form).val(version);
                     $('input[name="short_desc"]', form).val(short_desc);
