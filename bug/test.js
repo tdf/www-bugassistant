@@ -241,12 +241,6 @@ test("state_submit", function() {
     equal(element.css('display'), 'none');
     ok(!element.hasClass('initialized'), 'is not initialized');
     $.bug.state_submit();
-
-    /*$.bug.ajax = function(type, url) {
-        return $.Deferred().resolve('logged in ok');
-    };
-
-    $.bug.state_submit();
     equal(element.css('display'), 'block');
     ok(element.hasClass('initialized'), 'is initialized');
     $.bug.state_component();
@@ -308,7 +302,7 @@ test("state_submit", function() {
     equal($('.error').text(), error, 'error is set');
 
     $.bug.state_success = state_success;
-    $.bug.ajax = $.ajax;*/
+    $.bug.ajax = $.ajax;
 });
 
 test("state_success", function() {
