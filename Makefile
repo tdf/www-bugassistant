@@ -18,7 +18,8 @@ all: extract compose
 
 extract:
 	mkdir -p build
-	curl --silent http://wiki.documentfoundation.org/BugReport_Details | tidy --numeric-entities yes -asxhtml 2>/dev/null | perl -pe 's|xmlns="http://www.w3.org/1999/xhtml"||' > build/BugReport_Details.xhtml
+	curl --silent http://wiki.documentfoundation.org/BugReport_Details | tidy --numeric-entities yes -asxhtml 2>/dev/null > build/tidyout.xhtml || echo "ignoring tidy error"
+	xsltproc --encoding UTF-8 --novalid stripnamespace.xsl build/tidyout.xhtml > build/BugReport_Details.xhtml
 	xsltproc --encoding UTF-8 --novalid component_comments.xsl build/BugReport_Details.xhtml > build/component_comments.xhtml
 	xsltproc --encoding UTF-8 --novalid subcomponents.xsl build/BugReport_Details.xhtml > build/subcomponents.xhtml
 	xsltproc --encoding UTF-8 --novalid components.xsl build/BugReport_Details.xhtml > build/components.xhtml
@@ -33,5 +34,5 @@ check:
 	perl sanity.pl TEST
 
 clean:
-	rm -f build/BugReport_Details.xhtml build/component_comments.xhtml build/subcomponents.xhtml build/components.xhtml build/query.xhtml build/versions.xhtml bug/bug.html
+	rm -f build/BugReport_Details.xhtml build/tidyout.xhtml build/component_comments.xhtml build/subcomponents.xhtml build/components.xhtml build/query.xhtml build/versions.xhtml bug/bug.html
 	rmdir build
