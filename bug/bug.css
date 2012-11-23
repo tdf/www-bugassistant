@@ -622,5 +622,5 @@ body {
 }
 
 .username {
-    display: hidden;
+    visibility: hidden;
 }
