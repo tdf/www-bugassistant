@@ -52,7 +52,7 @@
                     }
 		}
                 $.bug.error_set(message);
-                window.scrollTo(0,0);
+                $.bug.window.scrollTo(0,225);
                 throw error;
             });
         },
@@ -288,7 +288,7 @@
             var bug = $('.state_submit .bug').text();
             $('.bug', element).attr('href', $.bug.url + '/show_bug.cgi?id=' + bug);
             element.show();
-            window.scrollTo(0,0);
+            $.bug.window.scrollTo(0,225);
         },
 
         // if this string is found in the page returned when
