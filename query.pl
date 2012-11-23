@@ -14,6 +14,9 @@
 #     You should have received a copy of the GNU General Public License
 #     along with this program.  If not, see <http:www.gnu.org/licenses/>.
 #
+
+use Scalar::Util qw(looks_like_number);
+
 while(<STDIN>) {
     eval $_ if(s/(cpts|vers)\[(\d+)\]\s+=/\$$1\[$2\]=/);
     if(/<select\s+name="product"/../<\/select/) {
@@ -30,7 +33,14 @@ while(<STDIN>) {
 
 print "<?xml version='1.0' encoding='ISO-8859-1'?>\n";
 
-@versions = sort(@{$vers[$libreoffice]});
+@versions = sort { 
+    if (looks_like_number(substr($a, 0, 1)) == 0) { 
+        return 1;
+    } elsif (looks_like_number(substr($b, 0, 1)) == 0) {
+        return -1;
+    } else {
+        return lc($b) cmp lc($a);
+    } } @{$vers[$libreoffice]};
 print <<EOF;
 	  <div class="versions select">
             <div class="select-header">
