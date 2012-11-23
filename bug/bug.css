@@ -133,8 +133,14 @@ body {
 
 /* copyright */
 
-.copyright {
+.legal {
     padding: 100px 30px 10px 20px;
+    font-size: 8px;
+    color: #1ca608;
+}
+
+.copyright {
+    padding: 10px 30px 10px 20px;
     font-size: 8px;
     color: #1ca608;
 }
