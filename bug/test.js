@@ -238,6 +238,7 @@ test("state_submit", function() {
     $.bug.state_success = function() { ok(true, 'state_success'); };
 
     var element = $('.state_submit');
+    $.bug.token = 'AA';
     equal(element.css('display'), 'none');
     ok(!element.hasClass('initialized'), 'is not initialized');
     $.bug.state_submit();

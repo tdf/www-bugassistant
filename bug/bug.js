@@ -235,9 +235,12 @@
         state_submit: function() {
             var element = $('.state_submit');
             if(!element.hasClass('initialized')) {
-                $.bug.ajax('GET', $.bug.url + '/enter_bug.cgi?product=LibreOffice&bug_status=UNCONFIRMED').pipe(function(data){
-                    $.bug.token = data.match(/<input type="hidden" name="token" value="([A-Za-z0-9]{10})">/)[1];
-                });
+
+                if ($.bug.token == '') {
+                    $.bug.ajax('GET', $.bug.url + '/enter_bug.cgi?product=LibreOffice&bug_status=UNCONFIRMED').pipe(function(data){
+                        $.bug.token = data.match(/<input type="hidden" name="token" value="([A-Za-z0-9]{10})">/)[1];
+                    });
+                }
 
                 var form = $('.submission_form form');
                 $.bug.error_clear();
@@ -258,6 +261,7 @@
                     $('input[name="version"]', form).val(version);
                     $('input[name="short_desc"]', form).val(short_desc);
                     $('input[name="comment"]', form).val(comment);
+                    $.bug.token = '';
                     return true;
                 });
 
