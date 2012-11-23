@@ -566,10 +566,6 @@ body {
     color: #b8af9e;
 }
 
-.select ul {
-    width: 225px;
-}
-
 .select li.choice:hover {
     background-color: #9ceb90;
     color: #32b21f;
