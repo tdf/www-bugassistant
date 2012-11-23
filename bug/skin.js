@@ -61,7 +61,6 @@
       } else if(location.search.indexOf('skin=submit') >= 0) {
           submit();
       } else if(location.search.indexOf('skin=complete') >= 0) {
-          submit();
           $.bug.state_success();
       }
   };
