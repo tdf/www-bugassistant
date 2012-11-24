@@ -35,9 +35,13 @@
           };
           $('.state_subcomponent .active_subcomponent .choice:nth(0)').click();
       }
-      function description() {
+      function op_sys(){
           version();
           $('.state_version .choice:nth(0)').click();
+      }
+      function description() {
+          op_sys();
+          $('.state_op_sys .choice:nth(0)').click();
           $('.state_description .short').val('12');
       }
       function submit() {
@@ -56,6 +60,8 @@
           subcomponent();
       } else if(location.search.indexOf('skin=version') >= 0) {
           version();
+      } else if(location.search.indexOf('skin=op_sys') >= 0) {
+          op_sys();
       } else if(location.search.indexOf('skin=description') >= 0) {
           description();
       } else if(location.search.indexOf('skin=submit') >= 0) {

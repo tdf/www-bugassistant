@@ -18,6 +18,10 @@
 /* select */
 .select {
     position: relative;
+    z-index: 2;
+}
+
+.select.op_sys {
     z-index: 1;
 }
 

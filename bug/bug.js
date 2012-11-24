@@ -176,17 +176,28 @@
                 element.show();
                 $('.select', element).select();
                 $(".select .choice", element).click(function() {
-                    $.bug.state_description();
+                    $.bug.state_op_sys();
                 });
             }
+        },
+
+        state_op_sys: function() {
+            var element = $('.state_op_sys');
+            if(!element.hasClass('initialized')) {
+                element.addClass('initialized');
+                $.bug.current_step('op_sys');
+                element.show();
+                $('.select', element).select();
+                $(".select .choice", element).click(function() {
+                    $.bug.state_description();
+                });
+             }
         },
 
         state_description: function() {
             var element = $('.state_description');
             var template = $(".long", element).val();
             if(!element.hasClass('initialized')) {
-                template = template + '\nBrowser: ' + window.navigator.userAgent;
-                $(".long", element).val(template);
                 var validate = function() {
                     if($(".short", element).val().length > 3 &&
                        $(".long", element).val() != template) {
@@ -252,13 +263,17 @@
                         $(element).addClass('inprogress');
                     }
                     var version = $('.state_version .chosen').attr('data');
+                    var op_sys = $('.state_op_sys .chosen').attr('data');
                     var component = $('.state_component .chosen').attr('data').replace('_',' ');
                     var short_desc = $('.state_subcomponent .active_subcomponent .chosen').attr('data') + ': ' + $('.state_description .short').val();
+                    //Add Operating System
                     var comment = $('.state_description .long').val();
+                    comment = comment + "\nOperating System: " + $(".op_sys .chosen").text();
                     $("body").css("cursor", "progress");
                     $('input[name="token"]', form).val($.bug.token);
                     $('input[name="component"]', form).val(component);
                     $('input[name="version"]', form).val(version);
+                    $('input[name="op_sys"]', form).val(op_sys);
                     $('input[name="short_desc"]', form).val(short_desc);
                     $('input[name="comment"]', form).val(comment);
                     $.bug.token = '';
