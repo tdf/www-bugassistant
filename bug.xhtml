@@ -49,7 +49,7 @@
     <div class="javascript">
       <div class="skin">
         <div class="version"></div>
-        <a href="?skin=login">login</a> <a href="?skin=component">component</a> <a href="?skin=subcomponent">subcomponent</a> <a href="?skin=version">version</a> <a href="?skin=description">description</a> <a href="?skin=submit">submit</a> <a href="?skin=complete">complete</a>
+        <a href="?skin=login">login</a> <a href="?skin=component">component</a> <a href="?skin=details">details</a> <a href="?skin=description">description</a> <a href="?skin=submit">submit</a> <a href="?skin=complete">complete</a>
       </div>
       <div class="header">
         <div class="title">
@@ -66,11 +66,9 @@
           <div>
             <div class="step step_signin"><div class="count">1</div><div class="label">Sign in</div></div>
             <div class="step step_component"><div class="count">2</div><div class="label">Component</div></div>
-            <div class="step step_subcomponent"><div class="count">3</div><div class="label">Subcomponent</div></div>
-            <div class="step step_version"><div class="count">4</div><div class="label">Version</div></div>
-            <div class="step step_op_sys"><div class="count">5</div><div class="label">Operating System</div></div>
-            <div class="step step_description"><div class="count">6</div><div class="label">Description</div></div>
-            <div class="step step_submit"><div class="count">7</div><div class="label">Submit</div></div>
+            <div class="step step_details"><div class="count">3</div><div class="label">Details</div></div>
+            <div class="step step_description"><div class="count">4</div><div class="label">Description</div></div>
+            <div class="step step_submit"><div class="count">5</div><div class="label">Submit</div></div>
           </div>
           <div class="legal">
             All your contributions will be public in WWW! By clicking the 'Submit' button you irrevocably agree to release your contribution under the CC-BY-SA 3.0 License and the GFDL. If you can't agree to these terms for documents you planned to attach you can state in this report that such a document exists. QA team will discuss with you further proceeding in the bug.
@@ -144,26 +142,25 @@
               </div>
             </div>
 
-            <div class="version_and_subcomponent">
-              <div>
-                <div class="state state_subcomponent">
+            <div class="state state_details">
+              <div class="inlineblock">
+                <div class="state state_details subcomponents">
                   <div class="input-label">Sub component</div>
                   <div class="active_subcomponent"></div>
                 </div>
               </div>
-              <div>
-                <div class="state state_version">
+              <div class="inlineblock">
+                <div class="state state_details versions">
                   <div class="input-label">Version</div>
                   &versions;
                 </div>
               </div>
             </div>
-
-            <div class="operating_system">
-            <div>
-            <div class="state state_op_sys">
-		<div class="input-label">Operating System</div>
-                &op_sys;
+            <div class="state_details">
+              <div class="inlineblock">
+                <div class="state state_details op_sys">
+		  <div class="input-label">Operating System</div>
+                  &op_sys;
                 </div>
               </div>
             </div>
@@ -238,12 +235,12 @@ Expected behavior:
 
           <div class="submission">
 
-	    <div class="state state_subcomponent state_duplicates">
+	    <div class="state state_details state_duplicates">
 	      Related bug reports
 	      <div class="related_bugs"></div>
             </div>
 
-            <div class="state_subcomponent">
+            <div class="state_details">
               <div class="subcomponents">&subcomponents;</div>
             </div>
 

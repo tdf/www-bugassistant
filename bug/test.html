@@ -73,11 +73,72 @@
       </div>
     </div>
 
-    <div class="state_subcomponent">
+    <div class="state_details">
       <div class="active_subcomponent"></div>
+      <div xmlns="" class="versions select">
+        <div class="select-header">
+          <div class="chosen">(chose one)</div>
+        </div>
+        <div class="choices">
+          <ul>
+            <li class="choice" data="unspecified">unspecified</li>
+            <li class="choice" data="VERSION1">VERSION1</li>
+          </ul>
+        </div>
+      </div>
+      <div class="inlineblock">
+        <div class="state state_details op_sys">
+          <div class="input-label">Operating System</div>
+            <li class="choice" data="LINUX">Linux</li>
+            <li class="choice" data="BSD">BSD</li>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="state_subcomponent">
+    <div class="state state_description">
+      <input type="text" class="short"></input>
+      <textarea class="long"></textarea>
+    </div>
+
+    <div id="submissionoutput" name="submissionoutput"></div>
+
+    <div class="submission_form">
+      <form action='/post_bug.cgi' target="submissionoutput" method='POST' enctype='multipart/form-data'>
+        <input type="hidden" name="product" value="LibreOffice"></input>
+        <input type="hidden" name="bug_status" value="UNCONFIRMED"></input>
+        <input type="hidden" name="rep_platform" value="Other"></input>
+        <input type="hidden" name="op_sys" value="All"></input>
+        <input type="hidden" name="bug_severity" value="normal"></input>
+        <input type="hidden" name="priority" value="medium"></input>
+        <input type="hidden" name="rep_platform" value="Other"></input>
+        <input type="hidden" name="status_whiteboard" value="BSA"></input>
+        <input type="hidden" name="assigned_to" value="libreoffice-bugs@lists.freedesktop.org"></input>
+        <input type="hidden" name="component" value=""></input>
+        <input type="hidden" name="version" value=""></input>
+        <input type="hidden" name="short_desc" value=""></input>
+        <input type="hidden" name="comment" value=""></input>
+        <div class="state state_attach">
+          <input type="hidden" name="contenttypemethod" value="autodetect"></input>
+          <div class="attach-file">
+	    <input type="file" name="data" />
+	    <div class="attach-file-style">
+	      <div><input type="text" name="ignored"></input></div>
+	      <div class="attach-browse">Browse</div>
+	    </div>
+          </div>
+        </div>
+        <div class="state state_submit">
+	  <input type="submit" value="Submit"></input>
+        </div>
+      </form>
+      <div class="state state_submit">
+        <div class="bug"></div>
+      </div>
+    </div>
+
+    <div class="submission">
+<div class="state_details">
       <div class="subcomponents">
         <div xmlns="" class="Formula_editor">
           <div class="subcomponent select">
@@ -114,62 +175,6 @@
       </div>
     </div>
 
-    <div class="state_version">
-      <div xmlns="" class="versions select">
-        <div class="select-header">
-          <div class="chosen">(chose one)</div>
-        </div>
-        <div class="choices">
-          <ul>
-            <li class="choice" data="unspecified">unspecified</li>
-            <li class="choice" data="VERSION1">VERSION1</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <div class="state_description">
-      <input type="text" class="short"></input>
-      <textarea class="long"></textarea>
-    </div>
-
-    <div id="submissionoutput" name="submissionoutput"></div>
-
-    <div class="submission_form">
-      <form action='/post_bug.cgi' target="submissionoutput" method='POST' enctype='multipart/form-data'>
-        <input type="hidden" name="product" value="LibreOffice"></input>
-        <input type="hidden" name="bug_status" value="UNCONFIRMED"></input>
-        <input type="hidden" name="rep_platform" value="Other"></input>
-        <input type="hidden" name="op_sys" value="All"></input>
-        <input type="hidden" name="bug_severity" value="normal"></input>
-        <input type="hidden" name="priority" value="medium"></input>
-        <input type="hidden" name="rep_platform" value="Other"></input>
-        <input type="hidden" name="status_whiteboard" value="BSA"></input>
-        <input type="hidden" name="assigned_to" value="libreoffice-bugs@lists.freedesktop.org"></input>
-        <input type="hidden" name="component" value=""></input>
-        <input type="hidden" name="version" value=""></input>
-        <input type="hidden" name="short_desc" value=""></input>
-        <input type="hidden" name="comment" value=""></input>
-        <div class="state_attach">
-          <input type="hidden" name="contenttypemethod" value="autodetect"></input>
-          <div class="attach-file">
-	    <input type="file" name="data" />
-	    <div class="attach-file-style">
-	      <div><input type="text" name="ignored"></input></div>
-	      <div class="attach-browse">Browse</div>
-	    </div>
-          </div>
-        </div>
-        <div class="state state_submit">
-	  <input type="submit" value="Submit"></input>
-        </div>
-      </form>
-      <div class="state state_submit">
-        <div class="bug"></div>
-      </div>
-    </div>
-
-    <div class="submission">
     </div>
 
     <div class="state state_success">

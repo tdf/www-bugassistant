@@ -95,6 +95,9 @@
 
         url: '',
 	token: '',
+        sub_component: 'EMPTY',
+        version: '',
+        op_sys: '',
 
         state_signin_error_regexps: [/CLASS="THROW_ERROR">([^<]*)/i],
         state_signin_success_regexp: /LOG&NBSP;OUT<\/A>([^<]*)/i,
@@ -140,7 +143,7 @@
                 var component = $(this).attr('data');
                 $('img', element).removeClass('selected');
                 $('img[data="' + component + '"]').addClass('selected');
-                $.bug.state_subcomponent();
+                $.bug.state_details();
             });
             $('img', element).click(function() {
                 var component = $(this).attr('data');
@@ -151,47 +154,38 @@
             });
         },
 
-        state_subcomponent: function() {
-            var element = $('.state_subcomponent');
+        state_details: function() {
+            var element = $('.state_details');
             var component = $('.state_component .chosen').attr('data');
             var subcomponent = $('.subcomponents .' + component, element).html();
             $('.active_subcomponent', element).html(subcomponent);
             if(!element.hasClass('initialized')) {
                 element.addClass('initialized');
-                $.bug.current_step('subcomponent');
+                $.bug.current_step('details');
             }
             element.show();
             $('.active_subcomponent .select', element).select();
             $('.active_subcomponent .select .choice', element).click(function() {
                 $.bug.refresh_related_bugs();
-                $.bug.state_version();
-            });
-        },
-
-        state_version: function() {
-            var element = $('.state_version');
-            if(!element.hasClass('initialized')) {
-                element.addClass('initialized');
-                $.bug.current_step('version');
-                element.show();
-                $('.select', element).select();
-                $(".select .choice", element).click(function() {
-                    $.bug.state_op_sys();
-                });
-            }
-        },
-
-        state_op_sys: function() {
-            var element = $('.state_op_sys');
-            if(!element.hasClass('initialized')) {
-                element.addClass('initialized');
-                $.bug.current_step('op_sys');
-                element.show();
-                $('.select', element).select();
-                $(".select .choice", element).click(function() {
+                $.bug.subcomponent = $('.state_details .active_subcomponent .chosen').attr('data');
+                if ($.bug.version != '' && $.bug.op_sys != '') {
                     $.bug.state_description();
-                });
-             }
+                }
+            });
+            $('.select', element).select();
+            $(".versions .select .choice", element).click(function() {
+                $.bug.version = $('.state_details .version .chosen').attr('data');
+                if ($.bug.subcomponent != 'EMPTY' && $.bug.op_sys != '') {
+                    $.bug.state_description();
+                }
+            });
+            $('.select', element).select();
+            $(".op_sys .select .choice", element).click(function() {
+                $.bug.op_sys = $('.state_details .op_sys .chosen').attr('data');
+                if ($.bug.subcomponent != 'EMPTY' && $.bug.version != '') {
+                    $.bug.state_description();
+                }
+             });
         },
 
         state_description: function() {
@@ -262,18 +256,17 @@
                     } else {
                         $(element).addClass('inprogress');
                     }
-                    var version = $('.state_version .chosen').attr('data');
-                    var op_sys = $('.state_op_sys .chosen').attr('data');
                     var component = $('.state_component .chosen').attr('data').replace('_',' ');
-                    var short_desc = $('.state_subcomponent .active_subcomponent .chosen').attr('data') + ': ' + $('.state_description .short').val();
+                    var short_desc = $.bug.subcomponent + ': ' + $('.state_description .short').val();
                     //Add Operating System
+                    var op_sys = $('.state_op_sys .chosen').attr('data');
                     var comment = $('.state_description .long').val();
                     comment = comment + "\nOperating System: " + $(".op_sys .chosen").text();
                     $("body").css("cursor", "progress");
                     $('input[name="token"]', form).val($.bug.token);
                     $('input[name="component"]', form).val(component);
-                    $('input[name="version"]', form).val(version);
-                    $('input[name="op_sys"]', form).val(op_sys);
+                    $('input[name="version"]', form).val($.bug.version);
+                    $('input[name="op_sys"]', form).val($.bug.op_sys);
                     $('input[name="short_desc"]', form).val(short_desc);
                     $('input[name="comment"]', form).val(comment);
                     $.bug.token = '';

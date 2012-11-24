@@ -140,8 +140,8 @@ test("state_signin", function() {
 test("state_component", function() {
     expect(15);
 
-    var state_subcomponent = $.bug.state_subcomponent;
-    $.bug.state_subcomponent = function() { ok(true, 'state_subcomponent'); };
+    var state_details = $.bug.state_details;
+    $.bug.state_details = function() { ok(true, 'state_details'); };
 
     var element = $('.state_component');
     equal(element.css('display'), 'none');
@@ -166,50 +166,40 @@ test("state_component", function() {
     equal($('.comment.Formula_editor', element).css('display'), 'block', 'Formula_editor is visible');
     equal($('.comment.OTHER', element).css('display'), 'none', 'OTHER hidden');
 
-    $.bug.state_subcomponent = state_subcomponent;
+    $.bug.state_details = state_details;
 });
 
-test("state_subcomponent", function() {
-    expect(6);
+test("state_details", function() {
+    expect(8);
 
     var state_version = $.bug.state_version;
     $.bug.state_version = function() { ok(true, 'state_version'); };
     var refresh_related_bugs = $.bug.refresh_related_bugs;
     $.bug.refresh_related_bugs = function() { ok(true, 'refresh_related_bugs'); };
 
-    var element = $('.state_subcomponent');
+    var element = $('.state_details');
+    var element_sub = $('.subcomponents');
+    var element_ver = $('.versions');
+    var element_sys = $('.op_sys');
     equal(element.css('display'), 'none');
+    ok(!element.hasClass('initialized'), 'is not initialized');
     equal($('.active_subcomponent .select', element).length, 0, 'no .select element');
-    $(".component .chosen").attr('data', 'Formula_editor');
-    $.bug.state_subcomponent();
+    equal($('.versions .select', element).length, 0, 'no .select element');
+    $(".state_component .chosen").attr('data', 'Formula_editor');
+    /*var version = 'VERSION1';
+    $(".versions .choice[data='" + version + "']", element).click();
+    var op_sys = "LINUX"; 
+    $(".op_sys .choice[data='" + op_sys + "']", element).click();*/
+    $.bug.state_details();
     equal($('.active_subcomponent .select', element).length, 1, 'one .select element');
+    equal($('.versions .chosen', element_ver).attr('data'), undefined, 'initialy nothing selected');
     equal(element.css('display'), 'block');
-    $(".active_subcomponent .subcomponent .choice[data='Formula_editor']", element).click();
+    $(".active_subcomponent .subcomponent .choice[data='Formula_editor']", element_sub).click();
+    ok(true, 'state_details');
+    $('.state_details .versions .choice:nth(0)').click();
 
     $.bug.state_version = state_version;
     $.bug.refresh_related_bugs = refresh_related_bugs;
-});
-
-test("state_version", function() {
-    expect(7);
-
-    var state_description = $.bug.state_description;
-    $.bug.state_description = function() { ok(true, 'state_description'); };
-
-    var element = $('.state_version');
-    equal(element.css('display'), 'none');
-    ok(!element.hasClass('initialized'), 'is not initialized');
-    $.bug.state_version();
-    equal(element.css('display'), 'block');
-    ok(element.hasClass('initialized'), 'is initialized');
-    equal($('.versions .chosen', element).attr('data'), undefined, 'initialy nothing selected');
-    var version = 'VERSION1';
-    $(".versions .choice[data='" + version + "']", element).click();
-    // the second time, the selected index is not reset
-    $.bug.state_version();
-    equal($('.versions .chosen', element).attr('data'), version, 'same version selected');
-
-    $.bug.state_description = state_description;
 });
 
 test("state_description", function() {
@@ -248,11 +238,13 @@ test("state_submit", function() {
     var component = 'Formula_editor';
     $(".state_component .choice[data='" + component + "']").click();
     var component_text = $(".state_component .chosen").text();
+    $.bug.state_details();
     var subcomponent = 'SUBCOMPONENT';
-    $('.state_subcomponent .active_subcomponent .chosen').attr('data', subcomponent);
-    $.bug.state_version();
+    $.bug.subcomponent = subcomponent;
     var version = 'VERSION';
-    $('.state_version .chosen').attr('data', version);
+    $.bug.version = version;
+    var op_sys = "LINUX";
+    $.bug.op_sys = op_sys;
     var short_desc = 'SHORT_DESC';
     $('.state_description .short').val(short_desc);
     var comment = 'LONG';
@@ -267,7 +259,7 @@ test("state_submit", function() {
         equal($('input[name="component"]', form).val(), component_text);
         equal($('input[name="version"]', form).val(), version);
         equal($('input[name="short_desc"]', form).val(), subcomponent + ': ' + short_desc);
-        equal($('input[name="comment"]', form).val(), comment);
+        equal($('input[name="comment"]', form).val(), comment + "\nOperating System: ");
         return false; // prevent actual submission
     });
     form.submit();
@@ -302,6 +294,9 @@ test("state_submit", function() {
     });
     equal($('.error').text(), error, 'error is set');
 
+    $('.state_description').hide();
+    $('.state_attach').hide();
+    $('.state_submit').hide();
     $.bug.state_success = state_success;
     $.bug.ajax = $.ajax;
 });
