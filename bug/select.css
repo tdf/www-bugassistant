@@ -25,6 +25,10 @@
     z-index: 1;
 }
 
+.select.regression {
+    z-index: 1;
+}
+
 .select ul {
     list-style: none;
     margin: 0;

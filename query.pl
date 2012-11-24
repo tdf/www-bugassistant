@@ -1,3 +1,4 @@
+
 #
 #     Copyright (C) 2011 Loic Dachary <loic@dachary.org>
 #
@@ -42,7 +43,6 @@ print "<?xml version='1.0' encoding='ISO-8859-1'?>\n";
         return lc($b) cmp lc($a);
     } } @{$vers[$libreoffice]};
 print <<EOF;
-	  <div class="versions select">
             <div class="select-header">
               <div class="chosen">(chose one)</div>
             </div>
@@ -58,6 +58,7 @@ print <<EOF;
                       <div class="center">
                         <ul>
 EOF
+    print " <li class='choice' data='NONE'>None</li>\n";
     for($count = 0; $count < @versions; $count++) {
         print " <li class='choice' data='$versions[$count]'>$versions[$count]</li>\n";
     }
@@ -69,6 +70,5 @@ EOF
                 </div>
               </div>
             </div>
-	  </div>
 EOF
 

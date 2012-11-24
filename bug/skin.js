@@ -21,6 +21,7 @@
       $('.skin').show();
       $.bug.frame();
       $.bug.compatibility();
+      $.bug.token = "AA";
       function component() {
           $.bug.state_component();
       }
@@ -42,7 +43,6 @@
           description();
           $('.state_description .short').val('1234567890');
           $('.state_description .long').val('0123456789');
-          $.bug.token = "AA";
           $('.state_description .short').change();
       }
 

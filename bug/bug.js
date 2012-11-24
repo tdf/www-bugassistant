@@ -98,6 +98,7 @@
         sub_component: 'EMPTY',
         version: '',
         op_sys: '',
+        regression: '',
 
         state_signin_error_regexps: [/CLASS="THROW_ERROR">([^<]*)/i],
         state_signin_success_regexp: /LOG&NBSP;OUT<\/A>([^<]*)/i,
@@ -168,24 +169,35 @@
             $('.active_subcomponent .select .choice', element).click(function() {
                 $.bug.refresh_related_bugs();
                 $.bug.subcomponent = $('.state_details .active_subcomponent .chosen').attr('data');
-                if ($.bug.version != '' && $.bug.op_sys != '') {
+                if ($.bug.version != '' && $.bug.op_sys != '' && $.bug.regression != '') {
                     $.bug.state_description();
                 }
             });
-            $('.select', element).select();
+            $(".select", element).select();
+            $(".state_details .versions .choice[data='NONE']").remove();
             $(".versions .select .choice", element).click(function() {
                 $.bug.version = $('.state_details .version .chosen').attr('data');
-                if ($.bug.subcomponent != 'EMPTY' && $.bug.op_sys != '') {
+                if ($.bug.subcomponent != 'EMPTY' && $.bug.op_sys != '' && $.bug.regression != '') {
                     $.bug.state_description();
                 }
             });
-            $('.select', element).select();
+            $(".select", element).select();
             $(".op_sys .select .choice", element).click(function() {
                 $.bug.op_sys = $('.state_details .op_sys .chosen').attr('data');
-                if ($.bug.subcomponent != 'EMPTY' && $.bug.version != '') {
+                if ($.bug.subcomponent != 'EMPTY' && $.bug.version != '' && $.bug.regression != '') {
                     $.bug.state_description();
                 }
              });
+            $(".select", element).select();
+            $(".regression .select .choice", element).click(function() {
+                $.bug.regression = $('.state_details .regression .chosen').attr('data');
+                if ($.bug.subcomponent != 'EMPTY' && $.bug.version != '' && $.bug.op_sys != '') {
+                    $.bug.state_description();
+                }
+             });
+             $(".state_details .regression .choice[data='NONE']").click();
+
+
         },
 
         state_description: function() {
@@ -261,7 +273,9 @@
                     //Add Operating System
                     var op_sys = $('.state_op_sys .chosen').attr('data');
                     var comment = $('.state_description .long').val();
+                    var regression = (($.bug.regression != "NONE" && $.bug.regression != "")?$.bug.regression:"");
                     comment = comment + "\nOperating System: " + $(".op_sys .chosen").text();
+                    comment = comment + (regression != "")?"\nLast worked in: " + regression:"";
                     $("body").css("cursor", "progress");
                     $('input[name="token"]', form).val($.bug.token);
                     $('input[name="component"]', form).val(component);
@@ -269,6 +283,7 @@
                     $('input[name="op_sys"]', form).val($.bug.op_sys);
                     $('input[name="short_desc"]', form).val(short_desc);
                     $('input[name="comment"]', form).val(comment);
+                    $('input[name="keywords"]', form).val((regression != "")?"regression":"");
                     $.bug.token = '';
                     return true;
                 });
