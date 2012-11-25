@@ -251,6 +251,11 @@
 
         state_submit: function() {
             var element = $('.state_submit');
+            if ($.bug.token == '') {
+                $.bug.ajax('GET', $.bug.url + '/enter_bug.cgi?product=LibreOffice&bug_status=UNCONFIRMED').pipe(function(data){
+                    $.bug.token = data.match(/<input type="hidden" name="token" value="([A-Za-z0-9]{10})">/)[1];
+                });
+            }
             if(!element.hasClass('initialized')) {
 
                 var form = $('.submission_form form');
@@ -262,11 +267,6 @@
                     } else {
                         $(element).addClass('inprogress');
                     }
-                    if ($.bug.token == '') {
-                        $.bug.ajax('GET', $.bug.url + '/enter_bug.cgi?product=LibreOffice&bug_status=UNCONFIRMED').pipe(function(data){
-                            $.bug.token = data.match(/<input type="hidden" name="token" value="([A-Za-z0-9]{10})">/)[1];
-                        });
-                    }
                     var component = $('.state_component .chosen').attr('data').replace('_',' ');
                     var short_desc = $.bug.subcomponent + ': ' + $('.state_description .short').val();
                     //Add Operating System
@@ -274,7 +274,7 @@
                     var comment = $('.state_description .long').val();
                     var regression = (($.bug.regression != "NONE" && $.bug.regression != "")?$.bug.regression:"");
                     comment = comment + "\nOperating System: " + $(".op_sys .chosen").text();
-                    comment = comment + (regression != "")?"\nLast worked in: " + regression:"";
+                    comment = comment + ((regression != "")?"\nLast worked in: " + regression:"");
                     $("body").css("cursor", "progress");
                     $('input[name="token"]', form).val($.bug.token);
                     $('input[name="component"]', form).val(component);
@@ -282,7 +282,7 @@
                     $('input[name="op_sys"]', form).val($.bug.op_sys);
                     $('input[name="short_desc"]', form).val(short_desc);
                     $('input[name="comment"]', form).val(comment);
-                    $('input[name="keywords"]', form).val((regression != "")?"regression":"");
+                    $('input[name="keywords"]', form).val(((regression != "")?"regression":""));
                     $.bug.token = '';
                     return true;
                 });
