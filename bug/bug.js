@@ -350,6 +350,58 @@
             }
         },
 
+        get: function (name){
+           if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
+               return decodeURIComponent(name[1]);
+         },
+
+         //set default values if request parameters are present
+         process_params: function () {
+            version = $.bug.get('version');
+	    module = $.bug.get('module');
+
+            if (version){
+                var versions = [];
+		$(".versions .choice").each(function() {
+                   versions.push($(this).text());
+                });
+               if ($.inArray(version, versions)){
+                  $(".versions .chosen").text(version)
+               }
+            }
+
+            if (module){
+                var components = [];
+                $(".component .choice").each(function() {
+                   components.push($(this).text());
+                });
+                var component = $.bug.get_component(module);
+                if ($.inArray(component, components)){
+                  var element = $('.state_component');
+                  $('img[data="' + component + '"]').mouseenter();
+                  $('img[data="' + component + '"]').addClass('selected');
+
+                  $(".component .chosen").text(component);
+                  $(".component .chosen").attr("data", component);
+
+                  $('.comment', element).hide();
+                  $('.comment.' + component, element).show();
+                  $.bug.state_details();
+               }
+            }
+         },
+
+        get_component: function (module){
+           var components = new Array();
+           components["TextDocument"] = "Writer";
+           components["SpreadsheetDocument"] = "Spreadsheet";
+           components["DrawingDocument"] = "Drawing";
+           components["PresentationDocument"] = "Presentation";
+           components["FormulaDocument"] = "Formula_Editor";
+           components["StartModule"] = "Libreoffice";
+           return components[module];
+         },
+
         main: function(in_isTest) {
             $.bug.compatibility();
             $.bug.frame();
@@ -360,6 +412,7 @@
                     $.bug.state_signin();
                 }
             });
+           $.bug.process_params();
         }
     };
 
