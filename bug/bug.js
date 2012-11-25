@@ -176,7 +176,7 @@
             $(".select", element).select();
             $(".state_details .versions .choice[data='NONE']").remove();
             $(".versions .select .choice", element).click(function() {
-                $.bug.version = $('.state_details .version .chosen').attr('data');
+                $.bug.version = $('.state_details .versions .chosen').attr('data');
                 if ($.bug.subcomponent != 'EMPTY' && $.bug.op_sys != '' && $.bug.regression != '') {
                     $.bug.state_description();
                 }
@@ -253,12 +253,6 @@
             var element = $('.state_submit');
             if(!element.hasClass('initialized')) {
 
-                if ($.bug.token == '') {
-                    $.bug.ajax('GET', $.bug.url + '/enter_bug.cgi?product=LibreOffice&bug_status=UNCONFIRMED').pipe(function(data){
-                        $.bug.token = data.match(/<input type="hidden" name="token" value="([A-Za-z0-9]{10})">/)[1];
-                    });
-                }
-
                 var form = $('.submission_form form');
                 $.bug.error_clear();
                 form.attr('action', $.bug.url + '/post_bug.cgi');
@@ -267,6 +261,11 @@
                         return false;
                     } else {
                         $(element).addClass('inprogress');
+                    }
+                    if ($.bug.token == '') {
+                        $.bug.ajax('GET', $.bug.url + '/enter_bug.cgi?product=LibreOffice&bug_status=UNCONFIRMED').pipe(function(data){
+                            $.bug.token = data.match(/<input type="hidden" name="token" value="([A-Za-z0-9]{10})">/)[1];
+                        });
                     }
                     var component = $('.state_component .chosen').attr('data').replace('_',' ');
                     var short_desc = $.bug.subcomponent + ': ' + $('.state_description .short').val();
