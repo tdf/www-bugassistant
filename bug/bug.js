@@ -398,6 +398,7 @@
            components["DrawingDocument"] = "Drawing";
            components["PresentationDocument"] = "Presentation";
            components["FormulaDocument"] = "Formula_Editor";
+	   components["OfficeDatabaseDocument"] = "Database";
            components["StartModule"] = "Libreoffice";
            return components[module];
          },
