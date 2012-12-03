@@ -96,7 +96,7 @@
         url: '',
 	token: '',
         sub_component: 'EMPTY',
-        version: '',
+        lo_version: '',
         op_sys: '',
         regression: '',
 
@@ -169,14 +169,14 @@
             $('.active_subcomponent .select .choice', element).click(function() {
                 $.bug.refresh_related_bugs();
                 $.bug.subcomponent = $('.state_details .active_subcomponent .chosen').attr('data');
-                if ($.bug.version != '' && $.bug.op_sys != '' && $.bug.regression != '') {
+                if ($.bug.lo_version != '' && $.bug.op_sys != '' && $.bug.regression != '') {
                     $.bug.state_description();
                 }
             });
             $(".select", element).select();
             $(".state_details .versions .choice[data='NONE']").remove();
             $(".versions .select .choice", element).click(function() {
-                $.bug.version = $('.state_details .versions .chosen').attr('data');
+                $.bug.lo_version = $('.state_details .versions .chosen').attr('data');
                 if ($.bug.subcomponent != 'EMPTY' && $.bug.op_sys != '' && $.bug.regression != '') {
                     $.bug.state_description();
                 }
@@ -184,14 +184,14 @@
             $(".select", element).select();
             $(".op_sys .select .choice", element).click(function() {
                 $.bug.op_sys = $('.state_details .op_sys .chosen').attr('data');
-                if ($.bug.subcomponent != 'EMPTY' && $.bug.version != '' && $.bug.regression != '') {
+                if ($.bug.subcomponent != 'EMPTY' && $.bug.lo_version != '' && $.bug.regression != '') {
                     $.bug.state_description();
                 }
              });
             $(".select", element).select();
             $(".regression .select .choice", element).click(function() {
                 $.bug.regression = $('.state_details .regression .chosen').attr('data');
-                if ($.bug.subcomponent != 'EMPTY' && $.bug.version != '' && $.bug.op_sys != '') {
+                if ($.bug.subcomponent != 'EMPTY' && $.bug.lo_version != '' && $.bug.op_sys != '') {
                     $.bug.state_description();
                 }
              });
@@ -278,7 +278,7 @@
                     $("body").css("cursor", "progress");
                     $('input[name="token"]', form).val($.bug.token);
                     $('input[name="component"]', form).val(component);
-                    $('input[name="version"]', form).val($.bug.version);
+                    $('input[name="version"]', form).val($.bug.lo_version);
                     $('input[name="op_sys"]', form).val($.bug.op_sys);
                     $('input[name="short_desc"]', form).val(short_desc);
                     $('input[name="comment"]', form).val(comment);
@@ -357,16 +357,16 @@
 
          //set default values if request parameters are present
          process_params: function () {
-            version = $.bug.get('version');
+            lo_version = $.bug.get('lo_version');
 	    module = $.bug.get('module');
 
-            if (version){
-                var versions = [];
+            if (lo_version){
+                var lo_versions = [];
 		$(".versions .choice").each(function() {
-                   versions.push($(this).text());
+                   lo_versions.push($(this).text());
                 });
-               if ($.inArray(version, versions)){
-                  $(".versions .chosen").text(version)
+               if ($.inArray(lo_version, lo_versions)){
+                  $(".versions .chosen").text(lo_version)
                }
             }
 
