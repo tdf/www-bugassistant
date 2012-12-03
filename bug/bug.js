@@ -217,6 +217,11 @@
                 element.addClass('initialized');
                 $.bug.current_step('description');
                 element.show();
+                if ($.bug.token == '') {
+                    $.bug.ajax('GET', $.bug.url + '/enter_bug.cgi?product=LibreOffice&bug_status=UNCONFIRMED').pipe(function(data){
+                        $.bug.token = data.match(/<input type="hidden" name="token" value="([A-Za-z0-9]{10})">/)[1];
+                    });
+                }
             }
         },
 
@@ -267,6 +272,7 @@
                     } else {
                         $(element).addClass('inprogress');
                     }
+		    error_clear();
                     var component = $('.state_component .chosen').attr('data').replace('_',' ');
                     var short_desc = $.bug.subcomponent + ': ' + $('.state_description .short').val();
                     //Add Operating System
