@@ -217,11 +217,6 @@
                 element.addClass('initialized');
                 $.bug.current_step('description');
                 element.show();
-                if ($.bug.token == '') {
-                    $.bug.ajax('GET', $.bug.url + '/enter_bug.cgi?product=LibreOffice&bug_status=UNCONFIRMED').pipe(function(data){
-                        $.bug.token = data.match(/<input type="hidden" name="token" value="([A-Za-z0-9]{10})">/)[1];
-                    });
-                }
             }
         },
 
