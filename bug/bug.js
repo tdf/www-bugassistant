@@ -277,7 +277,7 @@
                     //Add Operating System
                     var op_sys = $('.state_op_sys .chosen').attr('data');
                     var comment = $('.state_description .long').val();
-		    if (($.bug.regression_id >= 0) && ($.bug.regression_id <= $.bug.version_id))
+		    if (($.bug.regression_id >= 0) && ($.bug.regression_id <= $.bug.lo_version_id))
 		      $.bug.regression_id = -1;
                     comment = comment + "\nOperating System: " + $(".op_sys .chosen").text();
                     comment = comment + (($.bug.regression_id >= 0)?"\nLast worked in: " + $.bug.regression:"");
