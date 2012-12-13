@@ -54,6 +54,7 @@
     <xsl:template match="div[@class='component']">
 	<xsl:element name="li">
 	  <xsl:attribute name="data"><xsl:value-of select="translate(translate(*[position()=1],' ','_'),&quot;&#10;&quot;,'_')" /></xsl:attribute>
+	  <xsl:attribute name="idvalue">0</xsl:attribute>
 	  <xsl:attribute name="class">choice</xsl:attribute>
 	  <xsl:value-of select="*[position()=1]"/>
 	</xsl:element>

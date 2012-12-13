@@ -38,7 +38,7 @@
                       <div class="bottom-right"></div>
                       <div class="center">
                         <ul>
-                          <li class="choice" data=''>(all other problems)</li>
+                          <li class="choice" data='' idvalue=''>(all other problems)</li>
                           <xsl:apply-templates select="descendant::*[contains(@class,'search')]"/>
                         </ul>
                       </div>
@@ -55,6 +55,7 @@
 	<xsl:if test="not(contains(*,'['))">
 	 <xsl:element name="li">
 	  <xsl:attribute name="data"><xsl:value-of select="*"/></xsl:attribute>
+	  <xsl:attribute name="idvalue">0</xsl:attribute>
 	  <xsl:attribute name="class">choice</xsl:attribute>
 	  <xsl:value-of select="*"/>
 	 </xsl:element>

@@ -22,7 +22,7 @@ while(<STDIN>) {
     $op_sys = $_;
     $op_sys =~ s/\R//g;
     my($display_value, $data) = split(/::/, $op_sys, 2);
-    print " <li class='choice' data='$data'>$display_value</li>\n";
+    print " <li class='choice' data='$data' idvalue='0'>$display_value</li>\n";
 }
 
     print <<EOF;

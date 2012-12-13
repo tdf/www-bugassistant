@@ -58,9 +58,9 @@ print <<EOF;
                       <div class="center">
                         <ul>
 EOF
-    print " <li class='choice' data='NONE'>None</li>\n";
+    print " <li class='choice' data='NONE' idvalue='-1'>None</li>\n";
     for($count = 0; $count < @versions; $count++) {
-        print " <li class='choice' data='$versions[$count]'>$versions[$count]</li>\n";
+        print " <li class='choice' data='$versions[$count]' idvalue='$count'>$versions[$count]</li>\n";
     }
     print <<EOF;
                         </ul>

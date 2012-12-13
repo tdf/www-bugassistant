@@ -96,9 +96,11 @@
         url: '',
 	token: '',
         sub_component: 'EMPTY',
-        lo_version: '',
         op_sys: '',
+        lo_version: '',
         regression: '',
+	lo_version_id: '',
+	regression_id: '',
 
         state_signin_error_regexps: [/CLASS="THROW_ERROR">([^<]*)/i],
         state_signin_success_regexp: /LOG&NBSP;OUT<\/A>([^<]*)/i,
@@ -177,6 +179,7 @@
             $(".state_details .versions .choice[data='NONE']").remove();
             $(".versions .select .choice", element).click(function() {
                 $.bug.lo_version = $('.state_details .versions .chosen').attr('data');
+                $.bug.lo_version_id = $('.state_details .versions .chosen').attr('idvalue');
                 if ($.bug.subcomponent != 'EMPTY' && $.bug.op_sys != '' && $.bug.regression != '') {
                     $.bug.state_description();
                 }
@@ -191,6 +194,7 @@
             $(".select", element).select();
             $(".regression .select .choice", element).click(function() {
                 $.bug.regression = $('.state_details .regression .chosen').attr('data');
+                $.bug.regression_id = $('.state_details .regression .chosen').attr('idvalue');
                 if ($.bug.subcomponent != 'EMPTY' && $.bug.lo_version != '' && $.bug.op_sys != '') {
                     $.bug.state_description();
                 }
@@ -273,9 +277,10 @@
                     //Add Operating System
                     var op_sys = $('.state_op_sys .chosen').attr('data');
                     var comment = $('.state_description .long').val();
-                    var regression = (($.bug.regression != "NONE" && $.bug.regression != "")?$.bug.regression:"");
+		    if (($.bug.regression_id >= 0) && ($.bug.regression_id <= $.bug.version_id))
+		      $.bug.regression_id = -1;
                     comment = comment + "\nOperating System: " + $(".op_sys .chosen").text();
-                    comment = comment + ((regression != "")?"\nLast worked in: " + regression:"");
+                    comment = comment + (($.bug.regression_id >= 0)?"\nLast worked in: " + $.bug.regression:"");
                     $("body").css("cursor", "progress");
                     $('input[name="token"]', form).val($.bug.token);
                     $('input[name="component"]', form).val(component);
@@ -283,7 +288,7 @@
                     $('input[name="op_sys"]', form).val($.bug.op_sys);
                     $('input[name="short_desc"]', form).val(short_desc);
                     $('input[name="comment"]', form).val(comment);
-                    $('input[name="keywords"]', form).val(((regression != "")?"regression":""));
+                    $('input[name="keywords"]', form).val((($.bug.regression_id >= 0)?"regression":""));
                     $.bug.token = '';
                     return true;
                 });

@@ -36,6 +36,7 @@
             $('li', this).click(function() {
                 $('.chosen', element).
                     attr('data', $(this).attr('data')).
+		    attr('idvalue', $(this).attr('idvalue')).
                     text($(this).text());
                 $('.choices', element).hide();
             });
