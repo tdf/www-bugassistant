@@ -280,6 +280,7 @@
 		    if (($.bug.regression_id >= 0) && ($.bug.regression_id <= $.bug.lo_version_id))
 		      $.bug.regression_id = -1;
                     comment = comment + "\nOperating System: " + $(".op_sys .chosen").text();
+                    comment = comment + "\nVersion: " + $.bug.lo_version;
                     comment = comment + (($.bug.regression_id >= 0)?"\nLast worked in: " + $.bug.regression:"");
                     $("body").css("cursor", "progress");
                     $('input[name="token"]', form).val($.bug.token);
