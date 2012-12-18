@@ -18,7 +18,7 @@ all: extract compose
 
 extract:
 	mkdir -p build
-	curl --silent http://wiki.documentfoundation.org/BugReport_Details | tidy --numeric-entities yes -asxhtml 2>/dev/null > build/tidyout.xhtml || echo "ignoring tidy error"
+	curl --silent https://wiki.documentfoundation.org/BugReport_Details | tidy --numeric-entities yes -asxhtml 2>/dev/null > build/tidyout.xhtml || echo "ignoring tidy error"
 	xsltproc --encoding UTF-8 --novalid stripnamespace.xsl build/tidyout.xhtml > build/BugReport_Details.xhtml
 	xsltproc --encoding UTF-8 --novalid component_comments.xsl build/BugReport_Details.xhtml > build/component_comments.xhtml
 	xsltproc --encoding UTF-8 --novalid subcomponents.xsl build/BugReport_Details.xhtml > build/subcomponents.xhtml
