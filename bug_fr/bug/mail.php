@@ -5,7 +5,7 @@
     echo("FALSE");
   }
 
- $to = "programming@ertai.nl";
+ $to = "";
  $subject = "New Bug via the French BSA!";
  $body = "Hi,\n\nThere was a new bug filed in french. Can somebody triage it for us?\n\n";
  $body = $body + "Component: " + $_POST["component"] + "\n";
