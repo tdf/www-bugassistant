@@ -192,6 +192,7 @@
                 }
              });
             $(".select", element).select();
+            $(".state_details .regression .choice[data='unspecified']").remove();
             $(".regression .select .choice", element).click(function() {
                 $.bug.regression = $('.state_details .regression .chosen').attr('data');
                 $.bug.regression_id = $('.state_details .regression .chosen').attr('idvalue');
