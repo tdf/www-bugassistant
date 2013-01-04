@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+     Copyright (C) 2011 Loic Dachary <loic@dachary.org>
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <http:www.gnu.org/licenses/>.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Bug Filing Form</title>
+  <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+  <script type="text/javascript" src="jquery-1.6.2.js"></script>
+  <script type="text/javascript" src="bug.js"></script>
+  <link rel="stylesheet" href="bug.css" type="text/css" media="screen"></link>
+  <script type="text/javascript" src="select.js"></script>
+  <link rel="stylesheet" href="select.css" type="text/css" media="screen"></link>
+  <script type="text/javascript" src="qunit.js"></script>
+  <link rel="stylesheet" href="qunit.css" type="text/css" media="screen"></link>
+  <script type="text/javascript" src="test.js"></script>
+</head>
+<body>
+  <h1 id="qunit-header">QUnit Test Suite</h1>
+  <h2 id="qunit-banner"></h2>
+  <div id="qunit-testrunner-toolbar"></div>
+  <h2 id="qunit-userAgent"></h2>
+  <ol id="qunit-tests"></ol>
+  <div id="qunit-fixture">
+
+    <div class="error-container">
+      <div class="error"></div>
+    </div>
+
+    <div class="username"></div>
+
+    <div class="signin">
+      <input class='user' type="text" name="user"></input>
+      <input class='password' type="password" name="password"></input>
+      <a class="login-link"></a>
+      <a class="create-account-link"></a>
+      <div class="go">Sign in</div>
+    </div>
+
+    <div class="state_component">
+      <div class="component select">
+        <div class="select-header">
+          <div class="chosen">(chose one)</div>
+        </div>
+        <div class="choices">
+          <ul>
+            <li data="Formula_editor" class="choice">Formula editor</li>
+            <li data="OTHER" class="choice">OTHER</li>
+          </ul>
+        </div>
+      </div>
+      <div class="components_icons">
+        <img data="OTHER"/>
+        <img data="Formula_editor"/>
+      </div>
+      <div class="comments">
+        <div class="comment OTHER"></div>
+        <div class="comment Formula_editor"></div>
+      </div>
+    </div>
+
+    <div class="state_details">
+      <div class="active_subcomponent"></div>
+      <div xmlns="" class="versions select">
+        <div class="select-header">
+          <div class="chosen">(chose one)</div>
+        </div>
+        <div class="choices">
+          <ul>
+            <li class="choice" data="unspecified">unspecified</li>
+            <li class="choice" data="VERSION1">VERSION1</li>
+          </ul>
+        </div>
+      </div>
+      <div class="inlineblock">
+        <div class="state state_details op_sys">
+          <div class="input-label">Operating System</div>
+            <li class="choice" data="LINUX">Linux</li>
+            <li class="choice" data="BSD">BSD</li>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="state state_description">
+      <input type="text" class="short"></input>
+      <textarea class="long"></textarea>
+    </div>
+
+    <div id="submissionoutput" name="submissionoutput"></div>
+
+    <div class="submission_form">
+      <form action='/post_bug.cgi' target="submissionoutput" method='POST' enctype='multipart/form-data'>
+        <input type="hidden" name="product" value="LibreOffice"></input>
+        <input type="hidden" name="bug_status" value="UNCONFIRMED"></input>
+        <input type="hidden" name="rep_platform" value="Other"></input>
+        <input type="hidden" name="op_sys" value="All"></input>
+        <input type="hidden" name="bug_severity" value="normal"></input>
+        <input type="hidden" name="priority" value="medium"></input>
+        <input type="hidden" name="rep_platform" value="Other"></input>
+        <input type="hidden" name="status_whiteboard" value="BSA"></input>
+        <input type="hidden" name="assigned_to" value="libreoffice-bugs@lists.freedesktop.org"></input>
+        <input type="hidden" name="component" value=""></input>
+        <input type="hidden" name="version" value=""></input>
+        <input type="hidden" name="short_desc" value=""></input>
+        <input type="hidden" name="comment" value=""></input>
+        <div class="state state_attach">
+          <input type="hidden" name="contenttypemethod" value="autodetect"></input>
+          <div class="attach-file">
+	    <input type="file" name="data" />
+	    <div class="attach-file-style">
+	      <div><input type="text" name="ignored"></input></div>
+	      <div class="attach-browse">Browse</div>
+	    </div>
+          </div>
+        </div>
+        <div class="state state_submit">
+	  <input type="submit" value="Submit"></input>
+        </div>
+      </form>
+      <div class="state state_submit">
+        <div class="bug"></div>
+      </div>
+    </div>
+
+    <div class="submission">
+<div class="state_details">
+      <div class="subcomponents">
+        <div xmlns="" class="Formula_editor">
+          <div class="subcomponent select">
+            <div class="select-header">
+              <div class="chosen">(chose one)</div>
+            </div>
+            <div class="choices">
+              <ul>
+                <li class="choice" data="">(all other problems)</li>
+                <li data="Macros" class="choice">Macros</li>
+                <li data="Formula_editor" class="choice">Formula editor</li>
+                <li data="IDE" class="choice">IDE</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div xmlns="" class="Chart">
+          <div class="subcomponent select">
+            <div class="select-header">
+              <div class="chosen">(chose one)</div>
+            </div>
+            <div class="choices">
+              <ul>
+                <li class="choice" data="">(all other problems)</li>
+                <li data="FILEOPEN" class="choice">FILEOPEN</li>
+                <li data="FILESAFE" class="choice">FILESAFE</li>
+                <li data="FORMATTING" class="choice">FORMATTING</li>
+                <li data="PRINTING" class="choice">PRINTING</li>
+                <li data="UI" class="choice">UI</li>
+                <li data="VIEWING" class="choice">VIEWING</li>
+              </ul>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    </div>
+
+    <div class="state state_success">
+      <a class="bug"></a>
+    </div>
+
+  </div>
+</body>
+</html>

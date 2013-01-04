@@ -1,0 +1,623 @@
+/*
+     Copyright (C) 2011 Loic Dachary <loic@dachary.org>
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <http:www.gnu.org/licenses/>.
+*/
+/* javascript and old browsers fallback */
+.javascript, .unsupported, .compatibility .version {
+    display: none;
+}
+
+.compatibility .message {
+    padding: 10px 0px 10px 50px;
+}
+
+.compatibility .eyecandy {
+    width: 500px;
+    height: 116px;
+    background: url('images/noscript.png') no-repeat top left;
+}
+
+.inlineblock {
+    display: inline-block;
+}
+
+body {
+    margin: 0;
+    background-color: #fff;
+    color: #616161;
+    height: 1024px;
+    font-family: helvetica, arial;
+    overflow-x: hidden;
+}
+
+.input-label {
+    padding-left: 7px;
+}
+
+.header {
+    background: url('images/top-header.png') no-repeat top left;
+    height: 103px;
+    width: 892px;
+}
+
+.header .title {
+    vertical-align: top;
+    font-weight: bold;
+    font-size: 22px;
+    display: inline-block;
+    color: #FFF;
+    padding-top: 5px;
+    padding-left: 30px;
+}
+
+.header .submission {
+    display: inline-block;
+    color: #FFF;
+    width: 50%;
+    font-size: 15px;
+    padding-top: 10px;
+    padding-left: 120px;
+    font-weight: bold;
+}
+
+.content {
+    width: 890px;
+}
+
+.content > div {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.left {
+    width: 255px;
+    height: 100%;
+    background: url('images/background-left.png') repeat-y;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.left .step {
+    height: 64px;
+    width: 255px;
+    background: #FFF url('images/step-off.png') no-repeat top left;
+}
+
+.left .step.current {
+    background: #FFF url('images/step-on.png') no-repeat top left;
+}
+
+.left .step:first-child {
+    background: #FFF url('images/step-first-off.png') no-repeat top left;
+}
+
+.left .step:first-child.current {
+    background: #FFF url('images/step-first-on.png') no-repeat top left;
+}
+
+.left .step.last-child {
+    background: #FFF url('images/step-last-off.png') no-repeat top left;
+}
+
+.left .step.last-child.current {
+    background: #FFF url('images/step-last-on.png') no-repeat top left;
+}
+
+.left .count {
+    padding-top: 19px;
+    padding-left: 30px;
+    display: inline-block;
+    color: #fff;
+}
+
+.left .current .count {
+    padding-left: 29px;
+}
+
+.left .label {
+    padding-left: 20px;
+    display: inline-block;
+    color: #9d9d9d;
+}
+
+.left .current .label {
+    color: #444;
+}
+
+/* copyright */
+
+.legal {
+    padding: 100px 30px 10px 20px;
+    font-size: 8px;
+    color: #1ca608;
+}
+
+.copyright {
+    padding: 10px 30px 10px 20px;
+    font-size: 8px;
+    color: #1ca608;
+}
+
+.copyright a {
+    color: #7bd16e;
+}
+
+.copyright a:hover {
+    color: #1ca608;
+}
+
+.right {
+    padding-left: 40px;
+    padding-top: 10px;
+    width: 590px;
+}
+
+.right .state {
+    margin: 5px;
+}
+
+/* error */
+
+.error {
+    color: #f07a7a;
+}
+
+.error-container {
+    display: none;
+    position: relative;
+    z-index: 1;
+}
+
+.error-container .error-top-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.error-container .error-bottom-left {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.error-container .error-top-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+}
+
+.error-container .error-bottom-right {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+}
+
+.error-container .error-top {
+    padding-top: 4px;
+    background: url('images/error-top.png') repeat-x top left;
+}
+
+.error-container .error-bottom {
+    padding-bottom: 4px;
+    background: url('images/error-bottom.png') repeat-x bottom left;
+}
+
+.error-container .error-top-left {
+    background: url('images/error-top-left.png') no-repeat;
+    height: 4px;
+    width: 5px;
+}
+
+.error-container .error-top-right {
+    background: url('images/error-top-right.png') no-repeat;
+    height: 4px;
+    width: 5px;
+}
+
+.error-container .error-bottom-left {
+    background: url('images/error-bottom-left.png') no-repeat;
+    height: 4px;
+    width: 5px;
+}
+
+.error-container .error-bottom-right {
+    background: url('images/error-bottom-right.png') no-repeat;
+    height: 4px;
+    width: 5px;
+}
+
+.error-container .error-left {
+    background: url('images/error-left.png') repeat-y top left;
+    padding-left: 5px;
+}
+
+.error-container .error-right {
+    background: url('images/error-right.png') repeat-y top right;
+    padding-right: 5px;
+}
+
+/* signin */
+.signin {
+    padding-top: 20px;
+    padding-left: 50px;
+    display: none;
+}
+
+.signin .signin-invite {
+    padding-left: 20px;
+    color: #29a1e0;
+}
+
+.signin .signin-container {
+    background: url('images/login-container.png') no-repeat;
+    height: 218px;
+    width: 277px;
+    padding: 30px;
+}
+
+.signin .signin-input {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.signin .signin-input input {
+    background: url('images/login-input.png') no-repeat;
+    height: 32px;
+    width: 243px;
+    border: 0;
+    padding: 5px 10px;
+}
+
+.signin .go {
+    margin: 10px 15px 10px auto;
+    background: url('images/signin.png') no-repeat;
+    width: 163px;
+    height: 49px;
+    font-weight: bold;
+    font-size: 20px;
+    color: #fff;
+    text-align: center;
+    line-height: 49px;
+}
+
+.signin div:hover.go {
+    cursor: pointer;
+    background: url('images/signin-hover.png') no-repeat;
+}
+
+.signin .signin-create {
+    padding-right: 15px;
+    text-align: right;
+}
+
+.signin a {
+    color: #025587;
+}
+
+.signin a:hover {
+    color: #29a1e0;
+}
+
+/* state_component */
+.state_component {
+    display: none;
+}
+
+.state_component > div > div {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.state_component .comments {
+    width: 210px;
+    height: 160px;
+    background: url('images/comment.png') no-repeat;
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+.state_component .component_comments_container {
+    padding-left: 40px;
+}
+
+.state_component .comments .comment-header {
+    color: #4fb33f;
+    font-weight: bold;
+    position: relative;
+    right: 0;
+}
+
+.state_component .comments .comment-text {
+    height: 130px;
+    overflow: auto;
+}
+
+.state_component .comments .comment-read-more {
+    text-align: right;
+}
+
+.state_component .comments .comment-read-more a {
+    text-decoration: none;
+    color: #cc1300;
+}
+
+.state_component .comments .comment-read-more a:hover {
+    color: #ea1600;
+    background: #fafafa;
+}
+
+.state_component .comments .comment {
+    display: none;
+}
+
+.state_component img {
+    padding: 5px;
+}
+
+.state_component img:hover {
+    cursor: pointer;
+    background: url('icons/icon-hover.png') no-repeat;
+}
+
+.state_component img.selected {
+    cursor: pointer;
+    background: url('icons/icon-selected.png') no-repeat;
+}
+
+/* state_details */
+.state_details {
+    display: none;
+}
+
+.state_details .active_subcomponent {
+    display: block;
+}
+
+.state_details .subcomponents {
+    display: none;
+}
+
+/* state_description */
+.state_description {
+    display: none;
+}
+
+.state_description .subject-input input {
+    background: url('images/subject.png') no-repeat;
+    height: 28px;
+    width: 528px;
+    border: 0;
+    padding: 5px 10px;
+}
+
+.state_description .description-input textarea {
+    background: url('images/description.png') no-repeat;
+    height: 240px;
+    width: 528px;
+    border: 0;
+    padding: 5px 10px;
+}
+
+/* state_submit */
+#submissionoutput {
+    display: none;
+}
+
+.state_submit {
+    display: none;
+}
+
+.state_submit input[type='submit'] {
+    border: 0;
+    margin-left: auto;
+    margin-right: 40px;
+    background: url('images/submit.png') no-repeat;
+    width: 163px;
+    height: 49px;
+    font-weight: bold;
+    font-size: 20px;
+    color: #fff;
+    text-align: center;
+    line-height: 49px;
+    cursor: pointer;
+}
+
+/* related bugs */
+
+.state_duplicates {
+    padding-left: 10px;
+    display: none;
+}
+
+.state_duplicates .related_bugs {
+    padding-top: 10px;
+    width: 560px;
+}
+
+.state_duplicates a {
+    color: #025587;
+}
+
+.state_duplicates a:hover {
+    color: #29a1e0;
+}
+
+/* state_success */
+.state_success {
+    display: none;
+    text-align: center;
+    font-weight: bold;
+}
+
+.state_success a {
+    color: #025587;
+}
+
+.state_success a:hover {
+    color: #29a1e0;
+}
+
+/* state_attach */
+.state_attach {
+    display: none;
+}
+
+.state_attach .attach-invite {
+    color: #18a403;
+    padding: 10px;
+}
+
+.state_attach .attach-file-style > div {
+    display: inline-block;
+}
+
+.state_attach .attach-file {
+    position: relative;
+    overflow: hidden;
+    height: 38px;
+    margin-left: 5px;
+}
+
+.state_attach .attach-file .attach-file-style {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.state_attach .attach-file .attach-file-style > div {
+    vertical-align: top;
+}
+
+.state_attach input[name='description'] {
+    background: url('images/subject.png') no-repeat;
+    height: 28px;
+    width: 528px;
+    border: 0;
+    padding: 5px 10px;
+}
+
+.state_attach .attach-file input[type='file'] {
+    cursor: pointer;
+    position: relative;
+    text-align: right;
+    -moz-opacity:0 ;
+    filter:alpha(opacity: 0);
+    opacity: 0;
+    z-index: 2;
+    width: 350px;
+    height: 39px;
+}
+
+.state_attach .attach-file input[type='text'] {
+    margin-top: 6px;
+    width: 232px;
+    height: 27px;
+    background: url('images/upload-input.png') no-repeat;
+    border: 0;
+    padding: 0px 5px;
+}
+
+.state_attach .attach-browse {
+    background: url('images/upload-browse.png') no-repeat;
+    width: 94px;
+    height: 39px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #057cc0;
+    text-align: center;
+    line-height: 38px;
+    border: 0;
+}
+
+/* skin */
+.skin {
+    display: none;
+}
+
+/* select */
+.select .select-header {
+    background: url('images/select-header.png') no-repeat;
+    padding: 5px 15px 5px 10px;
+    height: 33px;
+    line-height: 33px;
+    width: 225px;
+}
+
+.select .select-header, .select .choice {
+    font-size: 18px;
+    color: #b8af9e;
+}
+
+.select li.choice:hover {
+    background-color: #9ceb90;
+    color: #32b21f;
+}
+
+.select .choices .center {
+    background-color: #FFF;
+}
+
+.select .choices .select-top {
+    padding-top: 6px;
+    background: url('images/select-top.png') repeat-x top left;
+}
+
+.select .choices .select-bottom {
+    padding-bottom: 22px;
+    background: url('images/select-bottom.png') repeat-x bottom left;
+}
+
+.select .choices .top-left {
+    background: url('images/select-top-left.png') no-repeat;
+    width: 12px;
+    height: 6px;
+}
+
+.select .choices .top-right {
+    background: url('images/select-top-right.png') no-repeat;
+    width: 12px;
+    height: 6px;
+}
+
+.select .choices .bottom-left {
+    background: url('images/select-bottom-left.png') no-repeat;
+    width: 12px;
+    height: 22px;
+}
+
+.select .choices .bottom-right {
+    background: url('images/select-bottom-right.png') no-repeat;
+    width: 12px;
+    height: 22px;
+}
+
+.select .choices .select-left {
+    background: url('images/select-left.png') repeat-y top left;
+    padding-left: 12px;
+}
+
+.select .choices .select-right {
+    background: url('images/select-right.png') repeat-y top right;
+    padding-right: 12px;
+}
+
+.username {
+    visibility: hidden;
+}
