@@ -180,14 +180,14 @@
             $(".versions .select .choice", element).click(function() {
                 $.bug.lo_version = $('.state_details .versions .chosen').attr('data');
                 $.bug.lo_version_id = $('.state_details .versions .chosen').attr('idvalue');
-                if ($.bug.subcomponent != 'EMPTY' && $.bug.op_sys != '' && $.bug.regression != '') {
+                if ($.bug.sub_component != 'EMPTY' && $.bug.op_sys != '' && $.bug.regression != '') {
                     $.bug.state_description();
                 }
             });
             $(".select", element).select();
             $(".op_sys .select .choice", element).click(function() {
                 $.bug.op_sys = $('.state_details .op_sys .chosen').attr('data');
-                if ($.bug.subcomponent != 'EMPTY' && $.bug.lo_version != '' && $.bug.regression != '') {
+                if ($.bug.sub_component != 'EMPTY' && $.bug.lo_version != '' && $.bug.regression != '') {
                     $.bug.state_description();
                 }
              });
@@ -196,7 +196,7 @@
             $(".regression .select .choice", element).click(function() {
                 $.bug.regression = $('.state_details .regression .chosen').attr('data');
                 $.bug.regression_id = $('.state_details .regression .chosen').attr('idvalue');
-                if ($.bug.subcomponent != 'EMPTY' && $.bug.lo_version != '' && $.bug.op_sys != '') {
+                if ($.bug.sub_component != 'EMPTY' && $.bug.lo_version != '' && $.bug.op_sys != '') {
                     $.bug.state_description();
                 }
              });
