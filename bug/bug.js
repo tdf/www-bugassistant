@@ -170,7 +170,7 @@
             $('.active_subcomponent .select', element).select();
             $('.active_subcomponent .select .choice', element).click(function() {
                 $.bug.refresh_related_bugs();
-                $.bug.subcomponent = $('.state_details .active_subcomponent .chosen').attr('data');
+                $.bug.sub_component = $('.state_details .active_subcomponent .chosen').attr('data');
                 if ($.bug.lo_version != '' && $.bug.op_sys != '' && $.bug.regression != '') {
                     $.bug.state_description();
                 }
