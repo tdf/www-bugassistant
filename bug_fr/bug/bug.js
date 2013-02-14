@@ -300,7 +300,7 @@
                     $(element).removeClass('inprogress');
                     $("body").css("cursor", "default");
                     var output = $(this).contents().find($.bug.state_submit_element).html();
-		    if (strpos(output, "TRUE") > 0)
+		    if (output.indexOf("TRUE") > 0)
 			var data = "The bug report has been successfully submitted.".
                     $('.bug', element).text(data);
                     $.bug.state_success();
