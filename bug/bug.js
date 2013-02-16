@@ -273,7 +273,7 @@
                         $(element).addClass('inprogress');
                     }
 		    $.bug.error_clear();
-                    var component = $('.state_component .chosen').attr('data').replace('_',' ');
+                    var component = $('.state_component .chosen').attr('data').replace(new RegExp('_', "gm"),' ');
                     var short_desc = $.bug.sub_component + ': ' + $('.state_description .short').val();
                     //Add Operating System
                     var op_sys = $('.state_op_sys .chosen').attr('data');
