@@ -281,9 +281,9 @@
                     var comment = $('.state_description .long').val();
 		    if (($.bug.regression_id >= 0) && ($.bug.regression_id <= $.bug.lo_version_id))
 		      $.bug.regression_id = -1;
-                    comment = comment + "\nOperating System: " + $(".op_sys .chosen").text();
+                    comment = comment + "\nsystème d'exploitation: " + $(".op_sys .chosen").text();
                     comment = comment + "\nVersion: " + $.bug.lo_version;
-                    comment = comment + (($.bug.regression_id >= 0)?"\nLast worked in: " + $.bug.regression:"");
+                    comment = comment + (($.bug.regression_id >= 0)?"\nDernière travaillé dans: " + $.bug.regression:"");
                     $("body").css("cursor", "progress");
                     $('input[name="token"]', form).val($.bug.token);
                     $('input[name="component"]', form).val(component);
@@ -291,7 +291,7 @@
                     $('input[name="op_sys"]', form).val($.bug.op_sys);
                     $('input[name="short_desc"]', form).val(short_desc);
                     $('input[name="comment"]', form).val(comment);
-                    $('input[name="keywords"]', form).val((($.bug.regression_id >= 0)?"regression":""));
+                    $('input[name="keywords"]', form).val((($.bug.regression_id >= 0)?"régression":""));
                     $.bug.token = '';
                     return true;
                 });
@@ -301,7 +301,7 @@
                     $("body").css("cursor", "default");
                     var output = $(this).contents().find($.bug.state_submit_element).html();
 		    if (output.indexOf("TRUE") > 0)
-			var data = "The bug report has been successfully submitted.".
+			var data = "Le rapport de bug a la jambe avec succès Soumis.".
                     $('.bug', element).text(data);
                     $.bug.state_success();
                 });
