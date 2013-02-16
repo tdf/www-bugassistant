@@ -44,7 +44,7 @@ print "<?xml version='1.0' encoding='ISO-8859-1'?>\n";
     } } @{$vers[$libreoffice]};
 print <<EOF;
             <div class="select-header">
-              <div class="chosen">(chose one)</div>
+              <div class="chosen">(en choisir un)</div>
             </div>
             <div class="choices">
               <div class="select-top">
@@ -58,7 +58,7 @@ print <<EOF;
                       <div class="center">
                         <ul>
 EOF
-    print " <li class='choice' data='NONE' idvalue='-1'>None</li>\n";
+    print " <li class='choice' data='NONE' idvalue='-1'>Aucun</li>\n";
     for($count = 0; $count < @versions; $count++) {
         print " <li class='choice' data='$versions[$count]' idvalue='$count'>$versions[$count]</li>\n";
     }

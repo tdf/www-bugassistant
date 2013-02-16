@@ -27,7 +27,7 @@
     <xsl:template match="html">
       <div class="component select">
         <div class="select-header">
-          <div class="chosen">(chose one)</div>
+          <div class="chosen">(en choisir un)</div>
         </div>
         <div class="choices">
           <div class="select-top">
