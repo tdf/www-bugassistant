@@ -15,7 +15,10 @@
  $body = $body."Description longue: ".$_POST["comment"]."\n";
  $body = $body."\n\nMerci de nous aider,\nBSA";
 
- if (mail($to, $subject, $body)) {
+ $headers = "From: ".$_POST["BSAemail"]."\r\n";
+ $headers .= "CC: ".$_POST["BSAemail"]."\r\n";
+
+ if (mail($to, $subject, $body, $headers)) {
    echo("TRUE");
  } else {
    echo("FALSE");

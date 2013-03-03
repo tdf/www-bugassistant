@@ -102,6 +102,7 @@
 	lo_version_id: '',
 	regression_id: '',
 	BSALang: '',
+	email: '',
 
         state_signin_error_regexps: [/CLASS="THROW_ERROR">([^<]*)/i],
         state_signin_success_regexp: /LOG&NBSP;OUT<\/A>([^<]*)/i,
@@ -121,6 +122,7 @@
                                                $.bug.state_signin_success_regexp);
                 }).pipe(function(data) {
                     $('.username').html(data);
+		    $.bug.email = $('.user', element).val();
                     element.hide();
                     $.bug.state_component();
                 });
@@ -266,7 +268,7 @@
 
                 var form = $('.submission_form form');
                 $.bug.error_clear();
-		if ($.bug.BSALang = 'en') {
+		if ($.bug.BSALang == 'en') {
                     form.attr('action', $.bug.url + '/post_bug.cgi');
 		} else {
 		    var locarray = window.location.href.split("/");
@@ -298,6 +300,7 @@
                     $('input[name="short_desc"]', form).val(short_desc);
                     $('input[name="comment"]', form).val(comment);
                     $('input[name="keywords"]', form).val((($.bug.regression_id >= 0)?"regression":""));
+		    $('input[name="BSAemail"]', form).val($.bug.email);
                     $.bug.token = '';
                     return true;
                 });
@@ -306,7 +309,7 @@
                     $(element).removeClass('inprogress');
                     $("body").css("cursor", "default");
                     var output = $(this).contents().find($.bug.state_submit_element).html();
-		    if ($.bug.BSALang = 'en') {
+		    if ($.bug.BSALang == 'en') {
 			var data = $.bug.lookup_result(output,
                                                    $.bug.state_submit_error_regexps,
                                                    $.bug.state_submit_success_regexp);

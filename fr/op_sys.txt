@@ -2,7 +2,7 @@ Tous::All
 Windows XP::Windows (All)
 Windows 7::Windows (All)
 Windows 8::Windows (All)
-Windows (other)::Windows (All)
+Windows (Autre)::Windows (All)
 Debian::Linux (All)
 Fedora::Linux (All)
 openSUSE::Linux (All)
