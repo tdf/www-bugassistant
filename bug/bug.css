@@ -473,6 +473,21 @@ body {
     color: #29a1e0;
 }
 
+/* state_failure */
+.state_failure {
+    display: none;
+    text-align: center;
+    font-weight: bold;
+}
+
+.state_failure a {
+    color: #025587;
+}
+
+.state_failure a:hover {
+    color: #29a1e0;
+}
+
 /* state_attach */
 .state_attach {
     display: none;

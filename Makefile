@@ -19,11 +19,15 @@ all: build
 
 build: build-en build-fr
 
-check: check-en
+check:
+	perl sanity.pl TEST
 
-clean: clean-en
+clean: clean-en clean-fr
 
-build-en: extract-en compose-en
+build-en: start-en extract-en compose-en
+
+start-en:
+	echo "\n\n===== BSA English =====\n"
 
 extract-en:
 	mkdir -p build_en
@@ -38,31 +42,31 @@ extract-en:
 	perl sanity.pl build_en/query.xhtml build_en/components.xhtml
 
 compose-en:
-	xsltproc --encoding UTF-8 --novalid --stringparam serial `date +%s` bug.xsl bug.xhtml > bug/bug.html
-
-check-en:
-	perl sanity.pl TEST
+	xsltproc --encoding UTF-8 --novalid --stringparam serial `date +%s` bug.xsl en/bug.xhtml > bug/bug.html
 
 clean-en:
-	rm -f build_en/BugReport_Details.xhtml build_en/tidyout.xhtml build_en/component_comments.xhtml build_en/subcomponents.xhtml build_en/components.xhtml build_en/query.xhtml build_en/versions.xhtml bug/bug.html
+	rm -f build_en/BugReport_Details.xhtml build_en/tidyout.xhtml build_en/component_comments.xhtml build_en/subcomponents.xhtml build_en/components.xhtml build_en/query.xhtml build_en/versions.xhtml bug/bug.html build_en/op_sys.xhtml
 	rmdir build_en
 
-build-fr: extract-fr compose-fr
+build-fr: start-fr extract-fr compose-fr
+
+start-fr:
+	echo "\n\n===== BSA French =====\n"
 
 extract-fr:
 	mkdir -p build_fr
 	curl --silent https://wiki.documentfoundation.org/fr/BugReport_Details | tidy --numeric-entities yes -asxhtml 2>/dev/null > build_fr/tidyout.xhtml || echo "ignoring tidy error"
 	xsltproc --encoding UTF-8 --novalid stripnamespace.xsl build_fr/tidyout.xhtml > build_fr/BugReport_Details.xhtml
 	xsltproc --encoding UTF-8 --novalid component_comments.xsl build_fr/BugReport_Details.xhtml > build_fr/component_comments.xhtml
-	xsltproc --stringparam choose "`cat fr/choose.txt`" --stringparam other "(All other problems)" --encoding UTF-8 --novalid subcomponents.xsl build_en/BugReport_Details.xhtml > build_en/subcomponents.xhtml
+	xsltproc --stringparam choose "`cat fr/choose.txt`" --stringparam other "(All other problems)" --encoding UTF-8 --novalid subcomponents.xsl build_fr/BugReport_Details.xhtml > build_fr/subcomponents.xhtml
 	xsltproc --stringparam choose "`cat fr/choose.txt`" --encoding UTF-8 --novalid components.xsl build_fr/BugReport_Details.xhtml > build_fr/components.xhtml
 	curl --silent 'https://bugs.freedesktop.org/query.cgi?product=LibreOffice&query_format=advanced' > build_fr/query.xhtml
 	perl op_sys.pl "`cat fr/choose.txt`" < fr/op_sys.txt > build_fr/op_sys.xhtml
 	perl query.pl "`cat fr/choose.txt`" "AUCUN" < build_fr/query.xhtml > build_fr/versions.xhtml
 
 compose-fr:
-	xsltproc --encoding UTF-8 --novalid --stringparam serial `date +%s` bug.xsl bug.xhtml > bug/bug.html
+	xsltproc --encoding UTF-8 --novalid --stringparam serial `date +%s` bug.xsl fr/bug.xhtml > bug/bug_fr.html
 
 clean-fr:
-	rm -f build_fr/BugReport_Details.xhtml build_fr/tidyout.xhtml build_fr/component_comments.xhtml build_fr/subcomponents.xhtml build_fr/components.xhtml build_fr/query.xhtml build_fr/versions.xhtml bug/bug_fr.html
+	rm -f build_fr/BugReport_Details.xhtml build_fr/tidyout.xhtml build_fr/component_comments.xhtml build_fr/subcomponents.xhtml build_fr/components.xhtml build_fr/query.xhtml build_fr/versions.xhtml bug/bug_fr.html build_fr/op_sys.xhtml
 	rmdir build_fr

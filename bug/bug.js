@@ -307,7 +307,7 @@
                     $("body").css("cursor", "default");
                     var output = $(this).contents().find($.bug.state_submit_element).html();
 		    if ($.bug.BSALang = 'en') {
-                    	var data = $.bug.lookup_result(output,
+			var data = $.bug.lookup_result(output,
                                                    $.bug.state_submit_error_regexps,
                                                    $.bug.state_submit_success_regexp);
                         $('.bug', element).text(data);
@@ -316,7 +316,7 @@
                         $.bug.state_success();
                     } else {
 			$.bug.state_failure();
-                    
+                    }
                 });
                 element.addClass('initialized');
                 $.bug.current_step('submit');
@@ -337,7 +337,7 @@
 	state_failure: function() {
 	    $.bug.error_set($('.state_failure').text());
             $.bug.window.scrollTo(0,225);
-	}, 
+	},
 
         // if this string is found in the page returned when
         // trying to fill a bug, it means the user is not logged in
