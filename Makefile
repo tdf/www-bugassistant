@@ -24,6 +24,8 @@ check:
 
 clean: clean-en clean-fr
 
+en: build-en
+
 build-en: start-en extract-en compose-en
 
 start-en:
@@ -48,6 +50,8 @@ clean-en:
 	rm -f build_en/BugReport_Details.xhtml build_en/tidyout.xhtml build_en/component_comments.xhtml build_en/subcomponents.xhtml build_en/components.xhtml build_en/query.xhtml build_en/versions.xhtml bug/bug.html build_en/op_sys.xhtml
 	rmdir build_en
 
+fr: build-fr
+
 build-fr: start-fr extract-fr compose-fr
 
 start-fr:
@@ -55,7 +59,7 @@ start-fr:
 
 extract-fr:
 	mkdir -p build_fr
-	curl --silent https://wiki.documentfoundation.org/fr/BugReport_Details | tidy --numeric-entities yes -asxhtml 2>/dev/null > build_fr/tidyout.xhtml || echo "ignoring tidy error"
+	curl --silent https://wiki.documentfoundation.org/BugReport_Details/fr | tidy --numeric-entities yes -asxhtml 2>/dev/null > build_fr/tidyout.xhtml || echo "ignoring tidy error"
 	xsltproc --encoding UTF-8 --novalid stripnamespace.xsl build_fr/tidyout.xhtml > build_fr/BugReport_Details.xhtml
 	xsltproc --encoding UTF-8 --novalid component_comments.xsl build_fr/BugReport_Details.xhtml > build_fr/component_comments.xhtml
 	xsltproc --stringparam choose "`cat fr/choose.txt`" --stringparam other "(All other problems)" --encoding UTF-8 --novalid subcomponents.xsl build_fr/BugReport_Details.xhtml > build_fr/subcomponents.xhtml
