@@ -17,6 +17,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:output indent="yes"  encoding="UTF-8"/>
     <xsl:strip-space elements="*"/>
+    <xsl:param name="choose"/>
 
     <xsl:template match="node()|@*">
         <xsl:copy>
@@ -27,7 +28,7 @@
     <xsl:template match="html">
       <div class="component select">
         <div class="select-header">
-          <div class="chosen">(chose one)</div>
+          <div class="chosen"><xsl:value-of select="$choose"/></div>
         </div>
         <div class="choices">
           <div class="select-top">
