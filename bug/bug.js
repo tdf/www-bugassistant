@@ -215,7 +215,8 @@
                 var validate = function() {
                     if($(".short", element).val().length > 3 &&
                        $(".long", element).val() != template) {
-                        $.bug.state_attach();
+		        if ($.bug.BSAlang == 'en')
+                          $.bug.state_attach();
                         $.bug.state_submit();
                     }
                 };
@@ -437,7 +438,7 @@
             $.bug.frame();
             $.bug.BSALang = lang;
             $.bug.logged_in().done(function(status) {
-                if(status) {
+                if(status && lang == 'en') {
                     $.bug.state_component();
                 } else {
                     $.bug.state_signin();
