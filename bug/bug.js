@@ -67,7 +67,7 @@
             }
             if(error !== null) {
                 return $.bug.error_set(error[1]);
-	 	throw data;
+		throw data;
             } else {
                 var success = data.match(success_regexp);
                 if(success !== null) {
@@ -272,7 +272,7 @@
                     form.attr('action', $.bug.url + '/post_bug.cgi');
 		} else {
 		    var locarray = window.location.href.split("/");
-  		    delete locarray[(locarray.length-1)];
+		    delete locarray[(locarray.length-1)];
 		    form.attr('action', locarray.join("/") + '/mail.php');
 		}
                 form.submit(function() {
