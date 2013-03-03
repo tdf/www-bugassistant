@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+	  [
+	  <!ENTITY component_comments SYSTEM "build/component_comments.xhtml">
+	  <!ENTITY components SYSTEM "build/components.xhtml">
+	  <!ENTITY subcomponents SYSTEM "build/subcomponents.xhtml">
+	  <!ENTITY versions SYSTEM "build/versions.xhtml">
+          <!ENTITY op_sys SYSTEM "build/op_sys.xhtml">
+	  ]
+	  >
+<html >
+<!--
+     Copyright (C) 2011 Loic Dachary <loic@dachary.org>
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <http:www.gnu.org/licenses/>.
+-->
+  <head>
+    <title>Assistant de soumission de bugs</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+    <script type="text/javascript" src="jquery-1.6.2.js"></script>
+    <script type="text/javascript" src="bug.js"></script>
+    <script type="text/javascript" src="select.js"></script>
+    <link rel="stylesheet" href="select.css" type="text/css" media="screen"></link>
+    <script type="text/javascript" src="skin.js"></script>
+    <link rel="stylesheet" href="bug.css" type="text/css" media="screen"></link>
+  </head>
+  <body>
+    <div class="compatibility">
+      <div class="version message unsupported"></div>
+      <div class="message unsupported">This browser version is not supported and this page cannot be displayed properly.</div>
+      <div class="message nojavascript">JavaScript is disabled and this page cannot be displayed.</div>
+      <div class="message">
+        <p>Please use <a href="http://bugs.freedesktop.org/enter_bug.cgi?product=LibreOffice;bug_status=UNCONFIRMED;version=?">bugzilla</a> instead to report a problem.</p>
+        <p>It works on all browsers and when JavaScript is disabled.</p>
+      </div>
+      <div class="eyecandy"></div>
+    </div>
+    <div class="javascript">
+      <div class="skin">
+        <div class="version"></div>
+        <a href="?skin=login">login</a> <a href="?skin=component">component</a> <a href="?skin=details">details</a> <a href="?skin=description">description</a> <a href="?skin=submit">submit</a> <a href="?skin=complete">complete</a>
+      </div>
+      <div class="header">
+        <div class="title">
+          <div>Assistant</div>
+          <div>de soumission</div>
+          <div>de bugs</div>
+        </div>
+        <div class="submission">
+          Merci d'utiliser LibreOffice. Nous sommes désolés du dysfonctionnement trouvé dans notre logiciel, mais nous sommes contents que vous souhaitiez en faire le rapport. Cet assistant va vous guider à travers les étapes du processus de rapport de bugs.
+        </div>
+      </div>
+      <div class="content">
+        <div class="left">
+          <div>
+            <div class="step step_signin"><div class="count">1</div><div class="label">S'inscrire</div></div>
+            <div class="step step_component"><div class="count">2</div><div class="label">Composant</div></div>
+            <div class="step step_details"><div class="count">3</div><div class="label">Détails</div></div>
+            <div class="step step_description"><div class="count">4</div><div class="label">Description</div></div>
+            <div class="step step_submit"><div class="count">5</div><div class="label">Soumettre</div></div>
+          </div>
+          <div class="legal">
+            Toutes vos contributions seront rendues publiques dans WWW ! En cliquant sur le bouton 'Soumettre' vous acceptez irrévocablement de mettre à disposition votre contribution sous la licence CC-BY-SA 3.0 et GFDL. Si vous n'acceptez par ces termes pour les documents que vous allez attacher vous pouvez indiquer dans ce rapport qu'un tel document existe. L'équipe QA discutera alors avec vous de la meilleure façon de procéder avec ce bug.
+          </div>
+          <div class="copyright">
+            <a target="_blank" href="http://wiki.documentfoundation.org/Bug_Submission_Assistant">L'assistant de soumission de bug</a> est publié sour la licence <a target="_blank" href="http://www.gnu.org/licenses/gpl.txt">GNU GPLv3+</a>. Vous pouvez télécharger les sources à partir de <a target="_blank" href="http://www.github.com/tdf/www-bugassistant">http://www.github.com/tdf/www-bugassistant</a>.
+          </div>
+        </div>
+        <div class="right">
+
+	  <div class="error-container">
+            <div class="error-top">
+              <div class="error-left">
+                <div class="error-bottom">
+                  <div class="error-right">
+                    <div class="error-top-left"></div>
+                    <div class="error-top-right"></div>
+                    <div class="error-bottom-left"></div>
+                    <div class="error-bottom-right"></div>
+                    <div class="error">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="state_success">
+            <p>The bug report has been successfully submitted.<br />
+            You can edit it or add attachments using <a class="bug">the corresponding bugzilla page</a>.</p>
+            <p></p>
+            <p>Thank you for reporting a problem with LibreOffice.<br />
+            Your help is very appreciated.</p>
+            <p></p>
+            <p>Nobody is perfect and more bugs have been reported.<br />
+            Join us in making this release even better.<br />
+            You could help with <a href="http://wiki.documentfoundation.org/Triage_For_Beginners">sorting bugs</a>.</p>
+          </div>
+
+          <div class="username"></div>
+
+          <div class="state signin">
+	    <div class="signin-invite">
+	      Please login using your <a class="login-link" target="_blank">bugzilla account</a>.
+	    </div>
+	    <div class="signin-container">
+	      <div class="input-label">E-mail:</div>
+              <div class="signin-input"><input class='user' type="text" name="user"></input></div>
+              <div class="input-label">Password:</div>
+              <div class="signin-input"><input class='password' type="password" name="password"></input></div>
+	      <div class="go">S'inscrire</div>
+              <div class="signin-create">
+	        or <a class="create-account-link" target="_blank">create an account</a>
+              </div>
+	    </div>
+	  </div>
+
+          <div class="submission">
+            <div class="state state_component">
+              <div>
+                <div>Sélectionner un composant</div>
+                <div>&components;</div>
+              </div>
+              <div>
+                <div class="components_icons">
+                  <div><img src="icons/WRITER.png" title="Writer" data="Writer" alt="Writer" /><img src="icons/Spreadsheet.png" title="Classeur" data="Spreadsheet" alt="Classeur" /><img src="icons/Presentation.png" title="Présentation" data="Presentation" alt="Présentation" /><img src="icons/Drawing.png" title="Dessin" data="Drawing" alt="Dessin" /><img src="icons/Database.png" title="Base de données" data="Database" alt="Base de données" /><img src="icons/Chart.png" title="Diagramme" data="Chart" alt="Diagramme" /></div>
+		  <div><img src="icons/Libreoffice.png" title="Localization" data="Localization" alt="Localization" /><img src="icons/Documentation.png" title="Documentation" data="Documentation" alt="Documentation" /><img src="icons/Extensions.png" title="Extensions" data="Extensions" alt="Extensions" /><img src="icons/WWW.png" title="WWW" data="WWW" alt="WWW" /><img src="icons/Libreoffice.png" title="Linguistique" data="Linguistic" alt="Linguistique" /><img src="icons/Installation.png" title="Installation" data="Installation" alt="Installation" /></div>
+		  <div><img src="icons/Libreoffice.png" title="BASIC" data="BASIC" alt="BASIC" /><img src="icons/Formula_editor.png" title="Éditeur de formules" data="Formula_Editor" alt="Éditeur de formules" /><img src="icons/PDF_export.png" title="Impression et export PDF" data="Printing_and_PDF_export" alt="Impression et export PDF" /><img src="icons/Libreoffice.png" title="Interface utilisateur" data="UI" alt="Interface utilisateur" /><img src="icons/Libreoffice.png" title="LibreOffice" data="Libreoffice" alt="LibreOffice" /></div>
+                </div>
+                <div class="component_comments_container">&component_comments;</div>
+              </div>
+            </div>
+
+            <div class="state state_details">
+              <div class="inlineblock">
+                <div class="state state_details subcomponents">
+                  <div class="input-label">Sous-composant</div>
+                  <div class="active_subcomponent"></div>
+                </div>
+              </div>
+              <div class="inlineblock">
+                <div class="state state_details versions">
+                  <div class="input-label">Version</div>
+                  <div class="versions select">&versions;</div>
+                </div>
+              </div>
+
+            </div>
+            <div class="state state_details">
+              <div class="inlineblock">
+                <div class="state state_details op_sys">
+		  <div class="input-label">Système d'exploitation</div>
+                  &op_sys;
+                </div>
+              </div>
+              <div class="inlineblock">
+                <div class="state state_details regression">
+		  <div class="input-label">Dernière version fonctionnant connue:</div>
+                  <div class="regression select">&versions;</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="state state_description">
+              <div class="subject input-label">Sujet:</div>
+              <div class="subject-input"><input type="text" class="short" size="50"></input></div>
+              <div class="desciption input-label">Description longue:</div>
+              <div class="description-input"><textarea rows="10" cols="60" class="long">
+Problem description: 
+
+Steps to reproduce:
+1. ....
+2. ....
+3. ....
+
+Current behavior:
+
+Expected behavior:
+
+              </textarea>
+              </div>
+            </div>
+
+            <iframe id="submissionoutput" name="submissionoutput"></iframe>
+
+            <div class="submission_form">
+              <form target="submissionoutput" method='POST' enctype='multipart/form-data'>
+                <input type="hidden" name="product" value="LibreOffice"></input>
+                <input type="hidden" name="bug_status" value="UNCONFIRMED"></input>
+                <input type="hidden" name="rep_platform" value="Other"></input>
+                <input type="hidden" name="op_sys" value="All"></input>
+                <input type="hidden" name="bug_severity" value="normal"></input>
+                <input type="hidden" name="priority" value="medium"></input>
+                <input type="hidden" name="rep_platform" value="Other"></input>
+                <input type="hidden" name="status_whiteboard" value="BSA"></input>
+                <input type="hidden" name="assigned_to" value="libreoffice-bugs@lists.freedesktop.org"></input>
+                <input type="hidden" name="token" value=""></input>
+                <input type="hidden" name="component" value=""></input>
+                <input type="hidden" name="version" value=""></input>
+                <input type="hidden" name="short_desc" value=""></input>
+                <input type="hidden" name="keywords" value=""></input>
+                <input type="hidden" name="comment" value=""></input>
+                <div class="state state_attach">
+                  <input type="hidden" name="contenttypemethod" value="autodetect"></input>
+                  <div>
+                    <div class="input-label">Attacher facultativement un document ou une copie d'écran.</div>
+
+                    <div class="attach-file">
+	              <input type="file" name="data" />
+	              <div class="attach-file-style">
+		        <div><input type="text" name="ignored"></input></div>
+		        <div class="attach-browse">Parcourir</div>
+	              </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="input-label">Expliquer l'attachement:</div>
+                    <input type="text" name="description" value=""></input>
+                  </div>
+                </div>
+                <div class="state state_submit">
+	          <input type="submit" value="Soumettre"></input>
+                </div>
+              </form>
+              <div class="state state_submit">
+                <div class="bug"></div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="submission">
+
+	    <div class="state state_details state_duplicates">
+	      Related bug reports
+	      <div class="related_bugs"></div>
+            </div>
+
+            <div class="state_details">
+              <div class="subcomponents">&subcomponents;</div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      var unsupported = false;
+      $(document).ready(function() {
+        try {
+          $('.version').text(window.navigator.userAgent);
+        } catch(e) {
+        }
+        if(unsupported) {
+          $('.unsupported').show();
+          $('.nojavascript').hide();
+        } else {
+          $('.compatibility').hide();
+          $('.javascript').show();
+          if(location.search.indexOf('skin') >= 0) {
+            $.skin();
+          } else {
+            $.bug.main();
+          }
+        }
+      });
+    </script>
+    <!--[if LT IE  8]>
+        <script>
+          unsupported = true;
+        </script>
+    <![endif]-->
+  </body>
+</html>

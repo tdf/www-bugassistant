@@ -1,0 +1,13 @@
+Tous::All
+Windows XP::Windows (All)
+Windows 7::Windows (All)
+Windows 8::Windows (All)
+Windows (other)::Windows (All)
+Debian::Linux (All)
+Fedora::Linux (All)
+openSUSE::Linux (All)
+Ubuntu::Linux (All)
+Linux (Autre)::Linux (All)
+Mac OS X::Mac OS X (All)
+BSD::BSD (Others)
+Autre::other
