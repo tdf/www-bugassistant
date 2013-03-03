@@ -66,15 +66,15 @@
                 }
             }
             if(error !== null) {
-                $.bug.error_set(error[1]);
-                throw error;
+                return $.bug.error_set(error[1]);
+	 	throw data;
             } else {
                 var success = data.match(success_regexp);
                 if(success !== null) {
                     return success[1];
                 } else {
                     $.bug.error_set("could not match " + success_regexp + " on the string returned by the server " + data);
-                    throw data;
+		    throw data;
                 }
             }
         },
@@ -101,6 +101,7 @@
         regression: '',
 	lo_version_id: '',
 	regression_id: '',
+	BSALang: '',
 
         state_signin_error_regexps: [/CLASS="THROW_ERROR">([^<]*)/i],
         state_signin_success_regexp: /LOG&NBSP;OUT<\/A>([^<]*)/i,
@@ -265,7 +266,13 @@
 
                 var form = $('.submission_form form');
                 $.bug.error_clear();
-                form.attr('action', $.bug.url + '/post_bug.cgi');
+		if ($.bug.BSALang = 'en') {
+                    form.attr('action', $.bug.url + '/post_bug.cgi');
+		} else {
+		    var locarray = window.location.href.split("/");
+  		    delete locarray[(locarray.length-1)];
+		    form.attr('action', locarray.join("/") + '/mail.php');
+		}
                 form.submit(function() {
                     if($(element).hasClass('inprogress')) {
                         return false;
@@ -299,11 +306,17 @@
                     $(element).removeClass('inprogress');
                     $("body").css("cursor", "default");
                     var output = $(this).contents().find($.bug.state_submit_element).html();
-                    var data = $.bug.lookup_result(output,
+		    if ($.bug.BSALang = 'en') {
+                    	var data = $.bug.lookup_result(output,
                                                    $.bug.state_submit_error_regexps,
                                                    $.bug.state_submit_success_regexp);
-                    $('.bug', element).text(data);
-                    $.bug.state_success();
+                        $('.bug', element).text(data);
+                        $.bug.state_success();
+                    } else if (output.indexOf("TRUE") > 0)  {
+                        $.bug.state_success();
+                    } else {
+			$.bug.state_failure();
+                    
                 });
                 element.addClass('initialized');
                 $.bug.current_step('submit');
@@ -320,6 +333,11 @@
             element.show();
             $.bug.window.scrollTo(0,225);
         },
+
+	state_failure: function() {
+	    $.bug.error_set($('.state_failure').text());
+            $.bug.window.scrollTo(0,225);
+	}, 
 
         // if this string is found in the page returned when
         // trying to fill a bug, it means the user is not logged in
@@ -411,9 +429,10 @@
            return components[module];
          },
 
-        main: function(in_isTest) {
+        main: function(lang, in_isTest) {
             $.bug.compatibility();
             $.bug.frame();
+            $.bug.BSALang = lang;
             $.bug.logged_in().done(function(status) {
                 if(status) {
                     $.bug.state_component();

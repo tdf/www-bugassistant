@@ -17,6 +17,8 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:output indent="yes"  encoding="UTF-8"/>
     <xsl:strip-space elements="*"/>
+    <xsl:param name="choose"/>
+    <xsl:param name="other"/>
 
     <xsl:template match="text()" />
 
@@ -25,7 +27,7 @@
 	  <xsl:attribute name="class"><xsl:value-of select="translate(translate(*[position()=1],' ','_'),&quot;&#10;&quot;,'_')" /></xsl:attribute>
 	  <div class="subcomponent select">
             <div class="select-header">
-              <div class="chosen">(chose one)</div>
+              <div class="chosen"><xsl:value-of select="$choose"/></div>
             </div>
             <div class="choices">
               <div class="select-top">
@@ -38,7 +40,7 @@
                       <div class="bottom-right"></div>
                       <div class="center">
                         <ul>
-                          <li class="choice" data='' idvalue=''>(all other problems)</li>
+                          <li class="choice" data='' idvalue=''><xsl:value-of select="$other"/></li>
                           <xsl:apply-templates select="descendant::*[contains(@class,'search')]"/>
                         </ul>
                       </div>

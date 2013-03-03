@@ -98,6 +98,10 @@
             </div>
           </div>
 
+          <div class="state_failure">
+	      <p>The bug couldn't be submitted. Please try again later or use <a href="https://bugs.freedesktop.org/">bugzilla</a>.</p>
+          </div>
+
           <div class="state_success">
             <p>The bug report has been successfully submitted.<br />
             You can edit it or add attachments using <a class="bug">the corresponding bugzilla page</a>.</p>
@@ -275,7 +279,7 @@ Expected behavior:
           if(location.search.indexOf('skin') >= 0) {
             $.skin();
           } else {
-            $.bug.main();
+            $.bug.main('en');
           }
         }
       });
