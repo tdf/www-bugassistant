@@ -215,7 +215,7 @@
                 var validate = function() {
                     if($(".short", element).val().length > 3 &&
                        $(".long", element).val() != template) {
-		        if ($.bug.BSAlang == 'en')
+		        if ($.bug.BSALang == 'en')
                           $.bug.state_attach();
                         $.bug.state_submit();
                     }
