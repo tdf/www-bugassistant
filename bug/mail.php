@@ -5,7 +5,7 @@
     echo("FALSE");
   }
 
- $to = "programming@ertai.nl";
+ $to = "qa@fr.libreoffice.org";
  $subject = "Bug sur Nouveau dans le BSA français!";
  $body = "Salut,\n\nIl y avait un bug nouvelle demande déposée en français. Quelqu'un peut il confirmer le bug ou le traduire pour nous?\n\n";
  $body = $body."Composant: ".$_POST["component"]."\n";
