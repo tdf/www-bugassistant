@@ -34,21 +34,22 @@
 		}
 
 		if (url == "/enter_bug.cgi" && 'status' in error && (error.status == 404 || error.status == 0)) {
-		  message = "It seems there is a problem to connect with Bugzilla. Please try again later.";
+		  message = messageStrings("ERROR_BUGZILLA");
 		}
 		else
 		{
+		    message += messageStrings("ERROR_GENERAL") + "\n";
                     if('status' in error) {
 		        if(error.status == 404 || error.status == 0) {
-			    message += "Cannot find the URL specified.\n\n";
+			    message += messageStrings("ERROR_URL") + "\n";
 		        }
-                        message += 'status = ' + error.status + ' ';
+			message += '\nStatus = ' + error.status + ' ';
                     }
                     if('responseText' in error) {
-                        message += 'responseText = ' + error.responseText + ' ';
+                        message += '\nresponseText = ' + error.responseText + ' ';
                     }
                     if('statusText' in error) {
-                        message += 'statusText = ' + error.statusText + ' ';
+                        message += '\nstatusText = ' + error.statusText + ' ';
                     }
 		}
                 $.bug.error_set(message);
@@ -73,7 +74,7 @@
                 if(success !== null) {
                     return success[1];
                 } else {
-                    $.bug.error_set("could not match " + success_regexp + " on the string returned by the server " + data);
+                    $.bug.error_set(messageStrings("ERROR_REGEX", success_regexp, data);
 		    throw data;
                 }
             }
@@ -290,9 +291,9 @@
                     var comment = $('.state_description .long').val();
 		    if (($.bug.regression_id >= 0) && ($.bug.regression_id <= $.bug.lo_version_id))
 		      $.bug.regression_id = -1;
-                    comment = comment + "\nOperating System: " + $(".op_sys .chosen").text();
-                    comment = comment + "\nVersion: " + $.bug.lo_version;
-                    comment = comment + (($.bug.regression_id >= 0)?"\nLast worked in: " + $.bug.regression:"");
+                    comment = comment + "\n" + messageStrings("Operating System: ") + $(".op_sys .chosen").text();
+                    comment = comment + "\n" + messageStrings("Version: ") + $.bug.lo_version;
+                    comment = comment + (($.bug.regression_id >= 0)?"\n" + messageStrings("Last worked in: ") + $.bug.regression:"");
                     $("body").css("cursor", "progress");
                     $('input[name="token"]', form).val($.bug.token);
                     $('input[name="component"]', form).val(component);
@@ -300,7 +301,7 @@
                     $('input[name="op_sys"]', form).val($.bug.op_sys);
                     $('input[name="short_desc"]', form).val(short_desc);
                     $('input[name="comment"]', form).val(comment);
-                    $('input[name="keywords"]', form).val((($.bug.regression_id >= 0)?"regression":""));
+                    $('input[name="keywords"]', form).val((($.bug.regression_id >= 0)?messageStrings("regression"):""));
 		    $('input[name="BSAemail"]', form).val($.bug.email);
                     $.bug.token = '';
                     return true;

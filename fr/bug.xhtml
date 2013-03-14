@@ -38,11 +38,11 @@
   <body>
     <div class="compatibility">
       <div class="version message unsupported"></div>
-      <div class="message unsupported">This browser version is not supported and this page cannot be displayed properly.</div>
-      <div class="message nojavascript">JavaScript is disabled and this page cannot be displayed.</div>
+      <div class="message unsupported">Cette version du navigateur n'est pas prise en charge et cette page ne peut pas être affichée correctement.</div>
+      <div class="message nojavascript">JavaScript est désactivé et cette page ne peut pas être affichée.</div>
       <div class="message">
-        <p>Please use <a href="http://bugs.freedesktop.org/enter_bug.cgi?product=LibreOffice;bug_status=UNCONFIRMED;version=?">bugzilla</a> instead to report a problem.</p>
-        <p>It works on all browsers and when JavaScript is disabled.</p>
+        <p>Veuillez utiliser plutôt <a href="http://bugs.freedesktop.org/enter_bug.cgi?product=LibreOffice;bug_status=UNCONFIRMED;version=?">Bugzilla</a> pour rapporter un problème.</p>
+        <p>Cela fonctionne avec tous les navigateurs et quand JavaScript est désactivé mais uniquement en anglais.</p>
       </div>
       <div class="eyecandy"></div>
     </div>
@@ -97,31 +97,33 @@
           </div>
 
           <div class="state_success">
-            <p>The bug report has been successfully submitted.<br />
-	    For any questions please reply on the mail you got</p>
-            <p></p>
-            <p>Thank you for reporting a problem with LibreOffice.<br />
-            Your help is very appreciated.</p>
-            <p></p>
-            <p>Nobody is perfect and more bugs have been reported.<br />
-            Join us in making this release even better.<br />
-            You could help with <a href="http://wiki.documentfoundation.org/Triage_For_Beginners">sorting bugs</a>.</p>
+
+	    <p>Le rapport de bug a été soumis avec succès.<br />
+	    Pour toute question veuillez répondre au mail reçu</p>
+	    <p></p>
+	    <p>Merci d'avoir rapporté un problème avec LibreOffice.<br />
+	    Votre aide est très appréciée.</p>
+	    <p></p>
+	    <p>Personne n'est parfait et d'autres bugs ont été rapportés.<br />
+	    Rejoignez-nous pour rendre cette version encore meilleure.<br />
+	    Vous pouvez nous aider en triant des <a href="http://wiki.documentfoundation.org/Triage_For_Beginnersi/fr">bugs</a>.</p>
+
           </div>
 
           <div class="username"></div>
 
           <div class="state signin">
 	    <div class="signin-invite">
-	      Please login using your <a class="login-link" target="_blank">bugzilla account</a>.
+	      Veuillez vous connecter en utilisant votre <a class="login-link" target="_blank">compte Bugzilla</a>.
 	    </div>
 	    <div class="signin-container">
 	      <div class="input-label">E-mail:</div>
               <div class="signin-input"><input class='user' type="text" name="user"></input></div>
-              <div class="input-label">Password:</div>
+              <div class="input-label">Mot de passe:</div>
               <div class="signin-input"><input class='password' type="password" name="password"></input></div>
 	      <div class="go">S'inscrire</div>
               <div class="signin-create">
-	        or <a class="create-account-link" target="_blank">create an account</a>
+	        ou <a class="create-account-link" target="_blank">créer un compte</a>
               </div>
 	    </div>
 	  </div>
@@ -129,7 +131,7 @@
           <div class="submission">
             <div class="state state_component">
               <div>
-                <div>Sélectionner un composant</div>
+                <div>Sélectionner un composant:</div>
                 <div>&components;</div>
               </div>
               <div>
@@ -145,13 +147,13 @@
             <div class="state state_details">
               <div class="inlineblock">
                 <div class="state state_details subcomponents">
-                  <div class="input-label">Sous-composant</div>
+                  <div class="input-label">Sous-composant:</div>
                   <div class="active_subcomponent"></div>
                 </div>
               </div>
               <div class="inlineblock">
                 <div class="state state_details versions">
-                  <div class="input-label">Version</div>
+                  <div class="input-label">Version:</div>
                   <div class="versions select">&versions;</div>
                 </div>
               </div>
@@ -160,7 +162,7 @@
             <div class="state state_details">
               <div class="inlineblock">
                 <div class="state state_details op_sys">
-		  <div class="input-label">Système d'exploitation</div>
+		  <div class="input-label">Système d'exploitation:</div>
                   &op_sys;
                 </div>
               </div>
@@ -177,16 +179,16 @@
               <div class="subject-input"><input type="text" class="short" size="50"></input></div>
               <div class="desciption input-label">Description longue:</div>
               <div class="description-input"><textarea rows="10" cols="60" class="long">
-Problem description: 
+Description du problème : 
 
-Steps to reproduce:
-1. ....
-2. ....
-3. ....
+Étapes pour reproduire :
+1. …
+2. …
+3. …
 
-Current behavior:
+Comportement actuel :
 
-Expected behavior:
+Comportement attendu :
 
               </textarea>
               </div>
@@ -245,7 +247,7 @@ Expected behavior:
           <div class="submission">
 
 	    <div class="state state_details state_duplicates">
-	      Related bug reports
+	      Rapports de bug relatifs
 	      <div class="related_bugs"></div>
             </div>
 
@@ -278,6 +280,22 @@ Expected behavior:
           }
         }
       });
+
+      function messageStrings($nr, $data, $data2) {
+
+        switch ($nr) {
+          case "ERROR_BUGZILLA": return "Il semble qu'il y ait un problème de connexion à Bugzilla. Veuillez essayer de nouveau ultérieurement.";
+          case "ERROR_GENERAL": return "A error has occurred";
+          case "ERROR_URL": return "Impossible de trouver l'URL spécifié.";
+          case "ERROR_REGEX": return "impossible de faire correspondre " + $data + " à la chaîne retournée par le serveur " + $data2;
+	  case "Operating System: ": return "Système d'exploitation: ";
+	  case "Version: ": return "Version: ";
+	  case "Last worked in: ": return "Dernière version fonctionnant connue: ";
+	  case "regression": return "régression";
+	}
+        return "";
+      };
+
     </script>
     <!--[if LT IE  8]>
         <script>

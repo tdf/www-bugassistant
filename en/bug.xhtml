@@ -135,7 +135,7 @@
           <div class="submission">
             <div class="state state_component">
               <div>
-                <div>Select component</div>
+                <div>Select component:</div>
                 <div>&components;</div>
               </div>
               <div>
@@ -151,13 +151,13 @@
             <div class="state state_details">
               <div class="inlineblock">
                 <div class="state state_details subcomponents">
-                  <div class="input-label">Sub component</div>
+                  <div class="input-label">Sub component:</div>
                   <div class="active_subcomponent"></div>
                 </div>
               </div>
               <div class="inlineblock">
                 <div class="state state_details versions">
-                  <div class="input-label">Version</div>
+                  <div class="input-label">Version:</div>
                   <div class="versions select">&versions;</div>
                 </div>
               </div>
@@ -166,7 +166,7 @@
             <div class="state state_details">
               <div class="inlineblock">
                 <div class="state state_details op_sys">
-		  <div class="input-label">Operating system</div>
+		  <div class="input-label">Operating system:</div>
                   &op_sys;
                 </div>
               </div>
@@ -284,6 +284,22 @@ Expected behavior:
           }
         }
       });
+
+      function messageStrings($nr, $data, $data2) {
+
+	switch ($nr) {
+	  case "ERROR_BUGZILLA": return "It seems there is a problem to connect with Bugzilla. Please try again later.";
+	  case "ERROR_GENERAL": return "A error has occurred";
+	  case "ERROR_URL": return "Cannot find the URL specified.";
+	  case "ERROR_REGEX": return "could not match " + $data + " on the string returned by the server " + $data2;
+	  case "Operating System: ": return "Operating System: ";
+	  case "Version: ": return "Version: ";
+	  case "Last worked in: ": return "Last worked in: ";
+	  case "regression": return "regression";
+	}
+	return "";
+      };
+
     </script>
     <!--[if LT IE  8]>
         <script>
