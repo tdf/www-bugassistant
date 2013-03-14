@@ -74,7 +74,7 @@
                 if(success !== null) {
                     return success[1];
                 } else {
-                    $.bug.error_set(messageStrings("ERROR_REGEX", success_regexp, data);
+                    $.bug.error_set(messageStrings("ERROR_REGEX", success_regexp, data));
 		    throw data;
                 }
             }
