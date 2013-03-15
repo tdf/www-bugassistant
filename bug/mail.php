@@ -7,7 +7,7 @@
 
  $to = "qa@fr.libreoffice.org";
  $subject = "Bug sur Nouveau dans le BSA français!";
- $body = "Salut,\n\nIl y avait un bug nouvelle demande déposée en français. Quelqu'un peut il confirmer le bug ou le traduire pour nous?\n\n";
+ $body = "Bonjour,\n\nIl y a une nouvelle soumission de bug déposée en français. L'un d'entre vous peut-il le confirmer ou le traduire pour nous.\n\n";
  $body = $body."Composant: ".$_POST["component"]."\n";
  $body = $body."Version: ".$_POST["version"]."\n";
  $body = $body."Keywords: ".$_POST["keywords"]."\n";
