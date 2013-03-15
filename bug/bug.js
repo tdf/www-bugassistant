@@ -72,7 +72,7 @@
             } else {
                 var success = data.match(success_regexp);
                 if(success !== null) {
-                    return success;
+                    return success[1];
                 } else {
                     $.bug.error_set(messageStrings("ERROR_REGEX", success_regexp, data));
 		    throw data;
