@@ -439,7 +439,7 @@
             $.bug.frame();
             $.bug.BSALang = lang;
             $.bug.logged_in().done(function(status) {
-                if(status && lang == 'en') {
+                if(status) {
                     $.bug.state_component();
                 } else {
                     $.bug.state_signin();
