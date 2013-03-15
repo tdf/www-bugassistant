@@ -15,7 +15,7 @@
  $body = $body."Description longue: ".$_POST["comment"]."\n";
  $body = $body."\n\nMerci de nous aider,\nBSA";
 
- $headers = "From: ".$_POST["BSAemail"]."\r\n";
+ $headers = "From: ".$to."\r\n";
  $headers .= "CC: ".$_POST["BSAemail"]."\r\n";
 
  if (mail($to, $subject, $body, $headers)) {
