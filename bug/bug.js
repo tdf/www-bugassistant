@@ -72,7 +72,7 @@
             } else {
                 var success = data.match(success_regexp);
                 if(success !== null) {
-                    return "true";
+                    return success;
                 } else {
                     $.bug.error_set(messageStrings("ERROR_REGEX", success_regexp, data));
 		    throw data;
@@ -119,8 +119,8 @@
                 }).pipe(function(data) {
                     $("body").css("cursor", "default");
                     var res = $.bug.lookup_result(data, $.bug.state_signin_error_regexps, $.bug.state_signin_success_regexp);
-		    if (res == "true") {
-                        $('.username').html(data);
+		    if (res !== null) {
+                        $('.username').html(res);
 			$.bug.email = $('.user', element).val();
 			element.hide();
 			$.bug.state_component();
