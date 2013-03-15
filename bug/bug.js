@@ -128,10 +128,22 @@
                     $.bug.state_component();
                 });
             });
+	    $('.password').keypress(function(e) {
+	        if (e.keyCode == 13) {
+		    $('.go', element).click();
+		}
+	    });
+	    $('.user').keypress(function(e) {
+	        if (e.keyCode == 13) {
+		    $('.go', element).click();
+		}
+	    });
+
             $('.login-link', element).attr('href', $.bug.url + '/');
             $('.create-account-link', element).attr('href', $.bug.url + '/createaccount.cgi');
             $.bug.current_step('signin');
             element.show();
+	    $('.user', element).focus();
         },
 
         state_component: function() {
