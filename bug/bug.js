@@ -67,12 +67,12 @@
                 }
             }
             if(error !== null) {
-                return $.bug.error_set(error[1]);
+                $.bug.error_set(error[1]);
 		throw data;
             } else {
                 var success = data.match(success_regexp);
                 if(success !== null) {
-                    return success[1];
+                    return "true";
                 } else {
                     $.bug.error_set(messageStrings("ERROR_REGEX", success_regexp, data));
 		    throw data;
@@ -118,14 +118,13 @@
                     Bugzilla_password: $('.password', element).val()
                 }).pipe(function(data) {
                     $("body").css("cursor", "default");
-                    return $.bug.lookup_result(data,
-                                               $.bug.state_signin_error_regexps,
-                                               $.bug.state_signin_success_regexp);
-                }).pipe(function(data) {
-                    $('.username').html(data);
-		    $.bug.email = $('.user', element).val();
-                    element.hide();
-                    $.bug.state_component();
+                    var res = $.bug.lookup_result(data, $.bug.state_signin_error_regexps, $.bug.state_signin_success_regexp);
+		    if (res == "true") {
+                        $('.username').html(data);
+			$.bug.email = $('.user', element).val();
+			element.hide();
+			$.bug.state_component();
+		    }
                 });
             });
 	    $('.password').keypress(function(e) {
