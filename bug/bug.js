@@ -272,12 +272,10 @@
 
         state_submit: function() {
             var element = $('.state_submit');
-            if ($.bug.token == '') {
-                $.bug.ajax('GET', $.bug.url + '/enter_bug.cgi?product=LibreOffice&bug_status=UNCONFIRMED').pipe(function(data){
-                    $.bug.token = data.match(/<input type="hidden" name="token" value="([A-Za-z0-9]{10})">/)[1];
-                });
-            }
             if(!element.hasClass('initialized')) {
+		if ($.bug.token == '') {
+		    $.bug.get_token();
+                }
 
                 var form = $('.submission_form form');
                 $.bug.error_clear();
@@ -291,6 +289,8 @@
                 form.submit(function() {
                     if($(element).hasClass('inprogress')) {
                         return false;
+		    } else if ($.bug.token == '') {
+			$.bug.error_set(messageStrings("ERROR_TOKEN"));
                     } else {
                         $(element).addClass('inprogress');
                     }
@@ -332,6 +332,7 @@
                         $.bug.state_success();
                     } else {
 			$.bug.state_failure();
+			$.bug.get_token();
                     }
                 });
                 element.addClass('initialized');
@@ -381,6 +382,13 @@
                 $('.related_bugs').html(bug_urls.join('<br>'));
             });
         },
+
+	get_token: function() {
+	  $.bug.token = '';
+	  $.bug.ajax('GET', $.bug.url + '/enter_bug.cgi?product=LibreOffice&bug_status=UNCONFIRMED').pipe(function(data){
+	    $.bug.token = data.match(/<input type="hidden" name="token" value="([A-Za-z0-9]{10})">/)[1];
+          });
+	},
 
         compatibility: function() {
             $('.left .step:last-child').addClass('last-child'); // cross browser compatibility
