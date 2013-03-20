@@ -58,7 +58,11 @@
           <div>de bugs</div>
         </div>
         <div class="submission">
-          Merci d'utiliser LibreOffice. Nous sommes désolés du dysfonctionnement trouvé dans notre logiciel, mais nous sommes contents que vous souhaitiez en faire le rapport. Cet assistant va vous guider à travers les étapes du processus de rapport de bugs.
+          Merci d'utiliser LibreOffice. Nous sommes désolés que vous ayez trouvé
+	  un dysfonctionnement dans notre logiciel et sommes heureux que vous
+	  souhaitiez le rapporter. Cet assistant va vous guider pas à pas à travers le processus de
+	  rapport de bug et va vous aider à créer une description permettant de
+	  rendre votre problème reproductible pour notre Assurance Qualité.
         </div>
       </div>
       <div class="content">
@@ -288,7 +292,7 @@ Comportement attendu :
           case "ERROR_GENERAL": return "A error has occurred";
           case "ERROR_URL": return "Impossible de trouver l'URL spécifié.";
           case "ERROR_REGEX": return "impossible de faire correspondre " + $data + " à la chaîne retournée par le serveur " + $data2;
-	  case "ERROR_TOKEN": return "Données non encore chargé. S'il vous plaît appuyez à nouveau présenter en quelques secondes.";
+	  case "ERROR_TOKEN": return "Les données n'ont pas encore été chargées. Veuillez appuyez de nouveau sur soumettre dans quelques secondes.";
 	  case "Operating System: ": return "Système d'exploitation: ";
 	  case "Version: ": return "Version: ";
 	  case "Last worked in: ": return "Dernière version fonctionnant connue: ";
