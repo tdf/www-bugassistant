@@ -17,10 +17,11 @@
 
 (function($) {
 
-  $.skin = function() {
+  $.skin = function(lang) {
       $('.skin').show();
       $.bug.frame();
       $.bug.compatibility();
+      $.bug.BSALang = lang;
       $.bug.token = "AA";
       function component() {
           $.bug.state_component();
