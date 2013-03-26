@@ -227,14 +227,15 @@
                 var validate = function() {
                     if($(".short", element).val().length > 3 &&
                        $(".long", element).val() != template) {
-		        if ($.bug.BSALang == 'en')
-                          $.bug.state_attach();
                         $.bug.state_submit();
                     }
                 };
 
                 $(".short", element).change(validate);
                 $(".long", element).keyup(validate);
+
+		if ($.bug.BSALang == 'en')
+                    $.bug.state_attach();
                 element.addClass('initialized');
                 $.bug.current_step('description');
                 element.show();
