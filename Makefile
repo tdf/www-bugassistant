@@ -32,9 +32,13 @@ start-en:
 	echo "\n\n===== BSA English =====\n"
 
 extract-en:
-	mkdir -p build_en
-	curl --silent https://wiki.documentfoundation.org/QA/BSA/BugReport_Details | tidy --numeric-entities yes -asxhtml -utf8 2>/dev/null > build_en/tidyout.xhtml || echo "ignoring tidy error"
-	xsltproc --encoding UTF-8 --novalid stripnamespace.xsl build_en/tidyout.xhtml > build_en/BugReport_Details.xhtml
+	mkdir -p build_en/components
+# Remove the old combined file and set up a new one.
+	rm -f build_en/components/combined.xhtml
+	cat start.txt > build_en/components/combined.xhtml
+	for file in `cat components.txt|tr ' ' _`; do echo $$file; curl --silent https://wiki.documentfoundation.org/QA/Bugzilla/Components/$$file/Help | tidy --numeric-entities yes -asxhtml -utf8 2>/dev/null | xsltproc --encoding UTF-8 --novalid combine.xsl - >> build_en/components/combined.xhtml ; done
+	cat end.txt >> build_en/components/combined.xhtml
+	xsltproc --encoding UTF-8 --novalid stripnamespace.xsl build_en/components/combined.xhtml > build_en/BugReport_Details.xhtml
 	xsltproc --encoding UTF-8 --novalid component_comments.xsl build_en/BugReport_Details.xhtml > build_en/component_comments.xhtml
 	xsltproc --stringparam choose "`cat en/choose.txt`" --stringparam other "(All other problems)" --encoding UTF-8 --novalid subcomponents.xsl build_en/BugReport_Details.xhtml > build_en/subcomponents.xhtml
 	xsltproc --stringparam choose "`cat en/choose.txt`" --encoding UTF-8 --novalid components.xsl build_en/BugReport_Details.xhtml > build_en/components.xhtml
@@ -48,6 +52,8 @@ compose-en:
 
 clean-en:
 	rm -f build_en/BugReport_Details.xhtml build_en/tidyout.xhtml build_en/component_comments.xhtml build_en/subcomponents.xhtml build_en/components.xhtml build_en/query.xhtml build_en/versions.xhtml bug/bug.html build_en/op_sys.xhtml
+	rm -f build_en/components/*.html build_en/components/combined.xhtml
+	rmdir build_en/components
 	rmdir build_en
 
 fr: build-fr

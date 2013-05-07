@@ -1,0 +1,23 @@
+Android Impress Remote
+BASIC
+Chart
+contrib
+Database
+Documentation
+Drawing
+Extensions
+filters and storage
+Formula Editor
+framework
+graphics stack
+Installation
+Libreoffice
+Linguistic
+Localization
+Presentation
+Printing and PDF export
+sdk
+Spreadsheet
+UI
+Writer
+WWW
