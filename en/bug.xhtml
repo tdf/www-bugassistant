@@ -288,7 +288,7 @@ Expected behavior:
       function messageStrings($nr, $data, $data2) {
 
 	switch ($nr) {
-	  case "ERROR_BUGZILLA": return "It seems there is a problem to connect with Bugzilla. Please try again later.";
+	  case "ERROR_BUGZILLA": return "It seems there is a problem to connect with Bugzilla. Please reload the page by pressing F5. If this does not fix the problem, please try again later. ";
 	  case "ERROR_GENERAL": return "A error has occurred";
 	  case "ERROR_URL": return "Cannot find the URL specified.";
 	  case "ERROR_REGEX": return "Could not match " + $data + " on the string returned by the server " + $data2;
