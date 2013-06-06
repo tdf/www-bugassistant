@@ -221,7 +221,7 @@ Expected behavior:
                 <div class="state state_attach">
                   <input type="hidden" name="contenttypemethod" value="autodetect"></input>
                   <div>
-                    <div class="input-label">Optionally attach a document or a screenshot. </div>
+                    <div class="input-label">Optionally, you can attach any test kit, sample document, screenshot and/or any <a href="https://wiki.documentfoundation.org/wiki/BugReport#Providing_extra_information_for_the_developers_-_ADVANCED" target="_blank">advanced information</a>, such as installation logs, backtraces and other similar things which may help with the fixing of this bug. </div>
 
                     <div class="attach-file">
 	              <input type="file" name="data" />
@@ -288,7 +288,7 @@ Expected behavior:
       function messageStrings($nr, $data, $data2) {
 
 	switch ($nr) {
-	  case "ERROR_BUGZILLA": return "It seems there is a problem to connect with Bugzilla. Please try again later.";
+	  case "ERROR_BUGZILLA": return "It seems there is a problem to connect with Bugzilla. Please reload the page by pressing F5. If this does not fix the problem, please try again later. ";
 	  case "ERROR_GENERAL": return "A error has occurred";
 	  case "ERROR_URL": return "Cannot find the URL specified.";
 	  case "ERROR_REGEX": return "Could not match " + $data + " on the string returned by the server " + $data2;
