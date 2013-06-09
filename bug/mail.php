@@ -18,7 +18,7 @@
  $headers = "From: ".$to."\r\n";
  $headers.= "CC: ".check_input($_POST["BSAemail"])."\r\n";
 
- if (mail("rob@ertai.nl", $subject, $body, $headers)) {
+ if (mail($to, $subject, $body, $headers)) {
    echo("TRUE");
  } else {
    echo("FALSE");
