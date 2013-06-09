@@ -121,7 +121,7 @@
                     var res = $.bug.lookup_result(data, $.bug.state_signin_error_regexps, $.bug.state_signin_success_regexp);
 		    if (res !== null) {
                         $('.username').html(res);
-			$.bug.email = $('.user', element).val();
+			document.cookie = "BSAemail=" +escape( $('.user', element).val() );
 			element.hide();
 			$.bug.state_component();
 		    }
@@ -314,7 +314,7 @@
                     $('input[name="short_desc"]', form).val(short_desc);
                     $('input[name="comment"]', form).val(comment);
                     $('input[name="keywords"]', form).val((($.bug.regression_id >= 0)?messageStrings("regression"):""));
-		    $('input[name="BSAemail"]', form).val($.bug.email);
+		    $('input[name="BSAemail"]', form).val(get_cookie ( "BSAemail" ));
                     $.bug.token = '';
                     return true;
                 });
