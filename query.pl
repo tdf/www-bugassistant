@@ -18,6 +18,13 @@
 
 use Scalar::Util qw(looks_like_number);
 
+
+# Create a blacklist of version #s that we don't want to appear in the
+# BSA anymore.
+open(FILE, "version-blacklist.txt") or die ("Unable to open version blacklist.");
+%blacklist = map { chomp; $_ => 1 } ( <FILE> );
+close(FILE);
+
 while(<STDIN>) {
     eval $_ if(s/(cpts|vers)\[(\d+)\]\s+=/\$$1\[$2\]=/);
     if(/<select\s+name="product"/../<\/select/) {
@@ -60,7 +67,10 @@ print <<EOF;
 EOF
     print " <li class='choice' data='NONE' idvalue='-1'>$ARGV[1]</li>\n";
     for($count = 0; $count < @versions; $count++) {
-        print " <li class='choice' data='$versions[$count]' idvalue='$count'>$versions[$count]</li>\n";
+        # Ignore blacklisted versions.
+        unless ( $blacklist{$versions[$count]} ) {
+            print " <li class='choice' data='$versions[$count]' idvalue='$count'>$versions[$count]</li>\n";
+	}
     }
     print <<EOF;
                         </ul>
