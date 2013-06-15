@@ -338,6 +338,7 @@
                         return false;
                     } else if ($('.state_attach input[name="data"]').val() != "" && $('.state_attach input[name="description"]').val() == ""){
                         $.bug.error_set(messageStrings("ERROR_ATTACHMENT"));
+                        return false;
                     } else {
                         $(element).addClass('inprogress');
                     }
