@@ -15,8 +15,10 @@
  $body = $body."Description longue: ".check_input($_POST["comment"])."\n";
  $body = $body."\n\nMerci de nous aider,\nBSA";
 
- $headers = "From: ".$to."\r\n";
- $headers.= "CC: ".check_input($_POST["BSAemail"])."\r\n";
+ $headers = "Return-Path: hostmaster@documentfoundation.org\r\n";
+ $headers.= "From: hostmaster@documentfoundation.org\r\n";
+ $headers.= "Cc: ".check_input($_POST["BSAemail"])."\r\n";
+ $headers.= "Content-type: text/plain; charset=UTF-8";
 
  if (mail($to, $subject, $body, $headers)) {
    echo("TRUE");

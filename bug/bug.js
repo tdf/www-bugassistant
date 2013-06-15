@@ -58,6 +58,19 @@
             });
         },
 
+        get_cookie: function( name ) {
+            var start = document.cookie.indexOf( name + "=" );
+            var len = start + name.length + 1;
+            if ( ( !start ) && ( name != document.cookie.substring( 0, name.length ) ) )
+            {
+                return null;
+            }
+            if ( start == -1 ) return null;
+            var end = document.cookie.indexOf( ";", len );
+            if ( end == -1 ) end = document.cookie.length;
+                return unescape( document.cookie.substring( len, end ) );
+        },
+ 
         lookup_result: function(data, error_regexps, success_regexp) {
             var error = null;
             for(var i = 0; i < error_regexps.length; i++) {
@@ -314,7 +327,7 @@
                     $('input[name="short_desc"]', form).val(short_desc);
                     $('input[name="comment"]', form).val(comment);
                     $('input[name="keywords"]', form).val((($.bug.regression_id >= 0)?messageStrings("regression"):""));
-		    $('input[name="BSAemail"]', form).val(get_cookie ( "BSAemail" ));
+                    $('input[name="BSAemail"]', form).val($.bug.get_cookie ( "BSAemail" ));
                     $.bug.token = '';
                     return true;
                 });
