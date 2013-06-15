@@ -238,13 +238,21 @@
             var template = $(".long", element).val();
             if(!element.hasClass('initialized')) {
                 var validate = function() {
+                    if($(".long", element).val().length != template) {
+                        $(".long", element).css('background', 'url("images/description.png") no-repeat scroll 0 0 transparent');
+                    }
                     if($(".short", element).val().length > 3 &&
                        $(".long", element).val() != template) {
                         $.bug.state_submit();
                     }
                 };
-
+                var validate2 = function() {
+                    if($(".short", element).val().length > 3) {
+                        $(".short", element).css('background', 'url("images/subject.png") no-repeat scroll 0 0 transparent');
+                    }
+                };
                 $(".short", element).change(validate);
+		$(".short", element).keyup(validate2);
                 $(".long", element).keyup(validate);
 
 		if ($.bug.BSALang == 'en')

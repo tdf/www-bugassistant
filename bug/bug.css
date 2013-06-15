@@ -399,7 +399,7 @@ body {
 }
 
 .state_description .subject-input input {
-    background: url('images/subject.png') no-repeat;
+    background: url('images/subject-empty.png') no-repeat;
     height: 28px;
     width: 528px;
     border: 0;
@@ -407,7 +407,7 @@ body {
 }
 
 .state_description .description-input textarea {
-    background: url('images/description.png') no-repeat;
+    background: url('images/description-empty.png') no-repeat;
     height: 240px;
     width: 528px;
     border: 0;
