@@ -332,6 +332,10 @@
                         return false;
 		    } else if ($.bug.token == '') {
 			$.bug.error_set(messageStrings("ERROR_TOKEN"));
+                        return false;
+                    } else if ($.bug.sub_component == '') {
+                        $.bug.error_set(messageStrings("ERROR_SUBCOMPONENT"));
+                        return false;
                     } else {
                         $(element).addClass('inprogress');
                     }

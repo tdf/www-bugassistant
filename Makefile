@@ -33,14 +33,12 @@ start-en:
 
 extract-en:
 	mkdir -p build_en/components
-# Remove the old combined file and set up a new one.
-	rm -f build_en/components/combined.xhtml
 	cat start.txt > build_en/components/combined.xhtml
 	for file in `cat components.txt|tr ' ' _`; do echo $$file; curl --silent https://wiki.documentfoundation.org/QA/Bugzilla/Components/$$file/Help | tidy --numeric-entities yes -asxhtml -utf8 2>/dev/null | xsltproc --encoding UTF-8 --novalid combine.xsl - >> build_en/components/combined.xhtml ; done
 	cat end.txt >> build_en/components/combined.xhtml
 	xsltproc --encoding UTF-8 --novalid stripnamespace.xsl build_en/components/combined.xhtml > build_en/BugReport_Details.xhtml
 	xsltproc --encoding UTF-8 --novalid component_comments.xsl build_en/BugReport_Details.xhtml > build_en/component_comments.xhtml
-	xsltproc --stringparam choose "`cat en/choose.txt`" --stringparam other "(All other problems)" --encoding UTF-8 --novalid subcomponents.xsl build_en/BugReport_Details.xhtml > build_en/subcomponents.xhtml
+	xsltproc --stringparam choose "`cat en/choose.txt`" --stringparam other "(All other problems)" --stringparam otherData "Other" --encoding UTF-8 --novalid subcomponents.xsl build_en/BugReport_Details.xhtml > build_en/subcomponents.xhtml
 	xsltproc --stringparam choose "`cat en/choose.txt`" --encoding UTF-8 --novalid components.xsl build_en/BugReport_Details.xhtml > build_en/components.xhtml
 	curl --silent 'https://bugs.freedesktop.org/query.cgi?product=LibreOffice&query_format=advanced' > build_en/query.xhtml
 	perl op_sys.pl "`cat en/choose.txt`" < en/op_sys.txt > build_en/op_sys.xhtml
@@ -68,7 +66,7 @@ extract-fr:
 	curl --silent https://wiki.documentfoundation.org/QA/BSA/BugReport_Details/fr | tidy --numeric-entities yes -asxhtml -utf8 2>/dev/null > build_fr/tidyout.xhtml || echo "ignoring tidy error"
 	xsltproc --encoding UTF-8 --novalid stripnamespace.xsl build_fr/tidyout.xhtml > build_fr/BugReport_Details.xhtml
 	xsltproc --encoding UTF-8 --novalid component_comments.xsl build_fr/BugReport_Details.xhtml > build_fr/component_comments.xhtml
-	xsltproc --stringparam choose "`cat fr/choose.txt`" --stringparam other "(All other problems)" --encoding UTF-8 --novalid subcomponents.xsl build_fr/BugReport_Details.xhtml > build_fr/subcomponents.xhtml
+	xsltproc --stringparam choose "`cat fr/choose.txt`" --stringparam other "(All other problems)" --stringparam otherData "Other" --encoding UTF-8 --novalid subcomponents.xsl build_fr/BugReport_Details.xhtml > build_fr/subcomponents.xhtml
 	xsltproc --stringparam choose "`cat fr/choose.txt`" --encoding UTF-8 --novalid components.xsl build_fr/BugReport_Details.xhtml > build_fr/components.xhtml
 	curl --silent 'https://bugs.freedesktop.org/query.cgi?product=LibreOffice&query_format=advanced' > build_fr/query.xhtml
 	perl op_sys.pl "`cat fr/choose.txt`" < fr/op_sys.txt > build_fr/op_sys.xhtml

@@ -19,6 +19,7 @@
     <xsl:strip-space elements="*"/>
     <xsl:param name="choose"/>
     <xsl:param name="other"/>
+    <xsl:param name="otherData"/>
 
     <xsl:template match="text()" />
 
@@ -40,7 +41,7 @@
                       <div class="bottom-right"></div>
                       <div class="center">
                         <ul>
-                          <li class="choice" data='' idvalue=''><xsl:value-of select="$other"/></li>
+                          <li class="choice" data='{$otherData}' idvalue=''><xsl:value-of select="$other"/></li>
                           <xsl:apply-templates select="descendant::*[contains(@class,'search')]"/>
                         </ul>
                       </div>
