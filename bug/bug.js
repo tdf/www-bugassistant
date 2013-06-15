@@ -280,6 +280,25 @@
                     var path = $(this).val().replace("C:\\fakepath\\","");
                     $("input[name='ignored']", element).val(path);
                 });
+                var validate = function() {
+                    if ($('input[name="data"]', element).val() != "" &&
+                        $('input[name="description"]', element).val() == "")
+                    {
+                       $('input[name="description"]', element).css('background', 'url("images/subject-empty.png") no-repeat scroll 0 0 transparent');
+		    }
+                    else if ($('input[name="data"]', element).val() == "" &&
+                        $('input[name="description"]', element).val() != "")
+                    {
+                       $('input[name="ignored"]', element).css('background', 'url("images/upload-input-empty.png") no-repeat scroll 0 0 transparent');
+                    }
+                    else
+                    {
+                       $('input[name="description"]', element).css('background', 'url("images/subject.png") no-repeat scroll 0 0 transparent');
+                       $('input[name="ignored"]', element).css('background', 'url("images/upload-input.png") no-repeat scroll 0 0 transparent');
+                    }
+		};
+		$('input[name="data"]', element).change(validate);
+                $('input[name="description"]', element).keyup(validate);
                 element.addClass('initialized');
                 $.bug.current_step('attach');
                 element.show();
