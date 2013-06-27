@@ -3,6 +3,23 @@
 #
 # Please list versions from Newest to Oldest, similarly to how they
 # appear in the version picker.
+# ---- 3.5 VERSIONS ----
+3.5.7.1 rc
+3.5.6.1 rc
+3.5.5.2 rc
+3.5.5.1 rc
+3.5.4 RC1
+3.5.3 RC1
+3.5.2 RC1
+3.5.1 RC1
+3.5.0 RC2
+3.5.0 RC1
+3.5.0 Beta3
+3.5.0 Beta2
+3.5.0 Beta1
+3.5.0 Beta0
+3.5 Daily
+# ---- 3.4 VERSIONS ----
 3.4.6 release
 3.4.6 RC1
 3.4.5 release
@@ -17,6 +34,7 @@
 3.4.1 release
 3.4.1 RC2
 3.4.1 RC1
+3.4.0 release
 3.4.0 RC1
 3.4.0 Beta5
 3.4.0 Beta4
@@ -24,6 +42,7 @@
 3.4.0 Beta2
 3.4.0 Beta1
 3.4 Daily
+# ---- 3.3 VERSIONS ----
 3.3.4 release
 3.3.3 release
 3.3.2 release
@@ -31,9 +50,14 @@
 3.3.2 RC1
 3.3.1 release
 3.3.1 RC1
+3.3.0 release
 3.3.0 RC4
 3.3.0 RC3
 3.3.0 RC2
 3.3.0 RC1
 3.3.0 Beta3
 3.3.0 Beta2
+# ---- MISC VERSIONS ----
+(See in Summary)
+unspecified
+Master old  -3.6
