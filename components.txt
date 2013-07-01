@@ -19,6 +19,5 @@ Printing and PDF export
 sdk
 Spreadsheet
 UI
-UX-Advice
 Writer
 WWW
