@@ -1,0 +1,15 @@
+# This file contains unsupported versions of LibreOffice.
+#
+# Unlike our list of blacklisted versions, this list contains versions
+# that we actually want to appear in the BSA, such as "3.5 all versions".
+# For now, this list consists solely of EOL releases.
+#
+# Listing a version here will cause the BSA to trigger a user warning
+# when the version is selected in the drop-down box.
+#
+# The versions are listed in the same order as the version drop-down,
+# from Newest to Oldest.
+#
+3.5 all versions
+3.4 all versions
+3.3 all versions
