@@ -195,6 +195,26 @@
                 $.bug.current_step('details');
             }
             element.show();
+            // Start by hiding the end-of-life message.
+            var uv_element = $('.state_details .unsupported-versions');
+            uv_element.hide();
+
+            // Grab the list of unsupported versions and stuff the
+            // versions into an array.
+            var uv_array = new Array();
+
+            /* -- I can't seem to get the file to load properly, so I'll
+               -- just hard-code the values for now.
+            var jqxhr = $.get("unsupported-versions/file/here", function(data){
+		//uv_array = data.split("\n");
+		console.log("Something...here ");
+		//console.log(uv_array);
+	    })
+            .done(function() { console.log("done here..."); })
+            .fail(function() { console.log("GET failed"); });
+            */
+            uv_array = ["3.5 all versions", "3.4 all versions", "3.3 all versions"];
+
             $('.active_subcomponent .select', element).select();
             $('.active_subcomponent .select .choice', element).click(function() {
                 $.bug.refresh_related_bugs();
@@ -205,12 +225,24 @@
             });
             $(".select", element).select();
             $(".state_details .versions .choice[data='NONE']").remove();
+            // When the user selects a version in the drop-down box,
+            // run this function.
             $(".versions .select .choice", element).click(function() {
                 $.bug.lo_version = $('.state_details .versions .chosen').attr('data');
                 $.bug.lo_version_id = $('.state_details .versions .chosen').attr('idvalue');
-                if ($.bug.sub_component != 'EMPTY' && $.bug.op_sys != '' && $.bug.regression != '') {
-                    $.bug.state_description();
+                if ($.bug.sub_component != 'EMPTY' && 
+                    $.bug.op_sys != '' && 
+                    $.bug.regression != '') {
+                  $.bug.state_description();
                 }
+
+                // If this version is unsupported, display a warning
+                // message.
+                if($.inArray($.bug.lo_version, uv_array) >= 0) {
+		    uv_element.show();
+		} else {
+		    uv_element.hide();
+		}
             });
             $(".select", element).select();
             $(".op_sys .select .choice", element).click(function() {
