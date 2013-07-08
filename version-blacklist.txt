@@ -29,14 +29,22 @@
 3.6.0.0.beta1
 3.6.0.0.alpha1
 # ---- 3.5 VERSIONS ----
+3.5.7.2 release
 3.5.7.1 rc
+3.5.6.2 release
 3.5.6.1 rc
+3.5.5.3 release
 3.5.5.2 rc
 3.5.5.1 rc
+3.5.4 release
 3.5.4 RC1
+3.5.3 release
 3.5.3 RC1
+3.5.2 release
 3.5.2 RC1
+3.5.1 release
 3.5.1 RC1
+3.5.0 release
 3.5.0 RC2
 3.5.0 RC1
 3.5.0 Beta3
