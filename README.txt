@@ -21,19 +21,14 @@ The Bug Submission Assistant is released as a whole under the following terms:
 It contains parts:
 
 /*!
- * jQuery JavaScript Library v1.6.2
+ * jQuery JavaScript Library v1.10.1
  * http://jquery.com/
  *
- * Copyright 2011, John Resig
- * Dual licensed under the MIT or GPL Version 2 licenses.
+ * Copyright 2013, jQuery Foundation
+ * Licensed under the MIT license.
  * http://jquery.org/license
  *
- * Includes Sizzle.js
- * http://sizzlejs.com/
- * Copyright 2011, The Dojo Foundation
- * Released under the MIT, BSD, and GPL Licenses.
- *
- * Date: Thu Jun 30 14:16:56 2011 -0400
+ * Date: Mon Oct 07 23:50:56 2013 +0100
  */
 
 /*
