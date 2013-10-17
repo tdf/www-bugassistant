@@ -10,7 +10,7 @@
  $body = "Bonjour,\n\nIl y a une nouvelle soumission de bug déposée en français. L'un d'entre vous peut-il le confirmer ou le traduire pour nous.\n\n";
  $body = $body."Composant: ".check_input($_POST["component"])."\n";
  $body = $body."Version: ".check_input($_POST["version"])."\n";
- $body = $body."Keywords: ".check_input($_POST["keywords"])."\n";
+ $body = $body."Whiteboard: ".check_input($_POST["status_whiteboard"])."\n";
  $body = $body."Sujet: ".check_input($_POST["short_desc"])."\n";
  $body = $body."Description longue: ".check_input($_POST["comment"])."\n";
  $body = $body."\n\nMerci de nous aider,\nBSA";

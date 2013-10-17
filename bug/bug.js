@@ -392,7 +392,7 @@
                     $('input[name="op_sys"]', form).val($.bug.op_sys);
                     $('input[name="short_desc"]', form).val(short_desc);
                     $('input[name="comment"]', form).val(comment);
-                    $('input[name="keywords"]', form).val((($.bug.regression_id >= 0)?messageStrings("PossibleRegression"):""));
+		    $('input[name="status_whiteboard"]', form).val("BSA" + (($.bug.regression_id >= 0)?",PossibleRegression":""));
                     $('input[name="BSAemail"]', form).val($.bug.get_cookie ( "BSAemail" ));
                     $.bug.token = '';
                     return true;
