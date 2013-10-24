@@ -29,7 +29,6 @@ test("frame", function() {
     };
 
     equal($.bug.url, '');
-    $.bug.frame();
     equal($.bug.url, bugzilla_url);
     $.bug.url = '';
 });

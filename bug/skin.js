@@ -19,7 +19,6 @@
 
   $.skin = function(lang) {
       $('.skin').show();
-      $.bug.frame();
       $.bug.compatibility();
       $.bug.BSALang = lang;
       $.bug.token = "AA";
