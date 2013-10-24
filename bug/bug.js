@@ -107,7 +107,7 @@
             $('.error-container').show();
         },
 
-        url: '',
+        url: 'https://www.libreoffice.org/bugzilla',
 	token: '',
         sub_component: 'EMPTY',
         op_sys: '',
@@ -472,12 +472,6 @@
 
         compatibility: function() {
             $('.left .step:last-child').addClass('last-child'); // cross browser compatibility
-        },
-
-        frame: function() {
-            if($.bug.window != $.bug.window.top && $.bug.window.parent.bugzilla_url !== undefined) {
-                $.bug.url = $.bug.window.parent.bugzilla_url;
-            }
         },
 
         get: function (name){
