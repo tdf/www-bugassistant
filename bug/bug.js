@@ -529,7 +529,6 @@
 
         main: function(lang, in_isTest) {
             $.bug.compatibility();
-            $.bug.frame();
             $.bug.BSALang = lang;
             $.bug.logged_in().done(function(status) {
                 if(status) {
