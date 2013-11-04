@@ -1,5 +1,3 @@
 This is a little bit of code that reads the version of the bugzilla via XMLRPC.
 We should move to the XMLRPC-interface to connect BSA with the bugzilla as that is more reliable then parsing the pages.
 I used mimic to top this code on http://mimic-xmlrpc.sourceforge.net/.
-
-There is still a problem with posting parameters however. The parameters should be named but the addParam-function can't name them. So this proves to be a problem for now.
