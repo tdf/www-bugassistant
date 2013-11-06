@@ -41,8 +41,8 @@ extract-en:
 	xsltproc --stringparam choose "`cat en/choose.txt`" --stringparam other "(All other problems)" --stringparam otherData "Other" --encoding UTF-8 --novalid subcomponents.xsl build_en/BugReport_Details.xhtml > build_en/subcomponents.xhtml
 	xsltproc --stringparam choose "`cat en/choose.txt`" --encoding UTF-8 --novalid components.xsl build_en/BugReport_Details.xhtml > build_en/components.xhtml
 	curl --silent 'https://bugs.freedesktop.org/query.cgi?product=LibreOffice&query_format=advanced' > build_en/query.xhtml
-	perl op_sys.pl "`cat en/choose.txt`" < en/op_sys.txt > build_en/op_sys.xhtml
-	perl query.pl "`cat en/choose.txt`" "NONE" < build_en/query.xhtml > build_en/versions.xhtml
+	perl bsa.pl -proc=systems -choose="`cat en/choose.txt`" -opSysFile=en/op_sys.txt > build_en/op_sys.xhtml
+	perl bsa.pl -proc=versions -choose="`cat en/choose.txt`" -none=NONE > build_en/versions.xhtml
 	perl sanity.pl build_en/query.xhtml build_en/components.xhtml
 
 compose-en:
@@ -68,9 +68,8 @@ extract-fr:
 	xsltproc --encoding UTF-8 --novalid component_comments.xsl build_fr/BugReport_Details.xhtml > build_fr/component_comments.xhtml
 	xsltproc --stringparam choose "`cat fr/choose.txt`" --stringparam other "(All other problems)" --stringparam otherData "Other" --encoding UTF-8 --novalid subcomponents.xsl build_fr/BugReport_Details.xhtml > build_fr/subcomponents.xhtml
 	xsltproc --stringparam choose "`cat fr/choose.txt`" --encoding UTF-8 --novalid components.xsl build_fr/BugReport_Details.xhtml > build_fr/components.xhtml
-	curl --silent 'https://bugs.freedesktop.org/query.cgi?product=LibreOffice&query_format=advanced' > build_fr/query.xhtml
-	perl op_sys.pl "`cat fr/choose.txt`" < fr/op_sys.txt > build_fr/op_sys.xhtml
-	perl query.pl "`cat fr/choose.txt`" "AUCUN" < build_fr/query.xhtml > build_fr/versions.xhtml
+	perl bsa.pl -proc=systems -choose="`cat fr/choose.txt`" -opSysFile=fr/op_sys.txt > build_fr/op_sys.xhtml
+	perl bsa.pl -proc=versions -choose="`cat fr/choose.txt`" -none=AUCUN > build_fr/versions.xhtml
 
 compose-fr:
 	xsltproc --encoding UTF-8 --novalid --stringparam serial `date +%s` bug.xsl fr/bug.xhtml > bug/bug_fr.html

@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='ISO-8859-1'?>
+            <div class="select-header">
+              <div class="chosen"><!-- TMPL_VAR NAME=choose --></div>
+            </div>
+            <div class="choices">
+              <div class="select-top">
+                <div class="select-left">
+                  <div class="select-bottom">
+                    <div class="select-right">
+                      <div class="top-left"></div>
+                      <div class="top-right"></div>
+                      <div class="bottom-left"></div>
+                      <div class="bottom-right"></div>
+                      <div class="center">
+                        <ul>
+			  <!-- TMPL_LOOP NAME=loop --><li class='choice' data='<TMPL_VAR NAME=name>' idvalue='<TMPL_VAR NAME=nr>'><!-- TMPL_VAR NAME=name --></li>
+			  <!-- /TMPL_LOOP -->
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>

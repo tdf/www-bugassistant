@@ -1,9 +1,7 @@
-print "<?xml version='1.0' encoding='ISO-8859-1'?>\n";
-
-print <<EOF;
+<?xml version='1.0' encoding='ISO-8859-1'?>
 	  <div class="op_sys select">
             <div class="select-header">
-              <div class="chosen">$ARGV[0]</div>
+              <div class="chosen"><!-- TMPL_VAR NAME=choose --></div>
             </div>
             <div class="choices">
               <div class="select-top">
@@ -16,16 +14,8 @@ print <<EOF;
                       <div class="bottom-right"></div>
                       <div class="center">
                         <ul>
-EOF
-
-while(<STDIN>) {
-    $op_sys = $_;
-    $op_sys =~ s/\R//g;
-    my($display_value, $data) = split(/::/, $op_sys, 2);
-    print " <li class='choice' data='$data' idvalue='0'>$display_value</li>\n";
-}
-
-    print <<EOF;
+			<!-- TMPL_LOOP NAME=loop --><li class='choice' data='<TMPL_VAR NAME=data>' idvalue='<TMPL_VAR NAME=count>'><!-- TMPL_VAR NAME=name --></li>
+			<!-- /TMPL_LOOP -->
                         </ul>
                       </div>
                     </div>
@@ -34,4 +24,3 @@ while(<STDIN>) {
               </div>
             </div>
 	  </div>
-EOF
