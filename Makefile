@@ -19,9 +19,6 @@ all: build
 
 build: build-en build-fr
 
-check:
-	perl sanity.pl TEST
-
 clean: clean-en clean-fr
 
 en: build-en
@@ -40,16 +37,15 @@ extract-en:
 	xsltproc --encoding UTF-8 --novalid component_comments.xsl build_en/BugReport_Details.xhtml > build_en/component_comments.xhtml
 	xsltproc --stringparam choose "`cat en/choose.txt`" --stringparam other "(All other problems)" --stringparam otherData "Other" --encoding UTF-8 --novalid subcomponents.xsl build_en/BugReport_Details.xhtml > build_en/subcomponents.xhtml
 	xsltproc --stringparam choose "`cat en/choose.txt`" --encoding UTF-8 --novalid components.xsl build_en/BugReport_Details.xhtml > build_en/components.xhtml
-	curl --silent 'https://bugs.freedesktop.org/query.cgi?product=LibreOffice&query_format=advanced' > build_en/query.xhtml
 	perl bsa.pl -proc=systems -choose="`cat en/choose.txt`" -opSysFile=en/op_sys.txt > build_en/op_sys.xhtml
 	perl bsa.pl -proc=versions -choose="`cat en/choose.txt`" -none=NONE > build_en/versions.xhtml
-	perl sanity.pl build_en/query.xhtml build_en/components.xhtml
+	perl bsa.pl -proc=checkComponents -componentsFile=build_en/components.xhtml
 
 compose-en:
 	xsltproc --encoding UTF-8 --novalid --stringparam serial `date +%s` bug.xsl en/bug.xhtml > bug/bug.html
 
 clean-en:
-	rm -f build_en/BugReport_Details.xhtml build_en/tidyout.xhtml build_en/component_comments.xhtml build_en/subcomponents.xhtml build_en/components.xhtml build_en/query.xhtml build_en/versions.xhtml bug/bug.html build_en/op_sys.xhtml
+	rm -f build_en/BugReport_Details.xhtml build_en/tidyout.xhtml build_en/component_comments.xhtml build_en/subcomponents.xhtml build_en/components.xhtml build_en/versions.xhtml bug/bug.html build_en/op_sys.xhtml
 	rm -f build_en/components/*.html build_en/components/combined.xhtml
 	rmdir build_en/components
 	rmdir build_en
@@ -70,10 +66,11 @@ extract-fr:
 	xsltproc --stringparam choose "`cat fr/choose.txt`" --encoding UTF-8 --novalid components.xsl build_fr/BugReport_Details.xhtml > build_fr/components.xhtml
 	perl bsa.pl -proc=systems -choose="`cat fr/choose.txt`" -opSysFile=fr/op_sys.txt > build_fr/op_sys.xhtml
 	perl bsa.pl -proc=versions -choose="`cat fr/choose.txt`" -none=AUCUN > build_fr/versions.xhtml
+	perl bsa.pl -proc=checkComponents -componentsFile=build_en/components.xhtml
 
 compose-fr:
 	xsltproc --encoding UTF-8 --novalid --stringparam serial `date +%s` bug.xsl fr/bug.xhtml > bug/bug_fr.html
 
 clean-fr:
-	rm -f build_fr/BugReport_Details.xhtml build_fr/tidyout.xhtml build_fr/component_comments.xhtml build_fr/subcomponents.xhtml build_fr/components.xhtml build_fr/query.xhtml build_fr/versions.xhtml bug/bug_fr.html build_fr/op_sys.xhtml
+	rm -f build_fr/BugReport_Details.xhtml build_fr/tidyout.xhtml build_fr/component_comments.xhtml build_fr/subcomponents.xhtml build_fr/components.xhtml build_fr/versions.xhtml bug/bug_fr.html build_fr/op_sys.xhtml
 	rmdir build_fr

@@ -74,4 +74,21 @@ elsif ($proc eq "systems")
   $template->param( loop => [ @BSASystems ], choose => $choose );
   print $template->output;
 }
+elsif ($proc eq "checkComponents")
+{
 
+  my @BzModules = BzFindModules($bz);
+
+  open(FILE, $componentsFile) or die ("Unable to open ".$componentsFile.": ".$!);
+  while(<FILE>) {
+    if(/data="(.*?)"/) {
+      $module =  $1;
+      $module =~ s/_/ /g;
+      if (!grep {$_ eq $module} @BzModules)
+      {
+	die "Component $module in wiki but not in bugzilla";
+      }
+    }
+  }
+  close(FILE);
+}
