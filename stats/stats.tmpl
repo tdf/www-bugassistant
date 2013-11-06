@@ -26,16 +26,19 @@
       </tr>
       <tr>
         <th>Module</th>
-	<th>Total</td>
+	<th>All Versions</td>
 	<!-- TMPL_LOOP NAME=UBThVersion --><th><!-- TMPL_VAR NAME=UBthVersionName --></th><!-- /TMPL_LOOP -->
       </tr>
       <!-- TMPL_LOOP NAME=UBModules -->
         <tr>
 	  <td><!-- TMPL_VAR NAME=UBModuleName --></td>
-	  <td><!-- TMPL_VAR NAME=UBModuleCount --></td>
-	  <!-- TMPL_LOOP NAME=UBVersion --><td><!-- TMPL_VAR NAME=UBVersionCount --></td><!-- /TMPL_LOOP -->
+	  <td align="right"><!-- TMPL_VAR NAME=UBModuleCount --></td>
+	  <!-- TMPL_LOOP NAME=UBVersion --><td align="right"><!-- TMPL_VAR NAME=UBVersionCount --></td><!-- /TMPL_LOOP -->
 	</tr>
       <!-- /TMPL_LOOP -->
+      <tr>
+        <th>Total</th>
+	<th align="right"><!-- TMPL_VAR NAME=UBTotalModuleCount --></th>
     </table>
   </body>
 </html>

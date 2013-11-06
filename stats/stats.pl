@@ -26,15 +26,16 @@ my @moduleNames = BzFindModules($bz);
 # Count Unconfirmed Bugs
 my @modules;
 my @bugs;
+my $totalBugs = 0;
 
 foreach (@moduleNames)
 {
   @bugs = BzFindUnconfirmedBugsPerModule($bz, $_);
   push(@modules, { UBModuleName => $_, UBModuleCount => scalar(@bugs) });
+  $totalBugs = $totalBugs + scalar(@bugs);
 }
-
 # Fill in in template
-$template->param( UBModules => [ @modules ] );
+$template->param( UBModules => [ @modules ], UBTotalModuleCount => $totalBugs );
 # print template
 print $template->output;
 
