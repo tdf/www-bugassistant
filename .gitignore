@@ -3,3 +3,6 @@
 build
 build_en
 build_fr
+stats/cookies.txt
+stats/*.html
+xmlrpc/cookies.txt
