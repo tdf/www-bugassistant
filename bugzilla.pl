@@ -41,15 +41,19 @@ sub BzConnect {
 
 The call requires a XMLRPC::Lite-object that has the connection-information to the bugzilla
 The call requires the name for a module
+The call requires the versions to ask
 The call will return a array with bugs or will fail
 
 =cut
 
-sub BzFindUnconfirmedBugsPerModule {
-  my $soapresult = $_[0]->call('Bug.search',
+sub BzFindUnconfirmedBugsPerModulePerVersion {
+  my ($bz, $component, @versions) = @_;
+#  print STDERR @versions."\n\n";
+  my $soapresult = $bz->call('Bug.search',
 			      { product => "LibreOffice",
 			        status => "UNCONFIRMED",
-				component => $_[1] } );
+				component => $component,
+				version => [ @versions ] } );
   _die_on_fault($soapresult);
   return @{$soapresult->result->{bugs}};
 }
@@ -62,7 +66,8 @@ The call will return a array with modules or will fail
 =cut
 
 sub BzFindModules {
-  return _find_values_for_field($_[0], "component", 1);
+  my ($bz) = @_;
+  return _find_values_for_field($bz, "component", 1);
 }
 
 =head2 Find the versions in bugzilla for the LibreOffice Product
@@ -73,7 +78,8 @@ The call will return a array with versions or will fail
 =cut
 
 sub BzFindVersions {
-  return _find_values_for_field($_[0], "version", 1);
+  my($bz) = @_;
+  return _find_values_for_field($bz, "version", 1);
 }
 
 =head2 Find the operating systems in bugzilla for the LibreOffice Product
@@ -84,7 +90,8 @@ The call will return a array with operating systems or will fail
 =cut
 
 sub BzFindOperatingSystems {
-  return _find_values_for_field($_[0], "op_sys", 0);
+  my($bz) = @_;
+  return _find_values_for_field($bz, "op_sys", 0);
 }
 
 =head2 Sort versions correctly
@@ -94,6 +101,7 @@ The call will return a array with versions or will fail
 
 =cut
 sub BzSortVersions {
+  my(@versions) = @_;
   return sort {
       if (looks_like_number(substr($a, 0, 1)) == 0) {
           return 1;
@@ -102,7 +110,7 @@ sub BzSortVersions {
       } else {
           return lc($b) cmp lc($a);
       }
-  } @_;
+  } @versions;
 }
 
 #Gets the values for LibreOffice for a field
@@ -111,18 +119,16 @@ sub BzSortVersions {
 #Input: Return only items with LibreOffice visibility
 #Output: Array with the values
 sub _find_values_for_field {
+  my($bz, $names, $visibility) = @_;
   my @LOValues;
-  my $value;
-  my $product;
-  my $soapresult = $_[0]->call('Bug.fields',
-			      { names => $_[1] } );
+  my $soapresult = $bz->call('Bug.fields',
+			      { names => $names } );
   _die_on_fault($soapresult);
   my @values = @{$soapresult->result->{fields}->[0]->{values}};
-  foreach $value (@values)
+  foreach (@values)
   {
-    $product = $value->{visibility_values}->[0];
-    if ($product eq "LibreOffice" || !$_[2]) {
-      push(@LOValues, $value->{name});
+    if ($_->{visibility_values}->[0] eq "LibreOffice" || !$visibility) {
+      push(@LOValues, $_->{name});
     }
   }
   return @LOValues;
@@ -131,8 +137,9 @@ sub _find_values_for_field {
 #Prints the fault in the soapresult and exists
 #Input: The soapresult
 sub _die_on_fault {
-    if ($_[0]->fault) {
+    my($error) = @_;
+    if ($error->fault) {
         my ($package, $filename, $line) = caller;
-        die "SOAP-error in $filename on line $line: ".$_[0]->faultcode." ".$_[0]->faultstring."\n";
+        die "SOAP-error in $filename on line $line: ".$error->faultcode." ".$error->faultstring."\n";
     }
 }

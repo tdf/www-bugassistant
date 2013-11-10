@@ -22,12 +22,13 @@
   <body>
     <table border=1>
       <tr>
-        <th colspan="<!--TMPL_VAR NAME=UBNrRows-->">Unconfirmed Bugs</th>
+        <th>Unconfirmed Bugs</th>
+        <th colspan="<TMPL_VAR NAME=UBNrRows>"><!-- TMPL_VAR NAME=DATE --></th>
       </tr>
       <tr>
         <th>Module</th>
 	<th>All Versions</td>
-	<!-- TMPL_LOOP NAME=UBThVersion --><th><!-- TMPL_VAR NAME=UBthVersionName --></th><!-- /TMPL_LOOP -->
+	<!-- TMPL_LOOP NAME=UBThVersion --><th><!-- TMPL_VAR NAME=UBThVersionName --></th><!-- /TMPL_LOOP -->
       </tr>
       <!-- TMPL_LOOP NAME=UBModules -->
         <tr>
