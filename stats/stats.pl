@@ -30,31 +30,44 @@ my $versionsPerMinor = DevideVersions(BzSortVersions(BzFindVersions($bz)));
 my @bugs;
 my @bugsPerModulePerVersion;
 my $totalBugsPerModule = 0;
+my %totalBugsPerVersion = ();
 my $totalBugs = 0;
-my $i = 0;
 
+#Build header-line in template
 foreach $minorVersion (sort keys %$versionsPerMinor)
 {
-  push(@show, { UBThVersionName => $minorVersion });
+  push(@show, { HeaderVersionsName => $minorVersion });
+  $totalBugsPerVersion{"$minorVersion"} = 0;
 }
-$template->param( UBNrRows => (2 + scalar(@show)), DATE => gmtime(time())." GMT +0:00", UBThVersion => [ @show ] );
+$template->param( Rows => (2 + scalar(@show)), Date => gmtime(time())." GMT +0:00", HeaderVersions => [ @show ] );
 
+#Build module-lines in template
 @show = ();
-foreach my $module (@modules)
+foreach $module (@modules)
 {
-  foreach my $minorVersion (sort keys %$versionsPerMinor)
+  foreach $minorVersion (sort keys %$versionsPerMinor)
   {
     @bugs = BzFindUnconfirmedBugsPerModulePerVersion($bz, $module, @{$versionsPerMinor->{"$minorVersion"}});
-    push(@bugsPerModulePerVersion, { UBVersionCount => scalar(@bugs) });
+    push(@perModulePerVersion, { LinesVersionsCount => scalar(@bugs) });
     $totalBugsPerModule+= scalar(@bugs);
+    $totalBugsPerVersion{"$minorVersion"}+= scalar(@bugs);
   }
-  push(@show, { UBModuleName => $module, UBModuleCount => $totalBugsPerModule, UBVersion => [ @bugsPerModulePerVersion ] });
+  push(@show, { LinesName => $module, LinesCount => $totalBugsPerModule, LinesVersions => [ @perModulePerVersion ] });
   $totalBugs+= $totalBugsPerModule;
   $totalBugsPerModule = 0;
-  @bugsPerModulePerVersion = ();
+  @perModulePerVersion = ();
 }
-# Fill in in & print
-$template->param( UBModules => [ @show ], UBTotalModuleCount => $totalBugs );
+$template->param( Lines => [ @show ] );
+
+#Build Total-line in template
+@show = ();
+foreach $minorVersion (sort keys %totalBugsPerVersion)
+{
+  push(@show, { TotalVersionsCount => $totalBugsPerVersion{$minorVersion} });
+}
+$template->param( { TotalCount => $totalBugs, TotalVersions => [ @show ] });
+
+#Print it all
 print $template->output;
 
 =head2 Devide the versions to Minor versions
