@@ -46,14 +46,15 @@ The call will return a array with bugs or will fail
 
 =cut
 
-sub BzFindUnconfirmedBugsPerModulePerVersion {
-  my ($bz, $component, @versions) = @_;
+sub BzFindUnconfirmedBugsPerModulePerVersionIncludeFields {
+  my ($bz, $component, @versions, @fields) = @_;
 #  print STDERR @versions."\n\n";
   my $soapresult = $bz->call('Bug.search',
 			      { product => "LibreOffice",
 			        status => "UNCONFIRMED",
 				component => $component,
-				version => [ @versions ] } );
+				version => [ @versions ],
+				include_fields => [ @fields ] } );
   _die_on_fault($soapresult);
   return @{$soapresult->result->{bugs}};
 }
@@ -122,7 +123,8 @@ sub _find_values_for_field {
   my($bz, $names, $visibility) = @_;
   my @LOValues;
   my $soapresult = $bz->call('Bug.fields',
-			      { names => $names } );
+			      { names => $names,
+			      include_fields => ['values'] } );
   _die_on_fault($soapresult);
   my @values = @{$soapresult->result->{fields}->[0]->{values}};
   foreach (@values)

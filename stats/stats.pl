@@ -47,7 +47,7 @@ foreach $module (@modules)
 {
   foreach $minorVersion (sort keys %$versionsPerMinor)
   {
-    @bugs = BzFindUnconfirmedBugsPerModulePerVersion($bz, $module, @{$versionsPerMinor->{"$minorVersion"}});
+    @bugs = BzFindUnconfirmedBugsPerModulePerVersionIncludeFields($bz, $module, @{$versionsPerMinor->{"$minorVersion"}}, "id");
     push(@perModulePerVersion, { LinesVersionsCount => scalar(@bugs) });
     $totalBugsPerModule+= scalar(@bugs);
     $totalBugsPerVersion{"$minorVersion"}+= scalar(@bugs);
