@@ -65,10 +65,10 @@ body {
 .header .submission {
     display: inline-block;
     color: #FFF;
-    width: 55%;
+    width: 65%;
     font-size: 15px;
     padding-top: 10px;
-    padding-left: 120px;
+    padding-left: 80px;
     font-weight: bold;
 }
 
