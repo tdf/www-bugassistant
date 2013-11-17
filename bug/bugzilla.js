@@ -8,7 +8,7 @@
 (function($) {
     $.bugzilla = {
 
-        url: 'https://bugassistant.libreoffice.org/xmlrpc.cgi',
+        url: 'https://www.libreoffice.org/bugzilla/xmlrpc.cgi',
         cookieName: 'BSA_id',
         email: '',
         lastError: '',

@@ -98,7 +98,7 @@
             $('.error-container').show();
         },
 
-        url: 'https://bugassistant.libreoffice.org',
+        url: 'https://www.libreoffice.org/bugzilla',
 	token: '',
         sub_component: 'EMPTY',
         op_sys: '',
