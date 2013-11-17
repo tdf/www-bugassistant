@@ -29,6 +29,8 @@
     <title>Assistant de soumission de bugs</title>
     <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
     <script type="text/javascript" src="jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="jquery.xmlrpc.min.js"></script>
+    <script type="text/javascript" src="bugzilla.js"></script>
     <script type="text/javascript" src="bug.js"></script>
     <script type="text/javascript" src="select.js"></script>
     <link rel="stylesheet" href="select.css" type="text/css" media="screen"></link>
@@ -111,8 +113,6 @@
 	    Vous pouvez nous aider en triant des <a href="https://wiki.documentfoundation.org/Triage_For_Beginners/fr">bugs</a>.</p>
 
           </div>
-
-          <div class="username"></div>
 
           <div class="state signin">
 	    <div class="signin-invite">
@@ -315,9 +315,20 @@ Comportement attendu :
 	  case "Operating System: ": return "Système d'exploitation: ";
 	  case "Version: ": return "Version: ";
 	  case "Last worked in: ": return "Dernière version fonctionnant connue: ";
+	  default: "";
 	}
-        return "";
       };
+
+      function BugzillaErrorStrings(nr) {
+        switch (nr) {
+	  case 300: return "Invalid username or password.";
+	  case 301: return "Account temperarily disabled. Please try again in 30 minutes.";
+	  case 305: return "New password required. Please go to bug.libreoffice.org to change your password.";
+	  case 500: return "Account already exists.";
+	  case 501: return "Illigal email-address. Please use a different email-address.";
+          default: return "Unknown error occured. Please try again later.";
+	}
+      }
 
     </script>
     <!--[if LT IE  8]>

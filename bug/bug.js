@@ -58,19 +58,6 @@
             });
         },
 
-        get_cookie: function( name ) {
-            var start = document.cookie.indexOf( name + "=" );
-            var len = start + name.length + 1;
-            if ( ( !start ) && ( name != document.cookie.substring( 0, name.length ) ) )
-            {
-                return null;
-            }
-            if ( start == -1 ) return null;
-            var end = document.cookie.indexOf( ";", len );
-            if ( end == -1 ) end = document.cookie.length;
-                return unescape( document.cookie.substring( len, end ) );
-        },
- 
         lookup_result: function(data, error_regexps, success_regexp) {
             var error = null;
             for(var i = 0; i < error_regexps.length; i++) {
@@ -102,12 +89,16 @@
             $('.error-container').hide();
         },
 
-        error_set: function(message) {
+        error_set: function(message, domain) {
+            if ((domain == "Bugzilla")&&($.bug.BSALang == "en"))
+                message = $.bugzilla.lastError;
+            else if (domain == "Bugzilla")
+                message = BugzillaErrorStrings(message);
             $('.error').text(message);
             $('.error-container').show();
         },
 
-        url: 'https://www.libreoffice.org/bugzilla',
+        url: 'https://bugassistant.libreoffice.org',
 	token: '',
         sub_component: 'EMPTY',
         op_sys: '',
@@ -116,7 +107,6 @@
 	lo_version_id: '',
 	regression_id: '',
 	BSALang: '',
-	email: '',
 
         state_signin_error_regexps: [/CLASS="THROW_ERROR">([^<]*)/i],
         state_signin_success_regexp: /LOG&NBSP;OUT<\/A>([^<]*)/i,
@@ -126,19 +116,16 @@
             $('.go', element).click(function() {
                 $("body").css("cursor", "progress");
                 $.bug.error_clear();
-                $.bug.ajax('POST', $.bug.url + '/index.cgi', {
-                    Bugzilla_login: $('.user', element).val(),
-                    Bugzilla_password: $('.password', element).val()
-                }).pipe(function(data) {
-                    $("body").css("cursor", "default");
-                    var res = $.bug.lookup_result(data, $.bug.state_signin_error_regexps, $.bug.state_signin_success_regexp);
-		    if (res !== null) {
-                        $('.username').html(res);
-			document.cookie = "BSAemail=" +escape( $('.user', element).val() );
+		try {
+		    id = $.bugzilla.login($('.user', element).val(), $('.password', element).val());
+		} catch(error) {
+		    $.bug.error_set(error, "Bugzilla");
+		}
+                $("body").css("cursor", "default");
+		if (id > 0) {
 			element.hide();
 			$.bug.state_component();
-		    }
-                });
+		}
             });
 	    $('.password').keypress(function(e) {
 	        if (e.keyCode == 13) {
@@ -393,7 +380,7 @@
                     $('input[name="short_desc"]', form).val(short_desc);
                     $('input[name="comment"]', form).val(comment);
 		    $('input[name="status_whiteboard"]', form).val("BSA" + (($.bug.regression_id >= 0)?" PossibleRegression":""));
-                    $('input[name="BSAemail"]', form).val($.bug.get_cookie ( "BSAemail" ));
+                    $('input[name="BSAemail"]', form).val($.bugzilla.getAccountEmail($.bugzilla.getCurrentUserId()));
                     $.bug.token = '';
                     return true;
                 });
@@ -436,16 +423,8 @@
             $.bug.window.scrollTo(0,225);
 	},
 
-        // if this string is found in the page returned when
-        // trying to fill a bug, it means the user is not logged in
-        logged_in_false: 'form name="login"',
-
         logged_in: function() {
-            $("body").css("cursor", "progress");
-            return $.bug.ajax('GET', $.bug.url + '/enter_bug.cgi').pipe(function(data) {
-                $("body").css("cursor", "default");
-                return data.indexOf($.bug.logged_in_false) < 0;
-            });
+            return ($.bugzilla.getCurrentUserId() > 0);
         },
 
         refresh_related_bugs: function() {
@@ -530,14 +509,12 @@
         main: function(lang, in_isTest) {
             $.bug.compatibility();
             $.bug.BSALang = lang;
-            $.bug.logged_in().done(function(status) {
-                if(status) {
-                    $.bug.state_component();
-                } else {
-                    $.bug.state_signin();
-                }
-            });
-           $.bug.process_params();
+            if ($.bugzilla.isLoggedIn()) {
+               $.bug.state_component();
+            } else {
+               $.bug.state_signin();
+            }
+            $.bug.process_params();
         }
     };
 

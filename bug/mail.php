@@ -1,6 +1,6 @@
 <?php
 
-  if ($_POST["assigned_to"] != "libreoffice-bugs@lists.freedesktop.org")
+  if (($_POST["assigned_to"] != "libreoffice-bugs@lists.freedesktop.org") || ($_POST["BSAemail"] == ""))
   {
     echo("FALSE");
   }
