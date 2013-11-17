@@ -27,9 +27,7 @@
 
     <xsl:template match="html">
       <div class="component select">
-        <div class="select-header">
-          <div class="chosen"><xsl:value-of select="$choose"/></div>
-        </div>
+        <div class="chosen"><xsl:value-of select="$choose"/></div>
         <div class="choices">
           <div class="select-top">
             <div class="select-middle">
