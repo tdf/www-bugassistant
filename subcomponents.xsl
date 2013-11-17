@@ -32,19 +32,13 @@
             </div>
             <div class="choices">
               <div class="select-top">
-                <div class="select-left">
+                <div class="select-middle">
                   <div class="select-bottom">
-                    <div class="select-right">
-                      <div class="top-left"></div>
-                      <div class="top-right"></div>
-                      <div class="bottom-left"></div>
-                      <div class="bottom-right"></div>
-                      <div class="center">
-                        <ul>
-                          <li class="choice" data='{$otherData}' idvalue=''><xsl:value-of select="$other"/></li>
-                          <xsl:apply-templates select="descendant::*[contains(@class,'search')]"/>
-                        </ul>
-                      </div>
+                    <div class="center">
+                      <ul>
+                        <li class="choice" data='{$otherData}' idvalue=''><xsl:value-of select="$other"/></li>
+                        <xsl:apply-templates select="descendant::*[contains(@class,'search')]"/>
+                      </ul>
                     </div>
                   </div>
                 </div>

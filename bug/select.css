@@ -66,3 +66,40 @@
     z-index: 2;
 }
 
+.select .select-header {
+    background: url('images/select-header.png') no-repeat;
+    padding: 5px 15px 5px 10px;
+    height: 33px;
+    line-height: 33px;
+    width: 225px;
+}
+
+.select .select-header, .select .choice {
+    font-size: 18px;
+    color: #b8af9e;
+}
+
+.select li.choice:hover {
+    background-color: #9ceb90;
+    color: #32b21f;
+}
+
+.select .choices .center {
+    padding-left: 12px;
+}
+
+.select .choices .select-top {
+    padding-top: 6px;
+    background: url('images/select-top.png') no-repeat top left;
+    width: 250px;
+}
+
+.select .choices .select-bottom {
+    padding-bottom: 22px;
+    background: url('images/select-bottom.png') no-repeat bottom left;
+}
+
+.select .choices .select-middle {
+    background: url('images/select-middle.png') repeat-y top left;
+}
+

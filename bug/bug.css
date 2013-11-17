@@ -173,40 +173,13 @@ body {
 
 .error {
     color: #f07a7a;
+    padding-left: 5px;
 }
 
 .error-container {
     display: none;
     position: relative;
     z-index: 1;
-}
-
-.error-container .error-top-left {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
-}
-
-.error-container .error-bottom-left {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    z-index: 2;
-}
-
-.error-container .error-top-right {
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 2;
-}
-
-.error-container .error-bottom-right {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    z-index: 2;
 }
 
 .error-container .error-top {
@@ -219,38 +192,8 @@ body {
     background: url('images/error-bottom.png') repeat-x bottom left;
 }
 
-.error-container .error-top-left {
-    background: url('images/error-top-left.png') no-repeat;
-    height: 4px;
-    width: 5px;
-}
-
-.error-container .error-top-right {
-    background: url('images/error-top-right.png') no-repeat;
-    height: 4px;
-    width: 5px;
-}
-
-.error-container .error-bottom-left {
-    background: url('images/error-bottom-left.png') no-repeat;
-    height: 4px;
-    width: 5px;
-}
-
-.error-container .error-bottom-right {
-    background: url('images/error-bottom-right.png') no-repeat;
-    height: 4px;
-    width: 5px;
-}
-
-.error-container .error-left {
-    background: url('images/error-left.png') repeat-y top left;
-    padding-left: 5px;
-}
-
-.error-container .error-right {
-    background: url('images/error-right.png') repeat-y top right;
-    padding-right: 5px;
+.error-container .error-middle {
+    background: url('images/error-middle.png') repeat-y top left;
 }
 
 /* signin */
@@ -567,73 +510,3 @@ body {
     display: none;
 }
 
-/* select */
-.select .select-header {
-    background: url('images/select-header.png') no-repeat;
-    padding: 5px 15px 5px 10px;
-    height: 33px;
-    line-height: 33px;
-    width: 225px;
-}
-
-.select .select-header, .select .choice {
-    font-size: 18px;
-    color: #b8af9e;
-}
-
-.select li.choice:hover {
-    background-color: #9ceb90;
-    color: #32b21f;
-}
-
-.select .choices .center {
-    background-color: #FFF;
-}
-
-.select .choices .select-top {
-    padding-top: 6px;
-    background: url('images/select-top.png') repeat-x top left;
-}
-
-.select .choices .select-bottom {
-    padding-bottom: 22px;
-    background: url('images/select-bottom.png') repeat-x bottom left;
-}
-
-.select .choices .top-left {
-    background: url('images/select-top-left.png') no-repeat;
-    width: 12px;
-    height: 6px;
-}
-
-.select .choices .top-right {
-    background: url('images/select-top-right.png') no-repeat;
-    width: 12px;
-    height: 6px;
-}
-
-.select .choices .bottom-left {
-    background: url('images/select-bottom-left.png') no-repeat;
-    width: 12px;
-    height: 22px;
-}
-
-.select .choices .bottom-right {
-    background: url('images/select-bottom-right.png') no-repeat;
-    width: 12px;
-    height: 22px;
-}
-
-.select .choices .select-left {
-    background: url('images/select-left.png') repeat-y top left;
-    padding-left: 12px;
-}
-
-.select .choices .select-right {
-    background: url('images/select-right.png') repeat-y top right;
-    padding-right: 12px;
-}
-
-.username {
-    visibility: hidden;
-}

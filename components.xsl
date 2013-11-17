@@ -32,18 +32,12 @@
         </div>
         <div class="choices">
           <div class="select-top">
-            <div class="select-left">
+            <div class="select-middle">
               <div class="select-bottom">
-                <div class="select-right">
-                  <div class="top-left"></div>
-                  <div class="top-right"></div>
-                  <div class="bottom-left"></div>
-                  <div class="bottom-right"></div>
-                  <div class="center">
-                    <ul>
-                      <xsl:apply-templates select="//*[@class='component']"/>
-                    </ul>
-                  </div>
+                <div class="center">
+                  <ul>
+                    <xsl:apply-templates select="//*[@class='component']"/>
+                  </ul>
                 </div>
               </div>
             </div>
