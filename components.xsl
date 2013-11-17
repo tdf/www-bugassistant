@@ -32,11 +32,9 @@
           <div class="select-top">
             <div class="select-middle">
               <div class="select-bottom">
-                <div class="center">
-                  <ul>
-                    <xsl:apply-templates select="//*[@class='component']"/>
-                  </ul>
-                </div>
+                <ul class="center">
+                  <xsl:apply-templates select="//*[@class='component']"/>
+                </ul>
               </div>
             </div>
           </div>

@@ -32,12 +32,10 @@
               <div class="select-top">
                 <div class="select-middle">
                   <div class="select-bottom">
-                    <div class="center">
-                      <ul>
-                        <li class="choice" data='{$otherData}' idvalue=''><xsl:value-of select="$other"/></li>
-                        <xsl:apply-templates select="descendant::*[contains(@class,'search')]"/>
-                      </ul>
-                    </div>
+                    <ul class="center">
+                      <li class="choice" data='{$otherData}' idvalue=''><xsl:value-of select="$other"/></li>
+                      <xsl:apply-templates select="descendant::*[contains(@class,'search')]"/>
+                    </ul>
                   </div>
                 </div>
               </div>
