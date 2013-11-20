@@ -302,16 +302,16 @@ Expected behavior:
       function messageStrings($nr, $data, $data2) {
 
 	switch ($nr) {
-	  case "ERROR_BUGZILLA": return "It seems there is a problem to connect with Bugzilla. Please reload the page by pressing F5. If this does not fix the problem, please try again later. ";
-	  case "ERROR_GENERAL": return "A error has occurred";
-	  case "ERROR_URL": return "Cannot find the URL specified.";
-	  case "ERROR_REGEX": return "Could not match " + $data + " on the string returned by the server " + $data2;
-	  case "ERROR_TOKEN": return "Data not yet loaded. Please press submit again in a few seconds.";
-          case "ERROR_SUBCOMPONENT": return "No subcomponent selected. Please select one";
-          case "ERROR_ATTACHMENT": return "Please describe the attachtment";
-	  case "Operating System: ": return "Operating System: ";
-	  case "Version: ": return "Version: ";
-	  case "Last worked in: ": return "Last worked in: ";
+	  case 'ERROR_BUGZILLA': return 'It seems there is a problem to connect with Bugzilla. Please reload the page by pressing F5. If this does not fix the problem, please try again later. ';
+	  case 'ERROR_GENERAL': return 'A error has occurred';
+	  case 'ERROR_URL': return 'Cannot find the URL specified.';
+	  case 'ERROR_REGEX': return 'Could not match ' + $data + ' on the string returned by the server ' + $data2;
+	  case 'ERROR_TOKEN': return 'Data not yet loaded. Please press submit again in a few seconds.';
+          case 'ERROR_SUBCOMPONENT': return 'No subcomponent selected. Please select one';
+          case 'ERROR_ATTACHMENT': return 'Please describe the attachtment';
+	  case 'Operating System: ': return 'Operating System: ';
+	  case 'Version: ': return 'Version: ';
+	  case 'Last worked in: ': return 'Last worked in: ';
 	}
 	return "";
       };

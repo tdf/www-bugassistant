@@ -204,7 +204,6 @@
 
             $('.active_subcomponent .select', element).select();
             $('.active_subcomponent .select .choice', element).click(function() {
-                $.bug.refresh_related_bugs();
                 $.bug.sub_component = $('.state_details .active_subcomponent .chosen').attr('data');
                 if ($.bug.lo_version != '' && $.bug.op_sys != '' && $.bug.regression != '') {
                     $.bug.state_description();
@@ -268,6 +267,7 @@
                 var validate2 = function() {
                     if($(".short", element).val().length > 3) {
                         $(".short", element).css('background', 'url("images/subject.png") no-repeat scroll 0 0 transparent');
+			$.bug.refresh_related_bugs();
                     }
                 };
                 $(".short", element).change(validate);
@@ -429,9 +429,8 @@
 
         refresh_related_bugs: function() {
             $('.related_bugs').empty();
-            var component = $('.state_component .chosen').attr('data').replace('_','%20');
-            var subcomponent = $('.state_subcomponent .active_subcomponent .chosen').attr('data');
-            var list = $.bug.url + '/buglist.cgi?columnlist=short_desc&component=' + component + '&product=LibreOffice&query_format=advanced&short_desc_type=allwordssubstr&ctype=csv&short_desc=' + subcomponent;
+	    var summary = $.bug.sub_component + ': ' + $('.state_description .short').val();
+            var list = $.bug.url + '/buglist.cgi?columnlist=short_desc&product=LibreOffice&query_format=advanced&short_desc_type=allwordssubstr&ctype=csv&short_desc=' + summary;
             $.bug.ajax('GET', list).pipe(function(data) {
                 var lines = data.split('\n');
                 var bug_urls = [];
