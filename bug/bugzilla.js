@@ -100,15 +100,6 @@
             return bug.id;
         },
 
-	addAttachment: function(id, file, summary) {
-	    with open("path/to/filename", "rb") as handle:
-            $.bugzilla.call("Bug.add_attachment", [{id: [ id ],
-	                                            data: data,
-                                                    file_name: fileName,
-					            summary: summary,
-						    content_type: contentType }]);
-	},
-
         getCookie: function( name ) {
             var start = document.cookie.indexOf( name + "=" );
             var len = start + name.length + 1;
