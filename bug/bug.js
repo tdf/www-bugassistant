@@ -380,7 +380,7 @@
                     $('input[name="short_desc"]', form).val(short_desc);
                     $('input[name="comment"]', form).val(comment);
 		    $('input[name="status_whiteboard"]', form).val("BSA" + (($.bug.regression_id >= 0)?" PossibleRegression":""));
-                    $('input[name="BSAemail"]', form).val($.bugzilla.getAccountEmail($.bugzilla.getCurrentUserId()));
+                    $('input[name="BSAemail"]', form).val($.bugzilla.getAccountEmail());
                     $.bug.token = '';
                     return true;
                 });
@@ -422,10 +422,6 @@
 	    $.bug.error_set($('.state_failure').text());
             $.bug.window.scrollTo(0,225);
 	},
-
-        logged_in: function() {
-            return ($.bugzilla.getCurrentUserId() > 0);
-        },
 
         refresh_related_bugs: function() {
             $('.related_bugs').empty();

@@ -10,9 +10,11 @@
 
         url: 'https://www.libreoffice.org/bugzilla/xmlrpc.cgi',
         cookieName: 'BSA_id',
-        email: '',
-        lastError: '',
+        email: null,
+        lastError: null,
 
+	// This function calls the XMLRPC-function.
+	// Returns the data or throws an error.
         call: function(method, parameters) {
             var result;
             $.xmlrpc({
@@ -23,25 +25,33 @@
             }).always(function(data) {
                 result = data[0];
             }).fail(function(obj, obj2, error) {
-                $.bugzilla.lastError = error.msg;
-                throw error.code;
+                throw error;
             });
             return result;
         },
 
+	// This function logs a user in.
+	// Returns the id or throws an error.
         login: function(user,pass) {
-            //The bugzilla-server can be set to different default-values for "remember"
-            //we try without this paramter for now.
-            var user = $.bugzilla.call("User.login", [{login:user,
-                                                       password: pass}]);
+            $.bugzilla.email = null;
+	    try {
+		var user = $.bugzilla.call("User.login", [{login:user,
+		                                           password: pass}]);
+	    } catch(error) {
+		if (error.code != undefined)
+		    $.bugzilla.setCookie($.bugzilla.cookieName, null);
+		throw error;
+	    }
             $.bugzilla.setCookie($.bugzilla.cookieName, escape(user.id));
-            $.bugzilla.email = "";
             return user.id;
         },
 
+	// This function logs a user out
+	// It doesn't care of any is logged in
+	// Returns nothing
         logout: function() {
             $.bugzilla.setCookie($.bugzilla.cookieName, null);
-            $.bugzilla.email = "";
+            $.bugzilla.email = null;
             try {
                 $.bugzilla.call("User.logout");
             } catch(error) {
@@ -49,29 +59,36 @@
             }
         },
 
+	// This function gets the user that is logged in as kept in a cookie
+	// Returns the user-id of the user logged in or null
         getCurrentUserId: function() {
             return $.bugzilla.getCookie($.bugzilla.cookieName);
         },
 
+	// This function gets the user that is logged in and checks it with bugzilla
+	// Returns if a user is logged in
         isLoggedIn: function() {
-            if ($.bugzilla.email == "") try {
-                $.bugzilla.getAccountEmail( $.bugzilla.getCurrentUserId() );
-            } catch(error) {
-                //Won't do anything with this, we are logged out
-            }
-            if ($.bugzilla.email == "") {
-                $.bugzilla.setCookie($.bugzilla.cookieName, null);
-            }
-            return ($.bugzilla.email != "");
+            return ($.bugzilla.getAccountEmail() != null);
         },
 
-        getAccountEmail: function(id) {
-            if ($.bugzilla.email == "") {
-                var answer = $.bugzilla.call("User.get", [{ids: [ id ], include_fields: [ "email" ]}]);
-                $.bugzilla.email = answer.users[0].email;
+	// This function gets the email of the logged in user
+	// Returns the email of the logged in user
+        getAccountEmail: function() {
+	    var id = $.bugzilla.getCurrentUserId();
+	    if (id == null && $.bugzilla.email != null) {
+	        $.bugzilla.email = null;
+	    } else if (id != null && $.bugzilla.email == null) {
+	        try {
+                    var answer = $.bugzilla.call("User.get", [{ids: [ id ], include_fields: [ "email" ]}]);
+                    $.bugzilla.email = answer.users[0].email;
+                } catch(error) {
+		    if (error.code != undefined)
+		        $.bugzilla.setCookie($.bugzilla.cookieName, null);
+		    throw error;
+		}
             }
             return $.bugzilla.email;
-        }, 
+        },
 
         sendAccountEmail: function(email) {
             $.bugzilla.call("User.offer_account_by_email", [{email: email}]);
