@@ -205,7 +205,7 @@
             $('.active_subcomponent .select', element).select();
             $('.active_subcomponent .select .choice', element).click(function() {
                 $.bug.sub_component = $('.state_details .active_subcomponent .chosen').attr('data');
-		if ($.bug.BSAlang == 'en')
+		if ($.bug.BSALang == 'en')
                     $.bug.refresh_related_bugs();
                 if ($.bug.lo_version != '' && $.bug.op_sys != '' && $.bug.regression != '') {
                     $.bug.state_description();
