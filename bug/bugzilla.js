@@ -40,7 +40,7 @@
         },
 
         logout: function() {
-            $.bugzilla.setCookie($.bugzilla.cookieName, "");
+            $.bugzilla.setCookie($.bugzilla.cookieName, null);
             $.bugzilla.email = "";
             try {
                 $.bugzilla.call("User.logout");
@@ -60,7 +60,7 @@
                 //Won't do anything with this, we are logged out
             }
             if ($.bugzilla.email == "") {
-                $.bugzilla.setCookie($.bugzilla.cookieName, "");
+                $.bugzilla.setCookie($.bugzilla.cookieName, null);
             }
             return ($.bugzilla.email != "");
         },
@@ -114,7 +114,11 @@
         },
 
         setCookie: function( name, value ) {
-            document.cookie = name + "=" + escape(value);
+	    if (value == null) {
+              document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+	    } else {
+              document.cookie = name + "=" + escape(value);
+	    }
         }
 
     };
