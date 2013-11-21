@@ -217,9 +217,7 @@
             $(".versions .select .choice", element).click(function() {
                 $.bug.lo_version = $('.state_details .versions .chosen').attr('data');
                 $.bug.lo_version_id = $('.state_details .versions .chosen').attr('idvalue');
-                if ($.bug.sub_component != 'EMPTY' && 
-                    $.bug.op_sys != '' && 
-                    $.bug.regression != '') {
+                if ($.bug.sub_component != 'EMPTY' && $.bug.op_sys != '' && $.bug.regression != '') {
                   $.bug.state_description();
                 }
 
