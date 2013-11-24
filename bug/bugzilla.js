@@ -12,13 +12,14 @@
         cookieName: 'BSA_id',
         email: null,
         lastError: null,
+	isSearchingDuplicates: true,
 
 	// This function calls the XMLRPC-function.
 	// Returns the data or throws an error.
-        call: function(method, parameters) {
+        call: function(async, method, parameters) {
             var result;
             $.xmlrpc({
-                async: false,
+                async: async,
                 url: $.bugzilla.url,
                 methodName: method,
                 params: parameters
@@ -35,8 +36,9 @@
         login: function(user,pass) {
             $.bugzilla.email = null;
 	    try {
-		var user = $.bugzilla.call("User.login", [{login:user,
-		                                           password: pass}]);
+		var user = $.bugzilla.call(false, "User.login",
+		                           [{login:user,
+		                             password: pass}]);
 	    } catch(error) {
 		if (error.code != undefined)
 		    $.bugzilla.setCookie($.bugzilla.cookieName, null);
@@ -53,7 +55,7 @@
             $.bugzilla.setCookie($.bugzilla.cookieName, null);
             $.bugzilla.email = null;
             try {
-                $.bugzilla.call("User.logout");
+                $.bugzilla.call(false, "User.logout");
             } catch(error) {
                 //Won't do anything we are logged out anyway now
             }
@@ -79,7 +81,7 @@
 	        $.bugzilla.email = null;
 	    } else if (id != null && $.bugzilla.email == null) {
 	        try {
-                    var answer = $.bugzilla.call("User.get", [{ids: [ id ], include_fields: [ "email" ]}]);
+                    var answer = $.bugzilla.call(false, "User.get", [{ids: [ id ], include_fields: [ "email" ]}]);
                     $.bugzilla.email = answer.users[0].email;
                 } catch(error) {
 		    if (error.code != undefined)
@@ -91,29 +93,36 @@
         },
 
         sendAccountEmail: function(email) {
-            $.bugzilla.call("User.offer_account_by_email", [{email: email}]);
+            $.bugzilla.call(false, "User.offer_account_by_email", [{email: email}]);
         },
 
         searchDuplicates: function(summary) {
-            var answer = $.bugzilla.call("Bug.possible_duplicates", [{summary: summary,
-                                                                      products: [ "LibreOffice" ],
-                                                                      include_fields: [ "id", "summary", "status" ]}]);
+	    if ($.bugzilla.isSearchingDuplicates) {
+	        return false;
+	    }
+	    $.bugzilla.isSearchingDuplicates = true;
+            var answer = $.bugzilla.call(true, "Bug.possible_duplicates",
+	                                 [{summary: summary,
+                                           products: [ "LibreOffice" ],
+                                           include_fields: [ "id", "summary", "status" ]}]);
+	    $.bugzilla.isSearchingDuplicates = false;
             return answer.bugs;
         },
 
         createBug: function(component, summary, version, description, op_sys, whiteboard) {
-            var bug = $.bugzilla.call("Bug.create", [{product: "LibreOffice",
-                                                      component: component,
-                                                      summary: summary,
-                                                      version: version,
-                                                      description: description,
-                                                      op_sys: op_sys,
-                                                      platform: "All",
-                                                      priority: "medium",
-                                                      severity: "normal",
-                                                      assigned_to: "libreoffice-bugs@lists.freedesktop.org",
-                                                      status: "UNCONFIRMED",
-                                                      status_whiteboard: whiteboard}]);
+            var bug = $.bugzilla.call(false, "Bug.create",
+				      [{product: "LibreOffice",
+                                        component: component,
+                                        summary: summary,
+                                        version: version,
+                                        description: description,
+                                        op_sys: op_sys,
+                                        platform: "All",
+                                        priority: "medium",
+                                        severity: "normal",
+                                        assigned_to: "libreoffice-bugs@lists.freedesktop.org",
+                                        status: "UNCONFIRMED",
+                                        status_whiteboard: whiteboard}]);
             return bug.id;
         },
 
