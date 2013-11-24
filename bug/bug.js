@@ -255,26 +255,33 @@
             var element = $('.state_description');
             var template = $(".long", element).val();
             if(!element.hasClass('initialized')) {
-                var validate = function() {
+                var validate_long = function() {
                     if($(".long", element).val().length != template) {
                         $(".long", element).css('background', 'url("images/description.png") no-repeat scroll 0 0 transparent');
-                    }
-                    if($(".short", element).val().length > 3 &&
-                       $(".long", element).val() != template) {
+                    } else {
+                        $(".long", element).css('background', 'url("images/description-empty.png") no-repeat scroll 0 0 transparent');
+		    }
+                    if($(".short", element).val().length > 3 && $(".long", element).val() != template) {
                         $.bug.state_submit();
                     }
                 };
-                var validate2 = function() {
+                var validate_short = function() {
                     if($(".short", element).val().length > 3) {
                         $(".short", element).css('background', 'url("images/subject.png") no-repeat scroll 0 0 transparent');
-                    }
+                    } else {
+                        $(".short", element).css('background', 'url("images/subject-empty.png") no-repeat scroll 0 0 transparent');
+		    }
                 };
-                $(".short", element).change(validate);
-		$(".short", element).keyup(validate2);
-                $(".long", element).keyup(validate);
-
+		var related_short = function() {
+		    $.bug.refresh_related_bugs();
+		};
+		$(".short", element).keyup(validate_short);
+                $(".long", element).keyup(validate_long);
 		if ($.bug.BSALang == 'en')
+		{
+                    $(".short", element).blur(related_short);
                     $.bug.state_attach();
+		}
                 element.addClass('initialized');
                 $.bug.current_step('description');
                 element.show();
@@ -425,7 +432,8 @@
         refresh_related_bugs: function() {
             $('.related_bugs').empty();
             var component = $('.state_component .chosen').attr('data').replace('_','%20');
-            var list = $.bug.url + '/buglist.cgi?columnlist=short_desc&component=' + component + '&product=LibreOffice&query_format=advanced&short_desc_type=allwordssubstr&ctype=csv&short_desc=' + $.bug.sub_component;
+	    var subject = $.bug.sub_component + ": " + $(".short", $('.state_description')).val();
+            var list = $.bug.url + '/buglist.cgi?columnlist=short_desc&component=' + component + '&product=LibreOffice&query_format=advanced&short_desc_type=allwordssubstr&ctype=csv&short_desc=' + subject;
             $.bug.ajax('GET', list).pipe(function(data) {
                 var lines = data.split('\n');
                 var bug_urls = [];
