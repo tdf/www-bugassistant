@@ -27,23 +27,21 @@
                 data: args
             }).pipe(null, function(error) {
                 var message;
-		if (args == undefined) {
-		  message = url + '() XHR error. ';
-		} else {
-		  message = url + '(' + $.param(args) + ') XHR error. ';
-		}
+                if (args == undefined) {
+                  message = url + '() XHR error. ';
+                } else {
+                  message = url + '(' + $.param(args) + ') XHR error. ';
+                }
 
-		if (url == "/enter_bug.cgi" && 'status' in error && (error.status == 404 || error.status == 0)) {
-		  message = messageStrings("ERROR_BUGZILLA");
-		}
-		else
-		{
-		    message += messageStrings("ERROR_GENERAL") + "\n";
+                if (url == "/enter_bug.cgi" && 'status' in error && (error.status == 404 || error.status == 0)) {
+                  message = messageStrings("ERROR_BUGZILLA");
+                } else {
+                    message += messageStrings("ERROR_GENERAL") + "\n";
                     if('status' in error) {
-		        if(error.status == 404 || error.status == 0) {
-			    message += messageStrings("ERROR_URL") + "\n";
-		        }
-			message += '\nStatus = ' + error.status + ' ';
+                        if(error.status == 404 || error.status == 0) {
+                            message += messageStrings("ERROR_URL") + "\n";
+                        }
+                        message += '\nStatus = ' + error.status + ' ';
                     }
                     if('responseText' in error) {
                         message += '\nresponseText = ' + error.responseText + ' ';
@@ -51,7 +49,7 @@
                     if('statusText' in error) {
                         message += '\nstatusText = ' + error.statusText + ' ';
                     }
-		}
+                }
                 $.bug.error_set(message);
                 $.bug.window.scrollTo(0,225);
                 throw error;
@@ -68,14 +66,14 @@
             }
             if(error !== null) {
                 $.bug.error_set(error[1]);
-		throw data;
+                throw data;
             } else {
                 var success = data.match(success_regexp);
                 if(success !== null) {
                     return success[1];
                 } else {
                     $.bug.error_set(messageStrings("ERROR_REGEX", success_regexp, data));
-		    throw data;
+                    throw data;
                 }
             }
         },
@@ -99,14 +97,14 @@
         },
 
         url: 'https://www.libreoffice.org/bugzilla',
-	token: '',
+        token: '',
         sub_component: 'EMPTY',
         op_sys: '',
         lo_version: '',
         regression: '',
-	lo_version_id: '',
-	regression_id: '',
-	BSALang: '',
+        lo_version_id: '',
+        regression_id: '',
+        BSALang: '',
 
         state_signin_error_regexps: [/CLASS="THROW_ERROR">([^<]*)/i],
         state_signin_success_regexp: /LOG&NBSP;OUT<\/A>([^<]*)/i,
@@ -116,33 +114,33 @@
             $('.go', element).click(function() {
                 $("body").css("cursor", "progress");
                 $.bug.error_clear();
-		try {
-		    id = $.bugzilla.login($('.user', element).val(), $('.password', element).val());
-		} catch(error) {
-		    $.bug.error_set(error, "Bugzilla");
-		}
+                try {
+                    id = $.bugzilla.login($('.user', element).val(), $('.password', element).val());
+                } catch(error) {
+                    $.bug.error_set(error, "Bugzilla");
+                }
                 $("body").css("cursor", "default");
-		if (id > 0) {
-			element.hide();
-			$.bug.state_component();
-		}
+                if (id > 0) {
+                        element.hide();
+                        $.bug.state_component();
+                }
             });
-	    $('.password').keypress(function(e) {
-	        if (e.keyCode == 13) {
-		    $('.go', element).click();
-		}
-	    });
-	    $('.user').keypress(function(e) {
-	        if (e.keyCode == 13) {
-		    $('.go', element).click();
-		}
-	    });
+            $('.password').keypress(function(e) {
+                if (e.keyCode == 13) {
+                    $('.go', element).click();
+                }
+            });
+            $('.user').keypress(function(e) {
+                if (e.keyCode == 13) {
+                    $('.go', element).click();
+                }
+            });
 
             $('.login-link', element).attr('href', $.bug.url + '/');
             $('.create-account-link', element).attr('href', $.bug.url + '/createaccount.cgi');
             $.bug.current_step('signin');
             element.show();
-	    $('.user', element).focus();
+            $('.user', element).focus();
         },
 
         state_component: function() {
@@ -193,10 +191,10 @@
             /* -- I can't seem to get the file to load properly, so I'll
                -- just hard-code the values for now.
             var jqxhr = $.get("unsupported-versions/file/here", function(data){
-		//uv_array = data.split("\n");
-		console.log("Something...here ");
-		//console.log(uv_array);
-	    })
+                //uv_array = data.split("\n");
+                console.log("Something...here ");
+                //console.log(uv_array);
+            })
             .done(function() { console.log("done here..."); })
             .fail(function() { console.log("GET failed"); });
             */
@@ -205,7 +203,7 @@
             $('.active_subcomponent .select', element).select();
             $('.active_subcomponent .select .choice', element).click(function() {
                 $.bug.sub_component = $('.state_details .active_subcomponent .chosen').attr('data');
-		if ($.bug.BSALang == 'en')
+                if ($.bug.BSALang == 'en')
                     $.bug.refresh_related_bugs();
                 if ($.bug.lo_version != '' && $.bug.op_sys != '' && $.bug.regression != '') {
                     $.bug.state_description();
@@ -225,10 +223,10 @@
                 // If this version is unsupported, display a warning
                 // message.
                 if($.inArray($.bug.lo_version, uv_array) >= 0) {
-		    uv_element.show();
-		} else {
-		    uv_element.hide();
-		}
+                    uv_element.show();
+                } else {
+                    uv_element.hide();
+                }
             });
             $(".select", element).select();
             $(".op_sys .select .choice", element).click(function() {
@@ -260,7 +258,7 @@
                         $(".long", element).css('background', 'url("images/description.png") no-repeat scroll 0 0 transparent');
                     } else {
                         $(".long", element).css('background', 'url("images/description-empty.png") no-repeat scroll 0 0 transparent');
-		    }
+                    }
                     if($(".short", element).val().length > 3 && $(".long", element).val() != template) {
                         $.bug.state_submit();
                     }
@@ -270,18 +268,17 @@
                         $(".short", element).css('background', 'url("images/subject.png") no-repeat scroll 0 0 transparent');
                     } else {
                         $(".short", element).css('background', 'url("images/subject-empty.png") no-repeat scroll 0 0 transparent');
-		    }
+                    }
                 };
-		var related_short = function() {
-		    $.bug.refresh_related_bugs();
-		};
-		$(".short", element).keyup(validate_short);
+                var related_short = function() {
+                    $.bug.refresh_related_bugs();
+                };
+                $(".short", element).keyup(validate_short);
                 $(".long", element).keyup(validate_long);
-		if ($.bug.BSALang == 'en')
-		{
+                if ($.bug.BSALang == 'en') {
                     $(".short", element).blur(related_short);
                     $.bug.state_attach();
-		}
+                }
                 element.addClass('initialized');
                 $.bug.current_step('description');
                 element.show();
@@ -295,9 +292,9 @@
                 var container = $('.attach-file', element);
                 container.mousemove(function(e) {
                     file_input.css({
-				'left': e.pageX - container.offset().left - file_input.outerWidth() + 10,
-				'top': e.pageY - container.offset().top - 10
-		    });
+                                'left': e.pageX - container.offset().left - file_input.outerWidth() + 10,
+                                'top': e.pageY - container.offset().top - 10
+                    });
                 });
                 file_input.change(function() {
                     // http://lists.whatwg.org/htdig.cgi/whatwg-whatwg.org/2009-March/018981.html
@@ -310,7 +307,7 @@
                         $('input[name="description"]', element).val() == "")
                     {
                        $('input[name="description"]', element).css('background', 'url("images/subject-empty.png") no-repeat scroll 0 0 transparent');
-		    }
+                    }
                     else if ($('input[name="data"]', element).val() == "" &&
                         $('input[name="description"]', element).val() != "")
                     {
@@ -321,8 +318,8 @@
                        $('input[name="description"]', element).css('background', 'url("images/subject.png") no-repeat scroll 0 0 transparent');
                        $('input[name="ignored"]', element).css('background', 'url("images/upload-input.png") no-repeat scroll 0 0 transparent');
                     }
-		};
-		$('input[name="data"]', element).change(validate);
+                };
+                $('input[name="data"]', element).change(validate);
                 $('input[name="description"]', element).keyup(validate);
                 element.addClass('initialized');
                 $.bug.current_step('attach');
@@ -339,24 +336,24 @@
         state_submit: function() {
             var element = $('.state_submit');
             if(!element.hasClass('initialized')) {
-		if ($.bug.token == '') {
-		    $.bug.get_token();
+                if ($.bug.token == '') {
+                    $.bug.get_token();
                 }
 
                 var form = $('.submission_form form');
                 $.bug.error_clear();
-		if ($.bug.BSALang == 'en') {
+                if ($.bug.BSALang == 'en') {
                     form.attr('action', $.bug.url + '/post_bug.cgi');
-		} else {
-		    var locarray = window.location.href.split("/");
-		    delete locarray[(locarray.length-1)];
-		    form.attr('action', locarray.join("/") + '/mail.php');
-		}
+                } else {
+                    var locarray = window.location.href.split("/");
+                    delete locarray[(locarray.length-1)];
+                    form.attr('action', locarray.join("/") + '/mail.php');
+                }
                 form.submit(function() {
                     if($(element).hasClass('inprogress')) {
                         return false;
-		    } else if ($.bug.token == '') {
-			$.bug.error_set(messageStrings("ERROR_TOKEN"));
+                    } else if ($.bug.token == '') {
+                        $.bug.error_set(messageStrings("ERROR_TOKEN"));
                         return false;
                     } else if ($.bug.sub_component == '') {
                         $.bug.error_set(messageStrings("ERROR_SUBCOMPONENT"));
@@ -367,14 +364,14 @@
                     } else {
                         $(element).addClass('inprogress');
                     }
-		    $.bug.error_clear();
+                    $.bug.error_clear();
                     var component = $('.state_component .chosen').attr('data').replace(new RegExp('_', "gm"),' ');
                     var short_desc = $.bug.sub_component + ': ' + $('.state_description .short').val();
                     //Add Operating System
                     var op_sys = $('.state_op_sys .chosen').attr('data');
                     var comment = $('.state_description .long').val();
-		    if (($.bug.regression_id >= 0) && ($.bug.regression_id <= $.bug.lo_version_id))
-		      $.bug.regression_id = -1;
+                    if (($.bug.regression_id >= 0) && ($.bug.regression_id <= $.bug.lo_version_id))
+                      $.bug.regression_id = -1;
                     comment = comment + "\n" + messageStrings("Operating System: ") + $(".op_sys .chosen").text();
                     comment = comment + "\n" + messageStrings("Version: ") + $.bug.lo_version;
                     comment = comment + (($.bug.regression_id >= 0)?"\n" + messageStrings("Last worked in: ") + $.bug.regression:"");
@@ -385,7 +382,7 @@
                     $('input[name="op_sys"]', form).val($.bug.op_sys);
                     $('input[name="short_desc"]', form).val(short_desc);
                     $('input[name="comment"]', form).val(comment);
-		    $('input[name="status_whiteboard"]', form).val("BSA" + (($.bug.regression_id >= 0)?" PossibleRegression":""));
+                    $('input[name="status_whiteboard"]', form).val("BSA" + (($.bug.regression_id >= 0)?" PossibleRegression":""));
                     $('input[name="BSAemail"]', form).val($.bugzilla.getAccountEmail());
                     $.bug.token = '';
                     return true;
@@ -395,8 +392,8 @@
                     $(element).removeClass('inprogress');
                     $("body").css("cursor", "default");
                     var output = $(this).contents().find($.bug.state_submit_element).html();
-		    if ($.bug.BSALang == 'en') {
-			var data = $.bug.lookup_result(output,
+                    if ($.bug.BSALang == 'en') {
+                        var data = $.bug.lookup_result(output,
                                                    $.bug.state_submit_error_regexps,
                                                    $.bug.state_submit_success_regexp);
                         $('.bug', element).text(data);
@@ -404,8 +401,8 @@
                     } else if (output.indexOf("TRUE") > 0)  {
                         $.bug.state_success();
                     } else {
-			$.bug.state_failure();
-			$.bug.get_token();
+                        $.bug.state_failure();
+                        $.bug.get_token();
                     }
                 });
                 element.addClass('initialized');
@@ -424,32 +421,29 @@
             $.bug.window.scrollTo(0,225);
         },
 
-	state_failure: function() {
-	    $.bug.error_set($('.state_failure').text());
+        state_failure: function() {
+            $.bug.error_set($('.state_failure').text());
             $.bug.window.scrollTo(0,225);
-	},
+        },
 
         refresh_related_bugs: function() {
-            $('.related_bugs').empty();
-            var component = $('.state_component .chosen').attr('data').replace('_','%20');
-	    var subject = $.bug.sub_component + ": " + $(".short", $('.state_description')).val();
-            var list = $.bug.url + '/buglist.cgi?columnlist=short_desc&component=' + component + '&product=LibreOffice&query_format=advanced&short_desc_type=allwordssubstr&ctype=csv&short_desc=' + subject;
-            $.bug.ajax('GET', list).pipe(function(data) {
-                var lines = data.split('\n');
+            var subject = $.bug.sub_component + ": " + $(".short", $('.state_description')).val();
+            var answer = $.bugzilla.searchDuplicates(subject, function(bugs) {
                 var bug_urls = [];
-                for(var i = 1; i < lines.length; i++) {
-                    bug_urls.push(lines[i].replace(/([0-9]*),"(.*)"/,'<a href="' + $.bug.url + '/show_bug.cgi?id=$1" target="_blank">$2</a>'));
+                for(var i = 1; i < bugs.length; i++) {
+                    bug_urls.push('<a href="' + $.bugzilla.url + '/show_bug.cgi?id=' + bugs[i].id + '" target="_blank">' + bugs[i].summary + '</a>');
                 }
+                $('.related_bugs').empty();
                 $('.related_bugs').html(bug_urls.join('<br>'));
             });
         },
 
-	get_token: function() {
-	  $.bug.token = '';
-	  $.bug.ajax('GET', $.bug.url + '/enter_bug.cgi?product=LibreOffice&bug_status=UNCONFIRMED').pipe(function(data){
-	    $.bug.token = data.match(/<input type="hidden" name="token" value="([A-Za-z0-9]{10})">/)[1];
+        get_token: function() {
+          $.bug.token = '';
+          $.bug.ajax('GET', $.bug.url + '/enter_bug.cgi?product=LibreOffice&bug_status=UNCONFIRMED').pipe(function(data){
+            $.bug.token = data.match(/<input type="hidden" name="token" value="([A-Za-z0-9]{10})">/)[1];
           });
-	},
+        },
 
         compatibility: function() {
             $('.left .step:last-child').addClass('last-child'); // cross browser compatibility
@@ -463,11 +457,11 @@
          //set default values if request parameters are present
          process_params: function () {
             lo_version = $.bug.get('lo_version');
-	    module = $.bug.get('module');
+            module = $.bug.get('module');
 
             if (lo_version){
                 var lo_versions = [];
-		$(".versions .choice").each(function() {
+                $(".versions .choice").each(function() {
                    lo_versions.push($(this).text());
                 });
                if ($.inArray(lo_version, lo_versions)){
@@ -503,7 +497,7 @@
            components["DrawingDocument"] = "Drawing";
            components["PresentationDocument"] = "Presentation";
            components["FormulaDocument"] = "Formula_Editor";
-	   components["OfficeDatabaseDocument"] = "Database";
+           components["OfficeDatabaseDocument"] = "Database";
            components["StartModule"] = "Libreoffice";
            return components[module];
          },
