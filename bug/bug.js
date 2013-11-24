@@ -431,7 +431,7 @@
             }
             $('.related_bugs').empty();
             if (bug_urls.length > 0) {
-                $('.related_bugs').html(bug_urls.join('<br>'));
+                $('.related_bugs').html('<div class="bugs">' + bug_urls.join('</div><div class="bugs">') + '</div>');
             } else {
                 $('.related_bugs').html("No related bugs found.");
             }
