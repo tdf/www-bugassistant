@@ -134,7 +134,7 @@
 	    if (value == null) {
               document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
 	    } else {
-              document.cookie = name + "=" + escape(value);
+              document.cookie = name + "=" + escape(value) + "; expires=vr, 01 Jan 2038 00:00:01 GMT;";
 	    }
         }
 
