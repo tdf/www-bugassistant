@@ -12,43 +12,48 @@
         cookieName: 'BSA_id',
         email: null,
         lastError: null,
+        isSearchingDuplicates: false,
 
-	// This function calls the XMLRPC-function.
-	// Returns the data or throws an error.
-        call: function(method, parameters) {
+        // This function calls the XMLRPC-function.
+        // Returns the data or throws an error.
+        call: function(method, parameters = null, async = false, returnFunction = null) {
             var result;
             $.xmlrpc({
-                async: false,
+                async: async,
                 url: $.bugzilla.url,
                 methodName: method,
                 params: parameters
             }).always(function(data) {
                 result = data[0];
+                if (returnFunction != null) {
+                    returnFunction(result);
+                }
             }).fail(function(obj, obj2, error) {
                 throw error;
             });
             return result;
         },
 
-	// This function logs a user in.
-	// Returns the id or throws an error.
+        // This function logs a user in.
+        // Returns the id or throws an error.
         login: function(user,pass) {
             $.bugzilla.email = null;
-	    try {
-		var user = $.bugzilla.call("User.login", [{login:user,
-		                                           password: pass}]);
-	    } catch(error) {
-		if (error.code != undefined)
-		    $.bugzilla.setCookie($.bugzilla.cookieName, null);
-		throw error;
-	    }
+            try {
+                var user = $.bugzilla.call("User.login",
+                                           [{login:user,
+                                             password: pass}]);
+            } catch(error) {
+                if (error.code != undefined)
+                    $.bugzilla.setCookie($.bugzilla.cookieName, null);
+                throw error;
+            }
             $.bugzilla.setCookie($.bugzilla.cookieName, escape(user.id));
             return user.id;
         },
 
-	// This function logs a user out
-	// It doesn't care of any is logged in
-	// Returns nothing
+        // This function logs a user out
+        // It doesn't care of any is logged in
+        // Returns nothing
         logout: function() {
             $.bugzilla.setCookie($.bugzilla.cookieName, null);
             $.bugzilla.email = null;
@@ -59,33 +64,33 @@
             }
         },
 
-	// This function gets the user that is logged in as kept in a cookie
-	// Returns the user-id of the user logged in or null
+        // This function gets the user that is logged in as kept in a cookie
+        // Returns the user-id of the user logged in or null
         getCurrentUserId: function() {
             return $.bugzilla.getCookie($.bugzilla.cookieName);
         },
 
-	// This function gets the user that is logged in and checks it with bugzilla
-	// Returns if a user is logged in
+        // This function gets the user that is logged in and checks it with bugzilla
+        // Returns if a user is logged in
         isLoggedIn: function() {
             return ($.bugzilla.getAccountEmail() != null);
         },
 
-	// This function gets the email of the logged in user
-	// Returns the email of the logged in user
+        // This function gets the email of the logged in user
+        // Returns the email of the logged in user
         getAccountEmail: function() {
-	    var id = $.bugzilla.getCurrentUserId();
-	    if (id == null && $.bugzilla.email != null) {
-	        $.bugzilla.email = null;
-	    } else if (id != null && $.bugzilla.email == null) {
-	        try {
+            var id = $.bugzilla.getCurrentUserId();
+            if (id == null && $.bugzilla.email != null) {
+                $.bugzilla.email = null;
+            } else if (id != null && $.bugzilla.email == null) {
+                try {
                     var answer = $.bugzilla.call("User.get", [{ids: [ id ], include_fields: [ "email" ]}]);
                     $.bugzilla.email = answer.users[0].email;
                 } catch(error) {
-		    if (error.code != undefined)
-		        $.bugzilla.setCookie($.bugzilla.cookieName, null);
-		    throw error;
-		}
+                    if (error.code != undefined)
+                        $.bugzilla.setCookie($.bugzilla.cookieName, null);
+                    throw error;
+                }
             }
             return $.bugzilla.email;
         },
@@ -94,26 +99,37 @@
             $.bugzilla.call("User.offer_account_by_email", [{email: email}]);
         },
 
-        searchDuplicates: function(summary) {
-            var answer = $.bugzilla.call("Bug.possible_duplicates", [{summary: summary,
-                                                                      products: [ "LibreOffice" ],
-                                                                      include_fields: [ "id", "summary", "status" ]}]);
-            return answer.bugs;
+        searchDuplicates: function(summary, returnFunction) {
+            if ($.bugzilla.isSearchingDuplicates) {
+                return false;
+            }
+            $.bugzilla.isSearchingDuplicates = true;
+            outReturnFunction = function (data) {
+              $.bugzilla.isSearchingDuplicates = false;
+              returnFunction(data.bugs);
+            }
+            $.bugzilla.call("Bug.possible_duplicates",
+                             [{summary: summary,
+                               products: [ "LibreOffice" ],
+                               include_fields: [ "id", "summary", "status" ]}],
+                             true, outReturnFunction);
+            return true;
         },
 
         createBug: function(component, summary, version, description, op_sys, whiteboard) {
-            var bug = $.bugzilla.call("Bug.create", [{product: "LibreOffice",
-                                                      component: component,
-                                                      summary: summary,
-                                                      version: version,
-                                                      description: description,
-                                                      op_sys: op_sys,
-                                                      platform: "All",
-                                                      priority: "medium",
-                                                      severity: "normal",
-                                                      assigned_to: "libreoffice-bugs@lists.freedesktop.org",
-                                                      status: "UNCONFIRMED",
-                                                      status_whiteboard: whiteboard}]);
+            var bug = $.bugzilla.call("Bug.create",
+                                      [{product: "LibreOffice",
+                                        component: component,
+                                        summary: summary,
+                                        version: version,
+                                        description: description,
+                                        op_sys: op_sys,
+                                        platform: "All",
+                                        priority: "medium",
+                                        severity: "normal",
+                                        assigned_to: "libreoffice-bugs@lists.freedesktop.org",
+                                        status: "UNCONFIRMED",
+                                        status_whiteboard: whiteboard}]);
             return bug.id;
         },
 
@@ -131,11 +147,11 @@
         },
 
         setCookie: function( name, value ) {
-	    if (value == null) {
+            if (value == null) {
               document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-	    } else {
-              document.cookie = name + "=" + escape(value);
-	    }
+            } else {
+              document.cookie = name + "=" + escape(value) + "; expires=vr, 01 Jan 2038 00:00:01 GMT;";
+            }
         }
 
     };
