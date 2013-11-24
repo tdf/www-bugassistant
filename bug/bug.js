@@ -89,9 +89,9 @@
 
         error_set: function(message, domain) {
             if ((domain == "Bugzilla")&&($.bug.BSALang == "en"))
-                message = $.bugzilla.lastError;
+                message = message.msg;
             else if (domain == "Bugzilla")
-                message = BugzillaErrorStrings(message);
+                message = BugzillaErrorStrings(message.code);
             $('.error').text(message);
             $('.error-container').show();
         },
@@ -105,9 +105,6 @@
         lo_version_id: '',
         regression_id: '',
         BSALang: '',
-
-        state_signin_error_regexps: [/CLASS="THROW_ERROR">([^<]*)/i],
-        state_signin_success_regexp: /LOG&NBSP;OUT<\/A>([^<]*)/i,
 
         state_signin: function() {
             var element = $('.signin');

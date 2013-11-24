@@ -11,7 +11,6 @@
         url: 'https://www.libreoffice.org/bugzilla/xmlrpc.cgi',
         cookieName: 'BSA_id',
         email: null,
-        lastError: null,
         isSearchingDuplicates: false,
 
         // This function calls the XMLRPC-function.
