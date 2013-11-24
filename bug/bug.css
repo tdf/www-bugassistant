@@ -395,8 +395,14 @@ body {
     width: 560px;
 }
 
+.state_duplicates .related_bugs .bugs {
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
+
 .state_duplicates a {
-    color: #025587;
+   color: #025587;
 }
 
 .state_duplicates a:hover {

@@ -105,6 +105,7 @@
         lo_version_id: '',
         regression_id: '',
         BSALang: '',
+        searchDuplicatesAgain: false,
 
         state_signin: function() {
             var element = $('.signin');
@@ -423,16 +424,29 @@
             $.bug.window.scrollTo(0,225);
         },
 
+        refresh_related_bugs_return: function (bugs) {
+            var bug_urls = [];
+            for(var i = 0; i < bugs.length; i++) {
+                bug_urls.push('<a href="' + $.bugzilla.url + '/show_bug.cgi?id=' + bugs[i].id + '" target="_blank">' + bugs[i].summary + '</a>');
+            }
+            $('.related_bugs').empty();
+            if (bug_urls.length > 0) {
+                $('.related_bugs').html('<div class="bugs">' + bug_urls.join('</div><div class="bugs">') + '</div>');
+            } else {
+                $('.related_bugs').html("No related bugs found.");
+            }
+            if ($.bug.searchDuplicatesAgain) {
+                $.bug.refresh_related_bugs();
+            }
+        },
+
         refresh_related_bugs: function() {
-            var subject = $.bug.sub_component + ": " + $(".short", $('.state_description')).val();
-            var answer = $.bugzilla.searchDuplicates(subject, function(bugs) {
-                var bug_urls = [];
-                for(var i = 1; i < bugs.length; i++) {
-                    bug_urls.push('<a href="' + $.bugzilla.url + '/show_bug.cgi?id=' + bugs[i].id + '" target="_blank">' + bugs[i].summary + '</a>');
-                }
-                $('.related_bugs').empty();
-                $('.related_bugs').html(bug_urls.join('<br>'));
-            });
+            var summary = $.bug.sub_component + ": " + $(".short", $('.state_description')).val();
+            $.bug.searchDuplicatesAgain = false;
+            var answer = $.bugzilla.searchDuplicates(summary, $.bug.refresh_related_bugs_return /*Is a function*/);
+            if (!answer) {
+                $.bug.searchDuplicatesAgain = true;
+            }
         },
 
         get_token: function() {

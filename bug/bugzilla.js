@@ -8,7 +8,7 @@
 (function($) {
     $.bugzilla = {
 
-        url: 'https://www.libreoffice.org/bugzilla/xmlrpc.cgi',
+        url: 'https://www.libreoffice.org/bugzilla',
         cookieName: 'BSA_id',
         email: null,
         isSearchingDuplicates: false,
@@ -19,11 +19,15 @@
             var result;
             $.xmlrpc({
                 async: async,
-                url: $.bugzilla.url,
+                url: $.bugzilla.url + "/xmlrpc.cgi",
                 methodName: method,
                 params: parameters
             }).always(function(data) {
                 result = data[0];
+                if (method == "Bug.possible_duplicates") {
+                    $.bugzilla.isSearchingDuplicates = false;
+                    result = result.bugs;
+                }
                 if (returnFunction != null) {
                     returnFunction(result);
                 }
@@ -94,27 +98,31 @@
             return $.bugzilla.email;
         },
 
+        // This function sends a request to bugzilla for a account on the given email
+        // Bugzilla then checks if email is allowed and sends a english email to the user
+        // Returns nothing
         sendAccountEmail: function(email) {
             $.bugzilla.call("User.offer_account_by_email", [{email: email}]);
         },
 
+        // This function sends a request to bugzilla to search similar bugs based on the summary
+        // The returnFunction needs to be a function with 1 parameter that is an array with bugs
+        // Returns true if searching or false if it is already busy
         searchDuplicates: function(summary, returnFunction) {
             if ($.bugzilla.isSearchingDuplicates) {
                 return false;
             }
             $.bugzilla.isSearchingDuplicates = true;
-            outReturnFunction = function (data) {
-              $.bugzilla.isSearchingDuplicates = false;
-              returnFunction(data.bugs);
-            }
             $.bugzilla.call("Bug.possible_duplicates",
                              [{summary: summary,
-                               products: [ "LibreOffice" ],
-                               include_fields: [ "id", "summary", "status" ]}],
-                             true, outReturnFunction);
+                               product: [ "LibreOffice" ],
+                               include_fields: [ "id", "summary", "status", "product" ]}],
+                             true, returnFunction);
             return true;
         },
 
+        // This function creates a bug without attachments in bugzilla
+        // Returns the bugnumber if created or throws a error.
         createBug: function(component, summary, version, description, op_sys, whiteboard) {
             var bug = $.bugzilla.call("Bug.create",
                                       [{product: "LibreOffice",
@@ -132,6 +140,8 @@
             return bug.id;
         },
 
+        // This function gets the value of the cookie-variable with that name
+        // Returns the value of the cookie-variable or null
         getCookie: function( name ) {
             var start = document.cookie.indexOf( name + "=" );
             var len = start + name.length + 1;
@@ -145,6 +155,8 @@
                 return unescape( document.cookie.substring( len, end ) );
         },
 
+        // This function sets the cookie-variable given with the value untill 2038
+        // Returns nothing
         setCookie: function( name, value ) {
             if (value == null) {
               document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
