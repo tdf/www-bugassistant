@@ -43,7 +43,7 @@ body {
 }
 
 .button {
-    margin: 10px 15px 10px auto;
+    margin: 10px 15px;
     background: url('images/button.png') no-repeat;
     width: 163px;
     height: 49px;
@@ -516,3 +516,14 @@ div:hover.button {
     display: none;
 }
 
+/* for QA-tools */
+.menu {
+    position: fixed;
+    width: 300px;
+    border-right-style: solid;
+    height: 100%;
+}
+
+.page {
+    padding-left: 310px;
+}
