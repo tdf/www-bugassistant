@@ -140,6 +140,23 @@
             return bug.id;
         },
 
+	getBug: function ( id ) {
+	    var bug = $.bugzilla.call("Bug.get",
+				      [{ids: [ id ],
+				        include_fields: [ "id", "summary", "status", "component" ] }]);
+	    return bug.bugs;
+
+	},
+
+        // This function gets the attachments attached to the bug
+        // Returns the attachments
+        getAttachmentsOfBug: function (id) {
+            var bug = $.bugzilla.call("Bug.attachments",
+                                      [{ ids: [ id ] }]);
+            return bug.bugs;
+        },
+
+
         // This function gets the value of the cookie-variable with that name
         // Returns the value of the cookie-variable or null
         getCookie: function( name ) {

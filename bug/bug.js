@@ -109,7 +109,7 @@
 
         state_signin: function() {
             var element = $('.signin');
-            $('.go', element).click(function() {
+            $('.button', element).click(function() {
                 $("body").css("cursor", "progress");
                 $.bug.error_clear();
                 try {
@@ -125,12 +125,12 @@
             });
             $('.password').keypress(function(e) {
                 if (e.keyCode == 13) {
-                    $('.go', element).click();
+                    $('.button', element).click();
                 }
             });
             $('.user').keypress(function(e) {
                 if (e.keyCode == 13) {
-                    $('.go', element).click();
+                    $('.button', element).click();
                 }
             });
 
