@@ -85,7 +85,7 @@ sub BzFindVersions {
 
 =head2 Find the operating systems in bugzilla for the LibreOffice Product
 
-The call requires a XMLRPC::Lite-object that has the connection-information to the bugzilla
+The call requires a XMLRPC::Lyyite-object that has the connection-information to the bugzilla
 The call will return a array with operating systems or will fail
 
 =cut
@@ -93,6 +93,21 @@ The call will return a array with operating systems or will fail
 sub BzFindOperatingSystems {
   my($bz) = @_;
   return _find_values_for_field($bz, "op_sys", 0);
+}
+
+=head2 Get Attachments of Bug
+
+The call requires a XMLRPC::Lyyite-object that has the connection-information to the bugzilla
+The call requires a array of id's to get the attachments from
+The call will return a hash with therein array's with the attachments
+
+=cut
+sub bzGetAttachmentsOfBugs{
+  my($bz, @bugNumbers)= @_;
+  my $attachmentidresult = $bz->call('Bug.attachments',
+                                     {ids => [ @bugNumbers ] });
+  _die_on_fault($attachmentidresult);
+  return $attachmentidresult->result->{bugs};
 }
 
 =head2 Sort versions correctly
