@@ -85,7 +85,7 @@ sub BzFindVersions {
 
 =head2 Find the operating systems in bugzilla for the LibreOffice Product
 
-The call requires a XMLRPC::Lyyite-object that has the connection-information to the bugzilla
+The call requires a XMLRPC::Lite-object that has the connection-information to the bugzilla
 The call will return a array with operating systems or will fail
 
 =cut
