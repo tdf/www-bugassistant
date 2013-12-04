@@ -140,6 +140,14 @@
             return bug.id;
         },
 
+	getBug: function ( id ) {
+	    var bug = $.bugzilla.call("Bug.get",
+				      [{ids: [ id ],
+				        include_fields: [ "id", "summary", "status", "component" ] }]);
+	    return bug.bugs;
+
+	},
+
         // This function gets the attachments attached to the bug
         // Returns the attachments
         getAttachmentsOfBug: function (id) {
