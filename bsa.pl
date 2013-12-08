@@ -18,6 +18,8 @@ use HTML::Template;
 require "bugzilla.pl";
 
 my $bz = BzConnect();
+my @stable = (4,0,6);
+my @latest = (4,1,3);
 
 if ($proc eq "versions")
 {
@@ -26,20 +28,24 @@ if ($proc eq "versions")
   my @versions = BzSortVersions(BzFindVersions($bz));
   my @BSAversions;
 
-  # Create a blacklist of versions that we don't want in the BSA.
-  open(FILE, "version-blacklist.txt") or die ("Unable to open version blacklist.");
-  %blacklist = map { chomp; $_ => 1 } ( <FILE> );
-  close(FILE);
-
   push(@BSAversions, { name => $none, nr => -1 } );
-  my $count = 0;
+  my $count = -1, $master = 0, $beta = 0;
   foreach (@versions)
   {
-    unless ( $blacklist{$_} ) {
-      push(@BSAversions, { name => $_, nr => $count });
-    }
+    my @version = split(/[\. ]/, $_);
+    if (($master == 0) && ($_ !~ /master/)) { push(@BSAversions, { name => $_, nr => $count }); $master = 1; next; } #master
+    if (((@version[0] > @latest[0]) || ((@version[0] == @latest[0]) && (@version[0] > @latest[1]))) && ($beta == 0)) { 
+	push(@BSAversions, { name => $_, nr => $count }); $beta = 1; next;
+    } #1 alpha/beta of next minor
+    if ((@version[0] == @latest[0]) && (@version[1] == @latest[1]) && ((@version[2] > @latest[2] || ($_ =~ /release/)) { 
+        push(@BSAversions, { name => $_, nr => $count }); next;
+    } #beta's newer then bugfix and releases of latest minor
+    if ((@version[0] == @stable[0]) && (@version[1] == @stable[1]) && ((@version[2] > @latest[2] || ($_ =~ /release/)) {
+        push(@BSAversions, { name => $_, nr => $count }); next;
+    } #beta's newer then bugfix and releases of stable minor
     $count++;
   }
+  push(@BSAversions, { name => "other", nr => -2 });
 
   $template->param( loop => [ @BSAversions ], choose => $choose );
   print $template->output;
