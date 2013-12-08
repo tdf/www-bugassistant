@@ -17,31 +17,44 @@
 
 <html>
   <head>
-    <title>LibreOffice Stats</title>
+    <title>QATeam Tools</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    <script type="text/javascript" src="../jquery-1.10.1.min.js?1386183915"></script>
+    <script type="text/javascript" src="../jquery.xmlrpc.min.js?1386183915"></script>
+    <script type="text/javascript" src="../bugzilla.js?1386183915"></script>
+    <script type="text/javascript" src="tools.js?1386183915"></script>
+    <link rel="stylesheet" href="../bug.css?1386183915" type="text/css" media="screen">
   </head>
   <body>
-    <table border=1>
-      <tr>
-        <th>Unconfirmed Bugs</th>
-        <th colspan="<TMPL_VAR NAME=Rows>"><!-- TMPL_VAR NAME=Date --></th>
-      </tr>
-      <tr>
-        <th>Module</th>
-	<th>All Versions</td>
-	<!-- TMPL_LOOP NAME=HeaderVersions --><th><!-- TMPL_VAR NAME=HeaderVersionsName --></th><!-- /TMPL_LOOP -->
-      </tr>
-      <!-- TMPL_LOOP NAME=Lines -->
+    <div class="menu"></div>
+    <div class="page">
+      <table border=1>
         <tr>
-	  <td><!-- TMPL_VAR NAME=LinesName --></td>
-	  <td align="right"><!-- TMPL_VAR NAME=LinesCount --></td>
-	  <!-- TMPL_LOOP NAME=LinesVersions --><td align="right"><!-- TMPL_VAR NAME=LinesVersionsCount --></td><!-- /TMPL_LOOP -->
-	</tr>
-      <!-- /TMPL_LOOP -->
-      <tr>
-        <th>Total</th>
-	<th align="right"><!-- TMPL_VAR NAME=TotalCount --></th>
-	<!-- TMPL_LOOP NAME=TotalVersions --><th align="right"><!-- TMPL_VAR NAME=TotalVersionsCount --></th><!-- /TMPL_LOOP -->
-      </tr>
-    </table>
+          <th>Unconfirmed Bugs</th>
+          <th colspan="<TMPL_VAR NAME=Rows>"><!-- TMPL_VAR NAME=Date --></th>
+        </tr>
+        <tr>
+          <th>Module</th>
+	  <th>All Versions</td>
+	  <!-- TMPL_LOOP NAME=HeaderVersions --><th><!-- TMPL_VAR NAME=HeaderVersionsName --></th><!-- /TMPL_LOOP -->
+        </tr>
+        <!-- TMPL_LOOP NAME=Lines -->
+          <tr>
+	    <td><!-- TMPL_VAR NAME=LinesName --></td>
+	    <td align="right"><!-- TMPL_VAR NAME=LinesCount --></td>
+	    <!-- TMPL_LOOP NAME=LinesVersions --><td align="right"><!-- TMPL_VAR NAME=LinesVersionsCount --></td><!-- /TMPL_LOOP -->
+	  </tr>
+        <!-- /TMPL_LOOP -->
+        <tr>
+          <th>Total</th>
+	  <th align="right"><!-- TMPL_VAR NAME=TotalCount --></th>
+	  <!-- TMPL_LOOP NAME=TotalVersions --><th align="right"><!-- TMPL_VAR NAME=TotalVersionsCount --></th><!-- /TMPL_LOOP -->
+        </tr>
+      </table>
+    </div>
+
+    <script type="text/javascript">
+      $.tools.main();
+    </script>
   </body>
 </html>
