@@ -15,6 +15,8 @@
 # along with this program.  If not, see <http:www.gnu.org/licenses/>.
 
 use HTML::Template;
+use Text::CSV;
+use LWP::Simple;
 use Scalar::Util qw(looks_like_number);
 require "../bugzilla.pl";
 
@@ -32,6 +34,8 @@ my @bugsPerModulePerVersion;
 my $totalBugsPerModule = 0;
 my %totalBugsPerVersion = ();
 my $totalBugs = 0;
+# Count Touched and Created Bugs
+BugsCreatedPastDay();
 
 #Build header-line in template
 foreach $minorVersion (sort keys %$versionsPerMinor)
@@ -107,3 +111,36 @@ sub DevideVersions
   return \%versionsPerMinor;
 }
 
+sub GetCsvFileFromUrl
+{
+    my ($file, $url) = @_;
+
+    getstore($url, "$file");
+}
+
+sub BugsCreatedPastDay
+{
+    my @bugsPastDayData;
+    my %hash =  (   "bugsChanged" => "https://bugs.freedesktop.org/buglist.cgi?chfieldfrom=-1D&chfieldto=Now&list_id=372820&product=LibreOffice&query_format=advanced&ctype=csv",
+                    "bugsCreated" => "https://bugs.freedesktop.org/buglist.cgi?chfield=%5BBug%20creation%5D&chfieldfrom=-1D&chfieldto=Now&list_id=372831&product=LibreOffice&query_format=advanced&ctype=csv");
+    
+    while (($file, $url) = each(%hash))
+    {
+        GetCsvFileFromUrl("${file}.csv", $url);
+        
+        open my $fh, "<", "${file}.csv" or die "$file: $!";
+
+        my $csv = Text::CSV->new ({
+        binary => 1,
+        auto_diag => 1,
+        });
+        $count = 0;
+        while (my $row = $csv->getline($fh))
+        {
+            $count += 1;
+        }
+        print "$file \t" . gmtime(time()) . " : $count \n";
+        $template->param( { $file => $count});
+        close $fh;
+    }
+}

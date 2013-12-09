@@ -102,7 +102,7 @@ The call requires a array of id's to get the attachments from
 The call will return a hash with therein array's with the attachments
 
 =cut
-sub bzGetAttachmentsOfBugs{
+sub BzGetAttachmentsOfBugs{
   my($bz, @bugNumbers)= @_;
   my $attachmentidresult = $bz->call('Bug.attachments',
                                      {ids => [ @bugNumbers ] });

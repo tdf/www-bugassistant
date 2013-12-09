@@ -50,6 +50,14 @@
 	  <th align="right"><!-- TMPL_VAR NAME=TotalCount --></th>
 	  <!-- TMPL_LOOP NAME=TotalVersions --><th align="right"><!-- TMPL_VAR NAME=TotalVersionsCount --></th><!-- /TMPL_LOOP -->
         </tr>
+        <tr>
+          <th>Bugs touched past 24h</th>
+          <th colspan="<TMPL_VAR NAME=Rows>"><!-- TMPL_VAR NAME=bugsChanged --></th>
+        </tr>
+        <tr>
+          <th>Bugs created past 24h</th>
+          <th colspan="<TMPL_VAR NAME=Rows>"><!-- TMPL_VAR NAME=bugsCreated --></th>
+        </tr>
       </table>
     </div>
 
