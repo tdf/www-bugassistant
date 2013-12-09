@@ -1,4 +1,5 @@
 #!/usr/bin/perl -s
+# -*- mode: CPerl; tab-width: 2; indent-tabs-mode: nil; -*-
 # This file is part of the LibreOffice BSA project.
 #
 # This program is free software: you can redistribute it and/or modify
@@ -18,8 +19,17 @@ use HTML::Template;
 require "bugzilla.pl";
 
 my $bz = BzConnect();
-my @stable = (4,0,6);
-my @latest = (4,1,3);
+
+# TODO: Get these variables from an outside service such as the updater,
+# MirrorBrain (http://download.documentfoundation.org/libreoffice/stable/)
+# or etc..
+#
+# Note: For our filtering purposes, we will ASSUME that the stable
+# version listed is the oldest supported release series. For example:
+#   If 4.0.6 is 'stable', then oldest supported series is 4.0.
+my $stable = "4.0.6";
+my $versionRE = '^(\d+[.]\d+)([.]\d+)';
+my $oldestSupportedVersion = ($stable =~ /$versionRE/)[0];
 
 if ($proc eq "versions")
 {
@@ -27,25 +37,47 @@ if ($proc eq "versions")
   my $template = HTML::Template->new(filename => 'versions.tmpl');
   my @versions = BzSortVersions(BzFindVersions($bz));
   my @BSAversions;
+  # This hash keeps track of which supported versions have already
+  # been released.
+  my %releasedVersions = ();
 
   push(@BSAversions, { name => $none, nr => -1 } );
-  my $count = -1, $master = 0, $beta = 0;
-  foreach (@versions)
+  my $count = -1, $foundMaster = 0, $addMe = 0;
+  foreach $version (@versions)
   {
-    my @version = split(/[\. ]/, $_);
-    if (($master == 0) && ($_ !~ /master/)) { push(@BSAversions, { name => $_, nr => $count }); $master = 1; next; } #master
-    if (((@version[0] > @latest[0]) || ((@version[0] == @latest[0]) && (@version[0] > @latest[1]))) && ($beta == 0)) { 
-	push(@BSAversions, { name => $_, nr => $count }); $beta = 1; next;
-    } #1 alpha/beta of next minor
-    if ((@version[0] == @latest[0]) && (@version[1] == @latest[1]) && ((@version[2] > @latest[2] || ($_ =~ /release/)) { 
-        push(@BSAversions, { name => $_, nr => $count }); next;
-    } #beta's newer then bugfix and releases of latest minor
-    if ((@version[0] == @stable[0]) && (@version[1] == @stable[1]) && ((@version[2] > @latest[2] || ($_ =~ /release/)) {
-        push(@BSAversions, { name => $_, nr => $count }); next;
-    } #beta's newer then bugfix and releases of stable minor
-    $count++;
+    $addVersion = 0;
+
+    # Create version strings for later comparison.
+    $version =~ /$versionRE/;
+    my $majorMinor = $1;
+    my $majorMinorPoint = $1 . $2;
+
+    # Include the latest master branch.
+    if (!$foundMaster &&
+        ($foundMaster = $version =~ /master$/i)) {
+      $addVersion = 1;
+    } elsif ($majorMinor >= $oldestSupportedVersion) {
+      # Include any releases that are from the oldest supported
+      # release branch or newer.
+      if(($version =~ /release$/) ||
+         # Include the latest alpha/beta/rc from any not-yet-released
+         # (but will-be-supported) release.
+         (($version =~ /(rc|alpha|beta)\d*$/) &&
+          !$releasedVersions{$majorMinorPoint})) {
+        $releasedVersions{$majorMinorPoint} = 1;
+        $addVersion = 1;
+      }
+    }
+
+    if($addVersion) {
+      push(@BSAversions, { name => $version, nr => $count });
+    } else {
+      $count++;
+    }
   }
-  push(@BSAversions, { name => "other", nr => -2 });
+
+  # The term 'older versions' can be our catch-all.
+  push(@BSAversions, { name => "older versions", nr => -2 });
 
   $template->param( loop => [ @BSAversions ], choose => $choose );
   print $template->output;
