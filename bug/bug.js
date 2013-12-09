@@ -182,22 +182,6 @@
             var uv_element = $('.state_details .unsupported-versions');
             uv_element.hide();
 
-            // Grab the list of unsupported versions and stuff the
-            // versions into an array.
-            var uv_array = new Array();
-
-            /* -- I can't seem to get the file to load properly, so I'll
-               -- just hard-code the values for now.
-            var jqxhr = $.get("unsupported-versions/file/here", function(data){
-                //uv_array = data.split("\n");
-                console.log("Something...here ");
-                //console.log(uv_array);
-            })
-            .done(function() { console.log("done here..."); })
-            .fail(function() { console.log("GET failed"); });
-            */
-            uv_array = ["3.5 all versions", "3.4 all versions", "3.3 all versions"];
-
             $('.active_subcomponent .select', element).select();
             $('.active_subcomponent .select .choice', element).click(function() {
                 $.bug.sub_component = $('.state_details .active_subcomponent .chosen').attr('data');
@@ -220,7 +204,7 @@
 
                 // If this version is unsupported, display a warning
                 // message.
-                if($.inArray($.bug.lo_version, uv_array) >= 0) {
+		if ($.bug.lo_version_id == -2) {
                     uv_element.show();
                 } else {
                     uv_element.hide();
