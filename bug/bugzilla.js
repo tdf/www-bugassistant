@@ -15,7 +15,12 @@
 
         // This function calls the XMLRPC-function.
         // Returns the data or throws an error.
-        call: function(method, parameters = null, async = false, returnFunction = null) {
+        call: function(method, parameters, async, returnFunction) {
+            parameters = typeof parameters !== 'undefined' ? parameters : null;
+            async = typeof async !== 'undefined' ? async : false;
+            returnFunction = typeof returnFunction !== 'undefined' ?
+		returnFunction :
+		null;
             var result;
             $.xmlrpc({
                 async: async,
