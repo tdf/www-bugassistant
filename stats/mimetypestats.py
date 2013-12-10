@@ -27,6 +27,7 @@ import re
 import os, os.path
 import stat
 import sys
+import time
 try:
     from urllib.request import urlopen
 except:
@@ -51,18 +52,18 @@ def urlopen_retry(url):
 
 def get_from_bug_url_via_xml(url, mimetype):
     id = url.rsplit('=', 2)[1]
-    print("parsing " + url)
+    print("parsing " + id)
     sock = urlopen_retry(url+"&ctype=xml")
     dom = minidom.parse(sock)
     sock.close()
     count = 0
     for attachment in dom.getElementsByTagName('attachment'):
-        print(" mimetype is", end=' ')
+        #print(" mimetype is", end=' ')
         for node in attachment.childNodes:
             if node.nodeName == 'type':
-                print(node.firstChild.nodeValue, end=' ')
+                #print(node.firstChild.nodeValue, end=' ')
                 if node.firstChild.nodeValue.lower() != mimetype.lower():
-                    print('skipping')
+                    #print('skipping')
                     break
                 else:
                     count = count + 1
@@ -74,21 +75,26 @@ def get_through_rss_query(queryurl, mimetype):
     print('url is ' + url)
     d = feedparser.parse(url)
     print(str(len(d['entries'])) + ' bugs to process')
-    count = 0
+    attachCount = 0
     for entry in d['entries']:
         try:
-            count = count + get_from_bug_url_via_xml(entry['id'], mimetype)
-            print(count)
+            attachCount = attachCount + get_from_bug_url_via_xml(entry['id'], mimetype)
         except KeyboardInterrupt:
             raise # Ctrl+C should work
         except:
             print(entry['id'] + " failed: " + str(sys.exc_info()[0]))
             pass
+    print("Total count = " + attachCount)
+#
+    #write it to a log
+    file = open("mimetypecount.csv", "a")
+    file.write("\"" + time.strftime("%d/%m/%Y") + "\",\"" + str(attachCount) + "\"\n")
+    file.close()
+
 
 rss_bugzilla = 'http://bugs.libreoffice.org/buglist.cgi'
 mimetype = 'application/octet-stream'
 
 get_through_rss_query(rss_bugzilla, mimetype)
-print(count)
 
 # vim:set shiftwidth=4 softtabstop=4 expandtab:
