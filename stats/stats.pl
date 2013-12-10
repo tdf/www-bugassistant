@@ -126,7 +126,7 @@ sub BugsCreatedPastDay
     
     while (($file, $url) = each(%hash))
     {
-        GetCsvFileFromUrl("${file}.csv", $url);
+        GetCsvFileFromUrl("${file}.csv", $url); #create csv files
         
         open my $fh, "<", "${file}.csv" or die "$file: $!";
 
@@ -139,8 +139,8 @@ sub BugsCreatedPastDay
         {
             $count += 1;
         }
-        print "$file \t" . gmtime(time()) . " : $count \n";
         $template->param( { $file => $count});
         close $fh;
+        unlink("${file}.csv"); #delete csv files afterwards
     }
 }
