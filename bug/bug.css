@@ -511,6 +511,12 @@ div:hover.button {
     border: 0;
 }
 
+/* For End of Life work */
+.end-of-life-message {
+  border: 2px solid red;
+  padding: 0px 10px 0px 10px;
+}
+
 /* skin */
 .skin {
     display: none;
