@@ -27,7 +27,7 @@ my $bz = BzConnect();
 # Note: For our filtering purposes, we will ASSUME that the stable
 # version listed is the oldest supported release series. For example:
 #   If 4.0.6 is 'stable', then oldest supported series is 4.0.
-my $stable = "4.0.6";
+my $stable = "4.1.3";
 my $versionRE = '^(\d+[.]\d+)([.]\d+)';
 my $oldestSupportedVersion = ($stable =~ /$versionRE/)[0];
 
