@@ -50,11 +50,11 @@ body {
     font-weight: bold;
     font-size: 20px;
     color: #fff;
-    text-align: center;
     line-height: 49px;
+    border: 0;
 }
 
-div:hover.button {
+.button:hover {
     cursor: pointer;
 }
 
