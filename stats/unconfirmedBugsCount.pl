@@ -21,7 +21,7 @@ use Scalar::Util qw(looks_like_number);
 require "../bugzilla.pl";
 
 # Open the html template
-my $template = HTML::Template->new(filename => 'stats.tmpl');
+my $template = HTML::Template->new(filename => 'unconfirmedBugsCoint.tmpl');
 # Open connection to Bugzilla
 my $bz = BzConnect();
 # Find Modules & Versions
