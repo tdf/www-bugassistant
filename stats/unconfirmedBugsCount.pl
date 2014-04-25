@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http:www.gnu.org/licenses/>.
 
 use HTML::Template;
-use Scalar::Util qw(looks_like_number);
+use POSIX qw(strftime);
 require "../bugzilla.pl";
 
 # Open the html template
@@ -33,13 +33,15 @@ my $totalBugsPerModule = 0;
 my %totalBugsPerVersion = ();
 my $totalBugs = 0;
 
+$template->param( Date => strftime("%Y-%m-%d %H:%M:%S", gmtime(time()))." GMT" );
+
 #Build header-line in template
 foreach $minorVersion (sort keys %$versionsPerMinor)
 {
   push(@show, { HeaderVersionsName => $minorVersion });
   $totalBugsPerVersion{"$minorVersion"} = 0;
 }
-$template->param( Rows => (2 + scalar(@show)), Date => gmtime(time())." GMT +0:00", HeaderVersions => [ @show ] );
+$template->param( Rows => (2 + scalar(@show)), HeaderVersions => [ @show ] );
 
 #Build module-lines in template
 @show = ();
