@@ -42,6 +42,7 @@ sub BzConnect {
 The call requires a XMLRPC::Lite-object that has the connection-information to the bugzilla
 The call requires the name for a module
 The call requires the versions to ask
+The call requires the fields it needs to return
 The call will return a array with bugs or will fail
 
 =cut
@@ -54,6 +55,67 @@ sub BzFindUnconfirmedBugsPerModulePerVersionIncludeFields {
 			        status => "UNCONFIRMED",
 				component => $component,
 				version => [ @versions ],
+				include_fields => [ @fields ] } );
+  _die_on_fault($soapresult);
+  return @{$soapresult->result->{bugs}};
+}
+
+=head2 Search for the bugs with a specific whiteboard-status
+
+The call requires a XMLRPC::Lite-object that has the connection-information to the bugzilla
+The call requires the whiteboard-status to look at
+The call requires the fields it needs to return
+The call will return a array with bugs or will fail
+
+=cut
+
+sub BzFindBugsWithWhiteboardStatus {
+  my ($bz, $whiteboardStatus, @fields) = @_;
+#  print STDERR @versions."\n\n";
+  my $soapresult = $bz->call('Bug.search',
+			      { product => "LibreOffice",
+			        status => [ "UNCONFIRMED", "NEW", "ASSIGNED", "REOPENED", "NEEDINFO" ],
+				whiteboard => $whiteboardStatus,
+				include_fields => [ @fields ] } );
+  _die_on_fault($soapresult);
+  return @{$soapresult->result->{bugs}};
+}
+
+=head2 Search for the bugs created in a last-period
+
+The call requires a XMLRPC::Lite-object that has the connection-information to the bugzilla
+The call requires the date from whitch it needs to seatch
+The call requires the fields it needs to return
+The call will return a array with bugs or will fail
+
+=cut
+
+sub BzFindBugsCreatedWithinLastPeriod {
+  my ($bz, $date, @fields) = @_;
+#  print STDERR @versions."\n\n";
+  my $soapresult = $bz->call('Bug.search',
+			      { product => "LibreOffice",
+				creation_time => $date,
+				include_fields => [ @fields ] } );
+  _die_on_fault($soapresult);
+  return @{$soapresult->result->{bugs}};
+}
+
+=head2 Search for the bugs changed in a last-period
+
+The call requires a XMLRPC::Lite-object that has the connection-information to the bugzilla
+The call requires the date from whitch it needs to seatch
+The call requires the fields it needs to return
+The call will return a array with bugs or will fail
+
+=cut
+
+sub BzFindBugsChangedWithinLastPeriod {
+  my ($bz, $date, @fields) = @_;
+#  print STDERR @versions."\n\n";
+  my $soapresult = $bz->call('Bug.search',
+			      { product => "LibreOffice",
+				last_change_time => $date,
 				include_fields => [ @fields ] } );
   _die_on_fault($soapresult);
   return @{$soapresult->result->{bugs}};

@@ -5,5 +5,8 @@ build_en
 build_fr
 stats/cookies.txt
 stats/*.html
+bug/qateam/*.html
+!bug/qateam/index.html
+!bug/qateam/searchDuplicate.html
 xmlrpc/cookies.txt
 cookies.txt

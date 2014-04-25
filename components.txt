@@ -1,4 +1,3 @@
-Android Impress Remote
 BASIC
 Chart
 contrib
@@ -10,6 +9,7 @@ filters and storage
 Formula Editor
 framework
 graphics stack
+Impress Remote
 Installation
 Libreoffice
 Linguistic
