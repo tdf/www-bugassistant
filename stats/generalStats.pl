@@ -15,11 +15,12 @@
 # along with this program.  If not, see <http:www.gnu.org/licenses/>.
 
 use HTML::Template;
+use FindBin qw($RealBin);
 use POSIX qw(strftime);
-require "../bugzilla.pl";
+require "$RealBin/../bugzilla.pl";
 
 # Open the html template
-my $template = HTML::Template->new(filename => 'generalStats.tmpl');
+my $template = HTML::Template->new(filename => "$RealBin/generalStats.tmpl");
 # Open connection to Bugzilla
 my $bz = BzConnect();
 my @bugs;
