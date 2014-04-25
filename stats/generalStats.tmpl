@@ -30,25 +30,16 @@
     <div class="page">
       <table border=1>
         <tr>
-          <th>Unconfirmed Bugs</th>
-          <th colspan="<TMPL_VAR NAME=Rows>"><!-- TMPL_VAR NAME=Date --></th>
+          <th>Statistic</th>
+          <th><!-- TMPL_VAR NAME=Date --></th>
         </tr>
         <tr>
-          <th>Module</th>
-	  <th>All Versions</td>
-	  <!-- TMPL_LOOP NAME=HeaderVersions --><th><!-- TMPL_VAR NAME=HeaderVersionsName --></th><!-- /TMPL_LOOP -->
+          <td>Bugs touched past 24h</td>
+          <td><!-- TMPL_VAR NAME=bugsChanged --></td>
         </tr>
-        <!-- TMPL_LOOP NAME=Lines -->
-          <tr>
-	    <td><!-- TMPL_VAR NAME=LinesName --></td>
-	    <td align="right"><!-- TMPL_VAR NAME=LinesCount --></td>
-	    <!-- TMPL_LOOP NAME=LinesVersions --><td align="right"><!-- TMPL_VAR NAME=LinesVersionsCount --></td><!-- /TMPL_LOOP -->
-	  </tr>
-        <!-- /TMPL_LOOP -->
         <tr>
-          <th>Total</th>
-	  <th align="right"><!-- TMPL_VAR NAME=TotalCount --></th>
-	  <!-- TMPL_LOOP NAME=TotalVersions --><th align="right"><!-- TMPL_VAR NAME=TotalVersionsCount --></th><!-- /TMPL_LOOP -->
+          <td>Bugs created past 24h</td>
+          <td><!-- TMPL_VAR NAME=bugsCreated --></td>
         </tr>
       </table>
     </div>
