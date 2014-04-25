@@ -15,6 +15,10 @@
 #     along with this program.  If not, see <http:www.gnu.org/licenses/>.
 #
 
+js_serial := $(shell cat bug/*.js  | cksum | sed -e 's/ //')
+css_serial:= $(shell cat bug/*.css | cksum | sed -e 's/ //')
+xsltproc_serials := --stringparam js_serial ${js_serial} --stringparam css_serial ${css_serial}
+
 all: build
 
 build: build-en build-fr
@@ -26,7 +30,7 @@ en: build-en
 build-en: start-en extract-en compose-en
 
 start-en:
-	echo "===== BSA English =====\n"
+	echo "===== BSA English ====="
 
 extract-en:
 	mkdir -p build_en/components
@@ -42,7 +46,7 @@ extract-en:
 	perl bsa.pl -proc=checkComponents -componentsFile=build_en/components.xhtml
 
 compose-en:
-	xsltproc --encoding UTF-8 --novalid --stringparam serial `date +%s` bug.xsl en/bug.xhtml > bug/bug.html
+	xsltproc --encoding UTF-8 --novalid ${xsltproc_serials} bug.xsl en/bug.xhtml > bug/bug.html
 
 clean-en:
 	rm -f build_en/BugReport_Details.xhtml build_en/tidyout.xhtml build_en/component_comments.xhtml build_en/subcomponents.xhtml build_en/components.xhtml build_en/versions.xhtml bug/bug.html build_en/op_sys.xhtml
@@ -55,7 +59,7 @@ fr: build-fr
 build-fr: start-fr extract-fr compose-fr
 
 start-fr:
-	echo "===== BSA French =====\n"
+	echo "===== BSA French ====="
 
 extract-fr:
 	mkdir -p build_fr
@@ -69,7 +73,7 @@ extract-fr:
 	perl bsa.pl -proc=checkComponents -componentsFile=build_en/components.xhtml
 
 compose-fr:
-	xsltproc --encoding UTF-8 --novalid --stringparam serial `date +%s` bug.xsl fr/bug.xhtml > bug/bug_fr.html
+	xsltproc --encoding UTF-8 --novalid ${xsltproc_serials} bug.xsl fr/bug.xhtml > bug/bug_fr.html
 
 clean-fr:
 	rm -f build_fr/BugReport_Details.xhtml build_fr/tidyout.xhtml build_fr/component_comments.xhtml build_fr/subcomponents.xhtml build_fr/components.xhtml build_fr/versions.xhtml bug/bug_fr.html build_fr/op_sys.xhtml
