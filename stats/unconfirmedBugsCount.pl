@@ -18,10 +18,11 @@ use HTML::Template;
 use Text::CSV;
 use LWP::Simple;
 use Scalar::Util qw(looks_like_number);
-require "../bugzilla.pl";
+use FindBin qw($RealBin);
+require "$RealBin/../bugzilla.pl";
 
 # Open the html template
-my $template = HTML::Template->new(filename => 'unconfirmedBugsCount.tmpl');
+my $template = HTML::Template->new(filename => "$RealBin/unconfirmedBugsCount.tmpl");
 # Open connection to Bugzilla
 my $bz = BzConnect();
 # Find Modules & Versions
