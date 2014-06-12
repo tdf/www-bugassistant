@@ -290,6 +290,13 @@ Comportement attendu :
           }
         }
       });
+      
+      $(window).bind('beforeunload', function() {
+          var data = $('.state_component .chosen').html();
+          if(data !== '(en choisir un)') {
+              return 'Si vous laissez cette page, vous allez perdre toute la information vous avez inclus dans ce rapport de bouge.';
+          }
+      })
 
       function messageStrings($nr, $data, $data2) {
 
