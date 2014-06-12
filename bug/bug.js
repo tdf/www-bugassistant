@@ -202,12 +202,19 @@
                   $.bug.state_description();
                 }
 
-                // If this version is unsupported, display a warning
-                // message.
+                // If this version is unsupported
 		if ($.bug.lo_version_id == -2) {
-                    uv_element.show();
+		  // Display a warning message.
+                  uv_element.show();
+                  // Put a red box around the version field
+                  $(".versions.initialized").css('border', '2px solid red');
+                  // Make sure the description elements are hidden.
+                  //$(".state_description").hide();
                 } else {
-                    uv_element.hide();
+                  uv_element.hide();
+                  // Hide any border showing.
+                  $(".versions.initialized").css('border', '');
+                  //$(".state_description").show();
                 }
             });
             $(".select", element).select();
@@ -231,6 +238,7 @@
 
         },
 
+        // What does this state do? Just show the fields here?
         state_description: function() {
             var element = $('.state_description');
             var template = $(".long", element).val();

@@ -25,7 +25,8 @@
               doctype-system="http://www.w3.org/TR/html4/strict.dtd"
               indent="yes" />
 
-  <xsl:param name="serial">0</xsl:param>
+  <xsl:param name="js_serial">0</xsl:param>
+  <xsl:param name="css_serial">0</xsl:param>
 
   <xsl:template match="/html/body">
     <body>
@@ -40,11 +41,11 @@
   </xsl:template>
   
   <xsl:template match="/html/head/script/@src">
-    <xsl:attribute name="src"><xsl:value-of select='concat(.,"?",$serial)'></xsl:value-of></xsl:attribute>
+    <xsl:attribute name="src"><xsl:value-of select='concat(.,"?",$js_serial)'></xsl:value-of></xsl:attribute>
   </xsl:template>
 
   <xsl:template match="/html/head/link/@href">
-    <xsl:attribute name="href"><xsl:value-of select='concat(.,"?",$serial)'></xsl:value-of></xsl:attribute>
+    <xsl:attribute name="href"><xsl:value-of select='concat(.,"?",$css_serial)'></xsl:value-of></xsl:attribute>
   </xsl:template>
 
   <xsl:template match="@*|node()">

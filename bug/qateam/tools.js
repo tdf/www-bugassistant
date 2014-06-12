@@ -54,9 +54,10 @@
 
 	menu: function() {
 	  var menu = '<h3>Menu QATeam Tools</h3>Search Tools<ul>';
-	  menu+= '<li><a href="' + $.tools.url + '/qateam/searchDuplicate.html">Search Duplicates</a></li>';
+	  menu+= '<li><a href="searchDuplicate.html">Search Duplicates</a></li>';
 	  menu+= '</ul><br />Statistics<ul>';
-	  menu+= '<li><a href="' + $.tools.url + '/qateam/unconfirmedBugsCount.html">Unconfirmed Bugs Count</a></li>';
+	  menu+= '<li><a href="generalStats.html">General Stats</a></li>';
+	  menu+= '<li><a href="unconfirmedBugsCount.html">Unconfirmed Bugs Count</a></li>';
 	  menu+= '</ul>';
 	  $(".menu").html(menu);
 	},
