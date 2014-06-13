@@ -298,6 +298,13 @@ Expected behavior:
           }
         }
       });
+      
+      $(window).bind('beforeunload', function() {
+          var data = $('.state_component .chosen').html();
+          if(data !== '(Choose one)') {
+              return 'If you leave this page, you will lose all the information you have included in this bug report.';
+          }
+      })
 
       function messageStrings($nr, $data, $data2) {
 
