@@ -95,6 +95,11 @@
             $('.error').text(message);
             $('.error-container').show();
         },
+        
+        set_warning: function(heading, text) {
+        	$('.warning').show();
+        	$('.warning').html('<h1>'+heading+'</h1><p>'+text+'</p>')
+        },
 
         url: 'https://www.libreoffice.org/bugzilla',
         token: '',
@@ -155,6 +160,10 @@
             $('.select .choice', element).click(function() {
                 $(this).mouseenter();
                 var component = $(this).attr('data');
+                if(component === 'WWW') {
+                    $.bug.set_warning('WWW Bugs are being moved to Redmine', 'All of our WWW bugs are currently being moved to <a href="https://redmine.documentfoundation.org">our Redmine</a>. We would appreciate if you submit the bug directly through Redmine and thus we could be able to fix it faster. Thanks. ');
+                    $.bug.window.scrollTo(0, 255);
+                }
                 $('img', element).removeClass('selected');
                 $('img[data="' + component + '"]').addClass('selected');
                 $.bug.state_details();
