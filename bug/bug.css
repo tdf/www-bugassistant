@@ -212,6 +212,12 @@ body {
 .error-container .error-middle {
     background: url('images/error-middle.png') repeat-y top left;
 }
+/* warning */
+.warning {
+    border: 2px solid #FFFF00;
+    background-color: #FFFF66;
+    display: none;
+}
 
 /* signin */
 .signin {

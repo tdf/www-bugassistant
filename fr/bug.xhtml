@@ -83,6 +83,7 @@
         </div>
         <div class="right">
 
+	  <div class="warning"></div>
 	  <div class="error-container">
             <div class="error-top">
               <div class="error-middle">
@@ -292,8 +293,9 @@ Comportement attendu :
       });
       
       $(window).bind('beforeunload', function() {
+      	  var status = $('.state_success').css('display');
           var data = $('.state_component .chosen').html();
-          if(data !== '(en choisir un)') {
+          if(data !== '(en choisir un)' && status !== 'block') {
               return 'Si vous quittez cette page, vous perdrez toutes les informations incluses dans ce rapport de bug.';
           }
       })
