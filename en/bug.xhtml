@@ -303,7 +303,7 @@ Expected behavior:
       $(window).bind('beforeunload', function() {
       	  var status = $('.state_success').css('display');
           var data = $('.state_component .chosen').html();
-          if(data !== '(Choose one)' && status !== 'block') {
+          if(data !== '(Choose one)' &amp;&amp; status !== 'block') {
               return 'If you leave this page, you will lose all the information you have included in this bug report.';
           }
       })

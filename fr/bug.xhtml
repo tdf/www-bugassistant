@@ -295,7 +295,7 @@ Comportement attendu :
       $(window).bind('beforeunload', function() {
       	  var status = $('.state_success').css('display');
           var data = $('.state_component .chosen').html();
-          if(data !== '(en choisir un)' && status !== 'block') {
+          if(data !== '(en choisir un)' &amp;&amp; status !== 'block') {
               return 'Si vous quittez cette page, vous perdrez toutes les informations incluses dans ce rapport de bug.';
           }
       })
