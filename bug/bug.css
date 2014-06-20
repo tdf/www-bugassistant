@@ -217,8 +217,12 @@ body {
     border: 2px solid #FFFF00;
     background-color: #FFFF66;
     display: none;
+    padding: 20px;
 }
 
+.warning h1 {
+    font-size: 22px;
+}
 /* signin */
 .signin {
     padding-top: 20px;
