@@ -84,7 +84,7 @@
         },
 
         error_clear: function() {
-            $('.error-container').hide();
+            $('.feedback_container').hide();
         },
 
         error_set: function(message, domain) {
@@ -92,15 +92,17 @@
                 message = message.msg;
             else if (domain == "Bugzilla")
                 message = BugzillaErrorStrings(message.code);
-            $('.error').text(message);
-            $('.error-container').show();
+            $('.feedback_container').show();
+            $('.feedback_container').addClass('error');
+            $('.feedback_container').text(message);
         },
         
         set_warning: function(heading, text) {
-        	$('.warning').show();
-        	$('.warning').html('<h1>'+heading+'</h1><p>'+text+'</p>')
+            $('.feedback_container').show();
+            $('.feedback_container').addClass('warning');
+            $('.feedback_container').html('<h1>'+heading+'</h1><p>'+text+'</p>');
         },
-
+        
         url: 'https://www.libreoffice.org/bugzilla',
         token: '',
         sub_component: 'EMPTY',
