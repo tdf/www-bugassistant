@@ -144,6 +144,11 @@
             $.bug.current_step('signin');
             element.show();
             $('.user', element).focus();
+            //Make sure all steps are hidden
+            $('.state_component').hide();
+            $('.state_details').hide();
+            $('.state_description').hide();
+            $('.state_attach').hide();
         },
 
         state_component: function() {
@@ -527,6 +532,21 @@
                $.bug.state_signin();
             }
             $.bug.process_params();
+            $('a#sign-out').click(function(){
+                var status = $('.state_success').css('display');
+                if(status !== 'block') {
+                    $.bug.state_signin();
+                }
+                $('.feedback_container').addClass('success');
+                $.bug.window.scrollTo(0, 255);
+                if($.bug.BSALang === "en") {
+                    $('.state_component .chosen').html('(Choose one)');
+                    $('.feedback_container').text('You have been signed out');
+                }else{
+                    $('.state_component .chosen').html('(en choisir un)');
+                    $('.feedback_container').text('Vous avez été déconnecté');
+                }
+            });
         }
     };
 
