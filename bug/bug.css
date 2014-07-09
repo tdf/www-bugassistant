@@ -212,19 +212,22 @@ body {
 
 .error {
     border: 2px solid #FF0000;
-    background: #F07A7A;
-    color: #FFFFFF;
+    background-color: #FFD8D8;
+    color: #FF0000;
+    border-radius: 5px;
 }
 
 .warning {
-    border: 2px solid #FFFF00;
-    background-color: #FFFF66;
+    border: 2px solid #FFEC14;
+    background-color: #FFFF9D;
+    border-radius: 5px;
 }
 
 .success {
     border: 2px solid #228B22;
-    background-color: #00FF00;
-    color: #FFFFFF;
+    background-color: #ADEBAD;
+    color: #228B22;
+    border-radius: 5px;
 }
 
 /* signin */
