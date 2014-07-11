@@ -204,6 +204,7 @@ body {
     display: none;
     padding: 10px;
     text-align: center;
+    background-color: #FFFFFF;
 }
 
 .feedback_container h1 {
@@ -211,21 +212,19 @@ body {
 }
 
 .error {
-    border: 2px solid #FF0000;
-    background-color: #FFD8D8;
+    border: 1px solid #FF0000;
     color: #FF0000;
     border-radius: 5px;
 }
 
 .warning {
-    border: 2px solid #FFEC14;
+    border: 1px solid #FFEC14;
     background-color: #FFFF9D;
     border-radius: 5px;
 }
 
 .success {
-    border: 2px solid #228B22;
-    background-color: #ADEBAD;
+    border: 1px solid #228B22;
     color: #228B22;
     border-radius: 5px;
 }
