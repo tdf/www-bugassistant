@@ -84,7 +84,8 @@
         },
 
         error_clear: function() {
-            $('.error-container').hide();
+            $('.feedback_container').removeClass('warning error success');
+            $('.feedback_container').css('display', 'none');
         },
 
         error_set: function(message, domain) {
@@ -92,13 +93,15 @@
                 message = message.msg;
             else if (domain == "Bugzilla")
                 message = BugzillaErrorStrings(message.code);
-            $('.error').text(message);
-            $('.error-container').show();
+            $('.feedback_container').addClass('error');
+            $('.feedback_container').text(message);
+            $('.feedback_container').show();
         },
         
         set_warning: function(heading, text) {
-        	$('.warning').show();
-        	$('.warning').html('<h1>'+heading+'</h1><p>'+text+'</p>')
+            $('.feedback_container').addClass('warning');
+            $('.feedback_container').html('<h1>'+heading+'</h1><p>'+text+'</p>');
+            $('.feedback_container').show();
         },
 
         url: 'https://www.libreoffice.org/bugzilla',
@@ -144,6 +147,11 @@
             $.bug.current_step('signin');
             element.show();
             $('.user', element).focus();
+            //Make sure all steps are hidden
+            $('.state_component').hide();
+            $('.state_details').hide();
+            $('.state_description').hide();
+            $('.state_attach').hide();
         },
 
         state_component: function() {
@@ -164,7 +172,7 @@
                     if($.bug.BSALang == "en") {
                         $.bug.set_warning('WWW Bugs are being moved to Redmine', 'All of our WWW bugs are currently being moved to <a href="https://redmine.documentfoundation.org">our Redmine</a>. We would appreciate if you submit the bug directly through Redmine and thus we could be able to fix it faster. Thanks. ');
                     }else{
-                    	$.bug.set_warning('Les bugs WWW sont maintenant remplis sur Redmine', 'Tous nos bugs WWW sont actuellement déplacés sur <a href="https://redmine.documentfoundation.org">notre Redmine</a>>. Nous aimerions que vous soumettiez le bug directement sur Redmine, de la sorte nous pourrons le corriger plus rapidement. Merci');
+                        $.bug.set_warning('Les bugs WWW sont maintenant remplis sur Redmine', 'Tous nos bugs WWW sont actuellement déplacés sur <a href="https://redmine.documentfoundation.org">notre Redmine</a>>. Nous aimerions que vous soumettiez le bug directement sur Redmine, de la sorte nous pourrons le corriger plus rapidement. Merci');
                     }
                     $.bug.window.scrollTo(0, 255);
                 }
@@ -179,6 +187,7 @@
             $('.components_icons').mouseleave(function() {
                 $('img.selected', element).mouseenter();
             });
+            $('a#sign-out').css('display', 'block');
         },
 
         state_details: function() {
@@ -247,7 +256,7 @@
                 }
              });
              $(".state_details .regression .choice[data='NONE']").click();
-
+            $('a#sign-out').css('display', 'block');
 
         },
 
@@ -286,6 +295,7 @@
                 $.bug.current_step('description');
                 element.show();
             }
+            $('a#sign-out').css('display', 'block');
         },
 
         state_attach: function() {
@@ -328,6 +338,7 @@
                 $.bug.current_step('attach');
                 element.show();
             }
+            $('a#sign-out').css('display', 'block');
         },
         // Making the double quotes optional caters for differing browser
         // behaviour with jquery .text() - IE8 removes double quotes.
@@ -412,6 +423,7 @@
                 $.bug.current_step('submit');
                 element.show();
             }
+            $('a#sign-out').css('display', 'block');
         },
 
         state_success: function() {
@@ -422,11 +434,13 @@
             $('.bug', element).attr('href', $.bug.url + '/show_bug.cgi?id=' + bug);
             element.show();
             $.bug.window.scrollTo(0,225);
+            $('a#sign-out').css('display', 'block');
         },
 
         state_failure: function() {
             $.bug.error_set($('.state_failure').text());
             $.bug.window.scrollTo(0,225);
+            $('a#sign-out').css('display', 'block');
         },
 
         refresh_related_bugs_return: function (bugs) {
@@ -527,6 +541,22 @@
                $.bug.state_signin();
             }
             $.bug.process_params();
+            $('a#sign-out').click(function(){
+                $.bugzilla.logout();
+                var status = $('.state_success').css('display');
+                if(status !== 'block') {
+                    $.bug.state_signin();
+                }
+                $('.feedback_container').addClass('success');
+                $.bug.window.scrollTo(0, 255);
+                if($.bug.BSALang === "en") {
+                    $('.state_component .chosen').html('(Choose one)');
+                    $('.feedback_container').text('You have been signed out');
+                }else{
+                    $('.state_component .chosen').html('(en choisir un)');
+                    $('.feedback_container').text('Vous avez été déconnecté');
+                }
+            });
         }
     };
 
