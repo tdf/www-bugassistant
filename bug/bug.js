@@ -547,7 +547,9 @@
                 if(status !== 'block') {
                     $.bug.state_signin();
                 }
+                $.bug.error_clear();
                 $('.feedback_container').addClass('success');
+                $('.feedback_container').show();
                 $.bug.window.scrollTo(0, 255);
                 if($.bug.BSALang === "en") {
                     $('.state_component .chosen').html('(Choose one)');
