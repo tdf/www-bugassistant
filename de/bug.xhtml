@@ -1,0 +1,324 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
+	  [
+	  <!ENTITY component_comments SYSTEM "../build_en/component_comments.xhtml">
+	  <!ENTITY components SYSTEM "../build_en/components.xhtml">
+	  <!ENTITY subcomponents SYSTEM "../build_en/subcomponents.xhtml">
+	  <!ENTITY versions SYSTEM "../build_en/versions.xhtml">
+          <!ENTITY op_sys SYSTEM "../build_en/op_sys.xhtml">
+	  ]
+	  >
+<html >
+<!--
+     Copyright (C) 2011 Loic Dachary <loic@dachary.org>
+
+     This program is free software: you can redistribute it and/or modify
+     it under the terms of the GNU General Public License as published by
+     the Free Software Foundation, either version 3 of the License, or
+     (at your option) any later version.
+
+     This program is distributed in the hope that it will be useful,
+     but WITHOUT ANY WARRANTY; without even the implied warranty of
+     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+     GNU General Public License for more details.
+
+     You should have received a copy of the GNU General Public License
+     along with this program.  If not, see <http:www.gnu.org/licenses/>.
+-->
+  <head>
+    <title>Bug Submission Assistant</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
+    <script type="text/javascript" src="jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="jquery.xmlrpc.min.js"></script>
+    <script type="text/javascript" src="bugzilla.js"></script>
+    <script type="text/javascript" src="bug.js"></script>
+    <script type="text/javascript" src="select.js"></script>
+    <link rel="stylesheet" href="select.css" type="text/css" media="screen"/>
+    <script type="text/javascript" src="skin.js"></script>
+    <link rel="stylesheet" href="bug.css" type="text/css" media="screen"/>
+  </head>
+  <body>
+    <div class="compatibility">
+      <div class="version message unsupported"></div>
+      <div class="message unsupported">This browser version is not supported and this page cannot be displayed properly.</div>
+      <div class="message nojavascript">Javascript is disabled and this page cannot be displayed.<br />
+      If you trust us, please enable javascript in your web browser(notably NoScript<br />
+      for Firefox) and this will offer a simple clean interface to report a problem.</div>
+      <div class="message">
+        <p>It is also possible to use <a target="_blank" href="https://www.libreoffice.org/bugzilla/enter_bug.cgi?product=LibreOffice;bug_status=UNCONFIRMED">bugzilla</a>, with a more complex interface, instead to report a problem.</p>
+	<p>It works on all browsers and when JavaScript is disabled.</p>
+      </div>
+      <div class="eyecandy"></div>
+    </div>
+    <div class="javascript">
+      <div class="skin">
+        <div class="version"></div>
+        <a href="?skin=login">login</a> <a href="?skin=component">component</a> <a href="?skin=details">details</a> <a href="?skin=description">description</a> <a href="?skin=submit">submit</a> <a href="?skin=complete">complete</a>
+      </div>
+      <div class="header">
+        <div class="title">
+          <div>Bug<br />
+          Submission<br />
+          Assistant</div>
+        </div>
+        <div class="submission">
+Thank you for using LibreOffice and for helping us improve our software. This assistant will lead you step-by-step through the bug-reporting process. Please submit a separate bug for each issue!<br />For our full-featured bugtracker go to <a target="_blank" href="http://bugs.libreoffice.org">bugs.libreoffice.org</a>
+        </div>
+      </div>
+      <div class="content">
+        <div class="left">
+          <div>
+            <div class="step step_signin"><div class="count">1</div><div class="label">Sign in</div></div>
+            <div class="step step_component"><div class="count">2</div><div class="label">Component</div></div>
+            <div class="step step_details"><div class="count">3</div><div class="label">Details</div></div>
+            <div class="step step_description"><div class="count">4</div><div class="label">Description</div></div>
+            <div class="step step_submit"><div class="count">5</div><div class="label">Submit</div></div>
+          </div>
+          <a id="sign-out">Sign out</a>
+          <div class="legal">
+            All your contributions will be public in WWW! By clicking the 'Submit' button you irrevocably agree to release your contribution under the CC-BY-SA 3.0 License and the GFDL. If you can't agree to these terms for documents you planned to attach you can state in this report that such a document exists. QA team will discuss with you further proceeding in the bug.
+          </div>
+          <div class="copyright">
+            <a target="_blank" href="https://wiki.documentfoundation.org/Bug_Submission_Assistant">Bug Submission Assistant</a> is published under <a target="_blank" href="http://www.gnu.org/licenses/gpl.txt">GNU GPLv3+</a>. Download the sources with git clone <a target="_blank" href="http://www.github.com/tdf/www-bugassistant">http://www.github.com/tdf/www-bugassistant</a>.
+          </div>
+        </div>
+        <div class="right">
+          <div class="feedback_container"></div>
+          <div class="state_failure">
+	      <p>The bug couldn't be submitted. Please try again later or use <a target="_blank" href="https://bugs.libreoffice.org/">bugzilla</a>.</p>
+          </div>
+
+          <div class="state_success">
+            <p>The bug report has been successfully submitted.<br />
+            You can edit it or add attachments using <a class="bug">the corresponding bugzilla page</a>.</p>
+            <p></p>
+            <p>Thank you for reporting a problem with LibreOffice.<br />
+            Your help is very appreciated.</p>
+            <p></p>
+            <p>Nobody is perfect and more bugs have been reported.<br />
+            Join us in making this release even better.<br />
+            You could help with <a target="_blank" href="https://wiki.documentfoundation.org/Triage_For_Beginners">sorting bugs</a>.</p>
+          </div>
+
+          <div class="state signin">
+	    <div class="signin-invite">
+	      Please login using your <a class="login-link" target="_blank">Freedesktop bugzilla account</a>.
+	    </div>
+	    <div class="signin-container">
+	      <div class="input-label">E-mail:</div>
+              <div class="signin-input"><input class='user' type="text" name="user"/></div>
+              <div class="input-label">Password:</div>
+              <div class="signin-input"><input class='password' type="password" name="password"/></div>
+	      <button type="button" class="button">Sign in</button>
+              <div class="signin-create">
+	        or <a class="create-account-link" target="_blank">create an account</a>
+              </div>
+	    </div>
+	  </div>
+
+          <div class="submission">
+            <div class="state state_component">
+              <div>
+                <div>Component:</div>
+                <div>&components;</div>
+              </div>
+              <div>
+                <div class="components_icons">
+                  <div><img src="icons/WRITER.png" data="Writer" alt="Text Document" /><img src="icons/Spreadsheet.png" data="Spreadsheet" alt="Spreadsheet" /><img src="icons/Presentation.png" data="Presentation" alt="Presentation" /><img src="icons/Drawing.png" data="Drawing" alt="Drawing" /><img src="icons/Database.png" data="Database" alt="Database" /><img src="icons/Chart.png" data="Chart" alt="Chart" /></div>
+		  <div><img src="icons/Libreoffice.png" data="Localization" alt="Localization" /><img src="icons/Documentation.png" data="Documentation" alt="Documentation" /><img src="icons/Extensions.png" data="Extensions" alt="Extensions" /><img src="icons/WWW.png" data="WWW" alt="Web Pages" /><img src="icons/Libreoffice.png" data="Linguistic" alt="Linguistic" /><img src="icons/Installation.png" data="Installation" alt="Installation" /></div>
+		  <div><img src="icons/Libreoffice.png" data="BASIC" alt="BASIC" /><img src="icons/Formula_editor.png" data="Formula_Editor" alt="Formula Editor" /><img src="icons/PDF_export.png" data="Printing_and_PDF_export" alt="Printing and PDF export" /><img src="icons/Libreoffice.png" data="UI" alt="User Interface" /><img src="icons/Impress_Remote.png" data="Impress_Remote" alt="Impress Remote" /><img src="icons/Libreoffice.png" data="Libreoffice" alt="Unspecified" /></div>
+                </div>
+                <div class="component_comments_container">&component_comments;</div>
+              </div>
+            </div>
+
+            <div class="state state_details">
+              <div class="inlineblock">
+                <div class="state state_details subcomponents">
+                  <div class="input-label">Sub component:</div>
+                  <div class="active_subcomponent"></div>
+                </div>
+              </div>
+              <div class="inlineblock">
+                <div class="state state_details versions">
+                  <div class="input-label">Version the bug appeared:</div>
+                  <div class="versions select">&versions;</div>
+                </div>
+              </div>
+
+            </div>
+            <div class="state state_details">
+              <div class="inlineblock">
+                <div class="state state_details op_sys">
+		  <div class="input-label">Operating system:</div>
+                  &op_sys;
+                </div>
+              </div>
+              <div class="inlineblock">
+                <div class="state state_details regression">
+		  <div class="input-label">Latest known-working version:</div>
+                  <div class="regression select">&versions;</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="state state_details">
+              <div class="inlineblock">
+                <div class="state state_details unsupported-versions">
+                  <div class="end-of-life-message">
+		    <!-- End of life message to be displayed when a user selects a version
+		         that is listed in unsupported-versions.txt -->
+		    <p>The Document Foundation is no longer supporting this version of LibreOffice as it has reached its
+		      <a target="_blank" href="https://wiki.documentfoundation.org/ReleasePlan#End_of_Life_Releases">End of Life</a>.
+		      We encourage you to update to a new release and see if your bug is still present:</p>
+		    <ul>
+		      <li><a target="_blank" href="https://wiki.documentfoundation.org/QA/BSA/Update_LibreOffice#Windows">Windows</a></li>
+		      <li><a target="_blank" href="https://wiki.documentfoundation.org/QA/BSA/Update_LibreOffice#OSX">Mac OSX</a></li>
+		      <li><a target="_blank" href="https://wiki.documentfoundation.org/QA/BSA/Update_LibreOffice#Ubuntu">Ubuntu</a></li>
+		      <li><a target="_blank" href="https://wiki.documentfoundation.org/QA/BSA/Update_LibreOffice#Generic_Linux">Linux (generic)</a></li>
+		    </ul>
+		  </div>
+		</div>
+	      </div>
+            </div>
+
+            <div class="state state_description">
+              <div class="subject input-label">Subject:</div>
+              <div class="subject-input"><input type="text" class="short" size="50"></input></div>
+              <div class="desciption input-label">Long description:</div>
+              <div class="description-input"><textarea rows="10" cols="60" class="long">
+Problem description: 
+
+Steps to reproduce:
+1. ....
+2. ....
+3. ....
+
+Current behavior:
+
+Expected behavior:
+
+              </textarea>
+              </div>
+            </div>
+
+            <iframe id="submissionoutput" name="submissionoutput"></iframe>
+
+            <div class="submission_form">
+              <form target="submissionoutput" method='POST' enctype='multipart/form-data'>
+                <input type="hidden" name="product" value="LibreOffice"></input>
+                <input type="hidden" name="bug_status" value="UNCONFIRMED"></input>
+                <input type="hidden" name="rep_platform" value="Other"></input>
+                <input type="hidden" name="op_sys" value="All"></input>
+                <input type="hidden" name="bug_severity" value="normal"></input>
+                <input type="hidden" name="priority" value="medium"></input>
+                <input type="hidden" name="rep_platform" value="Other"></input>
+                <input type="hidden" name="status_whiteboard" value="BSA"></input>
+                <input type="hidden" name="assigned_to" value="libreoffice-bugs@lists.freedesktop.org"></input>
+                <input type="hidden" name="token" value=""></input>
+                <input type="hidden" name="component" value=""></input>
+                <input type="hidden" name="version" value=""></input>
+                <input type="hidden" name="short_desc" value=""></input>
+                <input type="hidden" name="keywords" value=""></input>
+                <input type="hidden" name="comment" value=""></input>
+                <input type="hidden" name="BSAemail" value=""></input>
+                <div class="state state_attach">
+                  <input type="hidden" name="contenttypemethod" value="autodetect"></input>
+                  <div>
+                    <div class="input-label">Optionally, you can attach any test kit, sample document, screenshot and/or any <a target="_blank" href="https://wiki.documentfoundation.org/BugReport#Providing_extra_information_for_the_developers_-_ADVANCED">advanced information</a>, such as installation logs, backtraces and other similar things which may help with the fixing of this bug. </div>
+
+                    <div class="attach-file">
+	              <input type="file" name="data" />
+	              <div class="attach-file-style">
+		        <div><input type="text" name="ignored"></input></div>
+		        <div class="attach-browse">Browse</div>
+	              </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="input-label">Explain what is attached:</div>
+                    <input type="text" name="description" value=""></input>
+                  </div>
+                </div>
+                <div class="state state_submit">
+	          <input type="submit" value="Submit"></input>
+                </div>
+              </form>
+              <div class="state state_submit">
+                <div class="bug"></div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="submission">
+
+	    <div class="state state_details state_duplicates">
+	      Related bug reports
+	      <div class="related_bugs"></div>
+            </div>
+
+            <div class="state_details">
+              <div class="subcomponents">&subcomponents;</div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      var unsupported = false;
+      $(document).ready(function() {
+        try {
+          $('.version').text(window.navigator.userAgent);
+        } catch(e) {
+        }
+        if(unsupported) {
+          $('.unsupported').show();
+          $('.nojavascript').hide();
+        } else {
+          $('.compatibility').hide();
+          $('.javascript').show();
+          if(location.search.indexOf('skin') >= 0) {
+            $.skin('en');
+          } else {
+            $.bug.main('en');
+          }
+        }
+      });
+      
+      $(window).bind('beforeunload', function() {
+      	  var status = $('.state_success').css('display');
+          var data = $('.state_component .chosen').html();
+          if(data !== '(Choose one)' &amp;&amp; status !== 'block') {
+              return 'If you leave this page, you will lose all the information you have included in this bug report.';
+          }
+      })
+
+      function messageStrings($nr, $data, $data2) {
+
+	switch ($nr) {
+	  case 'ERROR_BUGZILLA': return 'It seems there is a problem to connect with Bugzilla. Please reload the page by pressing F5. If this does not fix the problem, please try again later. ';
+	  case 'ERROR_GENERAL': return 'A error has occurred';
+	  case 'ERROR_URL': return 'Cannot find the URL specified.';
+	  case 'ERROR_REGEX': return 'Could not match ' + $data + ' on the string returned by the server ' + $data2;
+	  case 'ERROR_TOKEN': return 'Data not yet loaded. Please press submit again in a few seconds.';
+          case 'ERROR_SUBCOMPONENT': return 'No subcomponent selected. Please select one';
+          case 'ERROR_ATTACHMENT': return 'Please describe the attachtment';
+	  case 'Operating System: ': return 'Operating System: ';
+	  case 'Version: ': return 'Version: ';
+	  case 'Last worked in: ': return 'Last worked in: ';
+	}
+	return "";
+      };
+
+    </script>
+    <!--[if LT IE  8]>
+        <script>
+          unsupported = true;
+        </script>
+    <![endif]-->
+  </body>
+</html>
