@@ -69,13 +69,13 @@ Danke, dass Sie LibreOffice benutzen und danke für Ihre Hilfe dieses Software z
       <div class="content">
         <div class="left">
           <div>
-            <div class="step step_signin"><div class="count">1</div><div class="label">Sign in</div></div>
-            <div class="step step_component"><div class="count">2</div><div class="label">Component</div></div>
+            <div class="step step_signin"><div class="count">1</div><div class="label">Anmelden</div></div>
+            <div class="step step_component"><div class="count">2</div><div class="label">Komponente</div></div>
             <div class="step step_details"><div class="count">3</div><div class="label">Details</div></div>
-            <div class="step step_description"><div class="count">4</div><div class="label">Description</div></div>
-            <div class="step step_submit"><div class="count">5</div><div class="label">Submit</div></div>
+            <div class="step step_description"><div class="count">4</div><div class="label">Beschreibung</div></div>
+            <div class="step step_submit"><div class="count">5</div><div class="label">Absenden</div></div>
           </div>
-          <a id="sign-out">Sign out</a>
+          <a id="sign-out">Abmelden</a>
           <div class="legal">
             All your contributions will be public in WWW! By clicking the 'Submit' button you irrevocably agree to release your contribution under the CC-BY-SA 3.0 License and the GFDL. If you can't agree to these terms for documents you planned to attach you can state in this report that such a document exists. QA team will discuss with you further proceeding in the bug.
           </div>
@@ -103,7 +103,7 @@ Danke, dass Sie LibreOffice benutzen und danke für Ihre Hilfe dieses Software z
 
           <div class="state signin">
 	    <div class="signin-invite">
-	      Please login using your <a class="login-link" target="_blank">Freedesktop bugzilla account</a>.
+	      Bitte anmelden mit Ihrem <a class="login-link" target="_blank">Freedesktop bugzilla account</a>.
 	    </div>
 	    <div class="signin-container">
 	      <div class="input-label">E-mail:</div>
@@ -112,7 +112,7 @@ Danke, dass Sie LibreOffice benutzen und danke für Ihre Hilfe dieses Software z
               <div class="signin-input"><input class='password' type="password" name="password"/></div>
 	      <button type="button" class="button">Sign in</button>
               <div class="signin-create">
-	        or <a class="create-account-link" target="_blank">create an account</a>
+	        or <a class="create-account-link" target="_blank">Account neu anlegen</a>
               </div>
 	    </div>
 	  </div>
@@ -120,7 +120,7 @@ Danke, dass Sie LibreOffice benutzen und danke für Ihre Hilfe dieses Software z
           <div class="submission">
             <div class="state state_component">
               <div>
-                <div>Component:</div>
+                <div>Komponente:</div>
                 <div>&components;</div>
               </div>
               <div>
@@ -136,13 +136,13 @@ Danke, dass Sie LibreOffice benutzen und danke für Ihre Hilfe dieses Software z
             <div class="state state_details">
               <div class="inlineblock">
                 <div class="state state_details subcomponents">
-                  <div class="input-label">Sub component:</div>
+                  <div class="input-label">Unterkomponente:</div>
                   <div class="active_subcomponent"></div>
                 </div>
               </div>
               <div class="inlineblock">
                 <div class="state state_details versions">
-                  <div class="input-label">Version the bug appeared:</div>
+                  <div class="input-label">Version in der der Bug auftritt:</div>
                   <div class="versions select">&versions;</div>
                 </div>
               </div>
@@ -151,13 +151,13 @@ Danke, dass Sie LibreOffice benutzen und danke für Ihre Hilfe dieses Software z
             <div class="state state_details">
               <div class="inlineblock">
                 <div class="state state_details op_sys">
-		  <div class="input-label">Operating system:</div>
+		  <div class="input-label">Betriebssystem:</div>
                   &op_sys;
                 </div>
               </div>
               <div class="inlineblock">
                 <div class="state state_details regression">
-		  <div class="input-label">Latest known-working version:</div>
+		  <div class="input-label">Neueste bekannte Version:</div>
                   <div class="regression select">&versions;</div>
                 </div>
               </div>
@@ -301,13 +301,13 @@ Expected behavior:
       function messageStrings($nr, $data, $data2) {
 
 	switch ($nr) {
-	  case 'ERROR_BUGZILLA': return 'It seems there is a problem to connect with Bugzilla. Please reload the page by pressing F5. If this does not fix the problem, please try again later. ';
-	  case 'ERROR_GENERAL': return 'A error has occurred';
+	  case 'ERROR_BUGZILLA': return 'Es scheint ein Problem in der Verbindung zu Bugzilla zu geben. Bitte diese Seite erneut durch die Taste F5 lasen. Wenn dieses den Fehler nicht behebt, versuchen Sie es später wieder. ';
+	  case 'ERROR_GENERAL': return 'Ein Fehler ist aufgetreten.';
 	  case 'ERROR_URL': return 'Konnte nicht die spezifische URL finden.';
-	  case 'ERROR_REGEX': return 'Konnte nicht die Anweisung ' + $data + ' ausführenon. Der Server gab folgende Fehlermeldung zurück: ' + $data2;
-	  case 'ERROR_TOKEN': return 'Data not yet loaded. Please press submit again in a few seconds.';
-          case 'ERROR_SUBCOMPONENT': return 'No subcomponent selected. Please select one';
-          case 'ERROR_ATTACHMENT': return 'Please describe the attachtment';
+	  case 'ERROR_REGEX': return 'Zuordnung des Wertes ' + $data + ' in dem vom Server zurückgegebenen Werten nicht möglich: ' + $data2;
+	  case 'ERROR_TOKEN': return 'Daten noch nicht geladen. Bitte in ein paar Sekunden den Button Absenden erneut drücken. ';
+          case 'ERROR_SUBCOMPONENT': return 'Keine Unterkomponente selektiert. Bitte wählen Sie eine aus.';
+          case 'ERROR_ATTACHMENT': return 'Bitte den Anhang beschriften.';
 	  case 'Operating System: ': return 'Betriebssystem: ';
 	  case 'Version: ': return 'Version: ';
 	  case 'Last worked in: ': return 'Zuletzt am Arbeiten: ';
