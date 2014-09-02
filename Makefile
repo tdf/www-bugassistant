@@ -78,3 +78,28 @@ compose-fr:
 clean-fr:
 	rm -f build_fr/BugReport_Details.xhtml build_fr/tidyout.xhtml build_fr/component_comments.xhtml build_fr/subcomponents.xhtml build_fr/components.xhtml build_fr/versions.xhtml bug/bug_fr.html build_fr/op_sys.xhtml
 	rmdir build_fr
+
+de: build-de
+
+build-de: start-de extract-de compose-de
+
+start-de:
+	echo "===== BSA Deutsch ====="
+
+extract-de:
+	mkdir -p build_de
+	curl --silent https://wiki.documentfoundation.org/QA/BSA/BugReport_Details/de | tidy --numeric-entities yes -asxhtml -utf8 2>/dev/null > build_de/tidyout.xhtml || echo "ignoring tidy error"
+	xsltproc --encoding UTF-8 --novalid stripnamespace.xsl build_de/tidyout.xhtml > build_de/BugReport_Details.xhtml
+	xsltproc --encoding UTF-8 --novalid component_comments.xsl build_de/BugReport_Details.xhtml > build_de/component_comments.xhtml
+	xsltproc --stringparam choose "`cat de/choose.txt`" --stringparam other "(All other problems)" --stringparam otherData "Other" --encoding UTF-8 --novalid subcomponents.xsl build_de/BugReport_Details.xhtml > build_de/subcomponents.xhtml
+	xsltproc --stringparam choose "`cat de/choose.txt`" --encoding UTF-8 --novalid components.xsl build_de/BugReport_Details.xhtml > build_de/components.xhtml
+	perl bsa.pl -proc=systems -choose="`cat de/choose.txt`" -opSysFile=de/op_sys.txt > build_de/op_sys.xhtml
+	perl bsa.pl -proc=versions -choose="`cat de/choose.txt`" -none=AUCUN > build_de/versions.xhtml
+	perl bsa.pl -proc=checkComponents -componentsFile=build_en/components.xhtml
+
+compose-de:
+	xsltproc --encoding UTF-8 --novalid ${xsltproc_serials} bug.xsl de/bug.xhtml > bug/bug_de.html
+
+clean-de:
+	rm -f build_de/BugReport_Details.xhtml build_de/tidyout.xhtml build_de/component_comments.xhtml build_de/subcomponents.xhtml build_de/components.xhtml build_de/versions.xhtml bug/bug_de.html build_de/op_sys.xhtml
+	rmdir build_de
