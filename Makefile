@@ -21,9 +21,9 @@ xsltproc_serials := --stringparam js_serial ${js_serial} --stringparam css_seria
 
 all: build
 
-build: build-en build-fr
+build: build-en build-fr build-de
 
-clean: clean-en clean-fr
+clean: clean-en clean-fr clean-de
 
 en: build-en
 
