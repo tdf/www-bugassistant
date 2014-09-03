@@ -30,7 +30,7 @@ en: build-en
 build-en: start-en extract-en compose-en
 
 start-en:
-	echo "===== BSA English ====="
+	@echo "===== BSA English ====="
 
 extract-en:
 	mkdir -p build_en/components
@@ -59,7 +59,7 @@ fr: build-fr
 build-fr: start-fr extract-fr compose-fr
 
 start-fr:
-	echo "===== BSA French ====="
+	@echo "===== BSA French ====="
 
 extract-fr:
 	mkdir -p build_fr
@@ -84,7 +84,7 @@ de: build-de
 build-de: start-de extract-de compose-de
 
 start-de:
-	echo "===== BSA Deutsch ====="
+	@echo "===== BSA German ====="
 
 extract-de:
 	mkdir -p build_de
