@@ -471,7 +471,7 @@
         get_token: function() {
           $.bug.token = '';
           $.bug.ajax('GET', $.bug.url + '/enter_bug.cgi?product=LibreOffice&bug_status=UNCONFIRMED').pipe(function(data){
-	    var token = data.match(/<input type="hidden" id="token" name="token" value="([A-Za-z0-9]{10})">/);
+	    var token = data.match(/<input type=\"hidden\" id=\"token\" name=\"token\" value=\"([A-Za-z0-9-]*)\">/);
 	    if (token = undefined) //old way
 		token = data.match(/<input type="hidden" name="token" value="([A-Za-z0-9]{10})">/);
 	    $.bug.token = token[1];
