@@ -48,7 +48,7 @@
 
       if(location.search.indexOf('skin=login') >= 0) {
           $.bug.state_signin();
-          $.bug.error_set("THIS IS AN ERROR MESSAGE");
+	  //$.bug.error_set("THIS IS AN ERROR MESSAGE");
       } else if(location.search.indexOf('skin=component') >= 0) {
           component();
       } else if(location.search.indexOf('skin=details') >= 0) {
