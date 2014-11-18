@@ -104,7 +104,7 @@
             $('.feedback_container').show();
         },
 
-        url: 'https://www.libreoffice.org/bugzilla',
+	url: 'https://www.libreoffice.org/bugzilla',
         token: '',
         sub_component: 'EMPTY',
         op_sys: '',
@@ -169,11 +169,7 @@
                 $(this).mouseenter();
                 var component = $(this).attr('data');
                 if(component === 'WWW') {
-                    if($.bug.BSALang == "en") {
-                        $.bug.set_warning('WWW Bugs are being moved to Redmine', 'All of our WWW bugs are currently being moved to <a href="https://redmine.documentfoundation.org">our Redmine</a>. We would appreciate if you submit the bug directly through Redmine and thus we could be able to fix it faster. Thanks. ');
-                    }else{
-                        $.bug.set_warning('Les bugs WWW sont maintenant remplis sur Redmine', 'Tous nos bugs WWW sont actuellement déplacés sur <a href="https://redmine.documentfoundation.org">notre Redmine</a>>. Nous aimerions que vous soumettiez le bug directement sur Redmine, de la sorte nous pourrons le corriger plus rapidement. Merci');
-                    }
+                    $.bug.set_warning(messageStrings('WARNING_WWW_HEADER'), messageStrings('WARNING_WWW_TEXT'));
                     $.bug.window.scrollTo(0, 255);
                 }
                 $('img', element).removeClass('selected');
