@@ -46,10 +46,10 @@ extract-en:
 	perl bsa.pl -proc=checkComponents -componentsFile=build_en/components.xhtml
 
 compose-en:
-	xsltproc --encoding UTF-8 --novalid ${xsltproc_serials} bug.xsl en/bug.xhtml > bug/bug.html
+	xsltproc --encoding UTF-8 --novalid ${xsltproc_serials} bug.xsl en/bug.xhtml > bug/index.html
 
 clean-en:
-	rm -f build_en/BugReport_Details.xhtml build_en/tidyout.xhtml build_en/component_comments.xhtml build_en/subcomponents.xhtml build_en/components.xhtml build_en/versions.xhtml bug/bug.html build_en/op_sys.xhtml
+	rm -f build_en/BugReport_Details.xhtml build_en/tidyout.xhtml build_en/component_comments.xhtml build_en/subcomponents.xhtml build_en/components.xhtml build_en/versions.xhtml bug/index.html build_en/op_sys.xhtml
 	rm -f build_en/components/*.html build_en/components/combined.xhtml
 	rmdir build_en/components
 	rmdir build_en
