@@ -6,6 +6,10 @@ build_en
 build_fr
 stats/cookies.txt
 stats/*.html
+bug/index.html
+bug/bug.html
+bug/bug_fr.html
+bug/bug_de.html
 bug/qateam/*.html
 !bug/qateam/index.html
 !bug/qateam/searchDuplicate.html

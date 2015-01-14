@@ -104,7 +104,6 @@
             $('.feedback_container').show();
         },
 
-	url: 'https://www.libreoffice.org/bugzilla',
         token: '',
         sub_component: 'EMPTY',
         op_sys: '',
@@ -142,8 +141,8 @@
                 }
             });
 
-            $('.login-link', element).attr('href', $.bug.url + '/');
-            $('.create-account-link', element).attr('href', $.bug.url + '/createaccount.cgi');
+            $('.login-link', element).attr('href', $.bugzilla.url + '/');
+            $('.create-account-link', element).attr('href', $.bugzilla.url + '/createaccount.cgi');
             $.bug.current_step('signin');
             element.show();
             $('.user', element).focus();
@@ -169,7 +168,11 @@
                 $(this).mouseenter();
                 var component = $(this).attr('data');
                 if(component === 'WWW') {
-                    $.bug.set_warning(messageStrings('WARNING_WWW_HEADER'), messageStrings('WARNING_WWW_TEXT'));
+                    if($.bug.BSALang == "en") {
+                        $.bug.set_warning('WWW Bugs are being moved to Redmine', 'All of our WWW bugs are currently being moved to <a href="https://redmine.documentfoundation.org">our Redmine</a>. We would appreciate if you submit the bug directly through Redmine and thus we could be able to fix it faster. Thanks. ');
+                    }else{
+                        $.bug.set_warning('Les bugs WWW sont maintenant remplis sur Redmine', 'Tous nos bugs WWW sont actuellement déplacés sur <a href="https://redmine.documentfoundation.org">notre Redmine</a>>. Nous aimerions que vous soumettiez le bug directement sur Redmine, de la sorte nous pourrons le corriger plus rapidement. Merci');
+                    }
                     $.bug.window.scrollTo(0, 255);
                 }
                 $('img', element).removeClass('selected');
@@ -353,7 +356,7 @@
                 var form = $('.submission_form form');
                 $.bug.error_clear();
                 if ($.bug.BSALang == 'en') {
-                    form.attr('action', $.bug.url + '/post_bug.cgi');
+                    form.attr('action', $.bugzilla.url + '/post_bug.cgi');
                 } else {
                     var locarray = window.location.href.split("/");
                     delete locarray[(locarray.length-1)];
@@ -427,7 +430,7 @@
             $('.submission').css('visibility', 'hidden');
             var element = $('.state_success');
             var bug = $('.state_submit .bug').text();
-            $('.bug', element).attr('href', $.bug.url + '/show_bug.cgi?id=' + bug);
+            $('.bug', element).attr('href', $.bugzilla.url + '/show_bug.cgi?id=' + bug);
             element.show();
             $.bug.window.scrollTo(0,225);
             $('a#sign-out').css('display', 'block');
@@ -466,7 +469,7 @@
 
         get_token: function() {
           $.bug.token = '';
-          $.bug.ajax('GET', $.bug.url + '/enter_bug.cgi?product=LibreOffice&bug_status=UNCONFIRMED').pipe(function(data){
+          $.bug.ajax('GET', $.bugzilla.url + '/enter_bug.cgi?product=LibreOffice&bug_status=UNCONFIRMED').pipe(function(data){
 	    var token = data.match(/<input type="hidden" id="token" name="token" value="([A-Za-z0-9-_]*)">/);
 	    if (token == undefined) //old way
 		token = data.match(/<input type="hidden" name="token" value="([A-Za-z0-9]{10})">/);

@@ -8,7 +8,7 @@
 (function($) {
     $.bugzilla = {
 
-        url: 'https://www.libreoffice.org/bugzilla',
+        url: 'https://bugzilla-test.documentfoundation.org',
         cookieName: 'BSA_id',
         email: null,
         isSearchingDuplicates: false,
