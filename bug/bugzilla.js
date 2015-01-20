@@ -8,7 +8,7 @@
 (function($) {
     $.bugzilla = {
 
-        url: 'https://bugzilla-test.documentfoundation.org',
+        url: 'https://vm150.documentfoundation.org',
         cookieName: 'BSA_id',
         email: null,
         isSearchingDuplicates: false,
