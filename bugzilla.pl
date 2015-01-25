@@ -23,7 +23,7 @@ use HTTP::Cookies;
 use XMLRPC::Lite;
 
 # URI Bugzilla
-my $Bugzilla_uri = "https://bugzilla-test.documentfoundation.org/xmlrpc.cgi";
+my $Bugzilla_uri = "https://bugs.documentfoundation.org/xmlrpc.cgi";
 
 =head2 Connect to Bugzilla
 
